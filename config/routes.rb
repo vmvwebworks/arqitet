@@ -37,6 +37,9 @@ Rails.application.routes.draw do
 
   resources :conversations, only: [ :index, :show, :create ] do
     resources :messages, only: [ :create ]
+    collection do
+      get :test_info
+    end
   end
 
   post "consent_banner/accept", to: "consent_banner#accept", as: :accept_consent_banner

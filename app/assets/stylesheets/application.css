@@ -58,3 +58,48 @@ input[type="text"], input[type="email"], input[type="password"], textarea, .form
 .cursor-move { cursor: move !important; }
 .cursor-grab { cursor: grab !important; }
 .cursor-grabbing { cursor: grabbing !important; }
+
+/* Chat específico - Flat design sin sombras */
+#messages {
+  scroll-behavior: smooth;
+}
+
+#messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+#messages::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+#messages::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Reset de estilos para elementos del chat */
+#messages div {
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+#message_form input,
+#message_form textarea,
+#message_form button {
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* Transiciones sutiles solo en hover/focus */
+#message_form textarea:focus {
+  transition: background-color 0.2s ease;
+}
+
+#message_form button:hover {
+  transition: background-color 0.2s ease;
+}

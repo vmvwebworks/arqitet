@@ -1,0 +1,15 @@
+<div id="message_<%= message.id %>" class="flex <%= message.user == current_user ? 'justify-end' : 'justify-start' %> mb-4">
+  <div class="max-w-xs lg:max-w-md px-4 py-3 <%= message.user == current_user ? 'bg-gray-800 text-white' : 'bg-white text-gray-900' %>">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="text-xs font-medium <%= message.user == current_user ? 'text-gray-300' : 'text-gray-600' %>">
+        <%= message.user.full_name %>
+      </span>
+      <span class="text-xs <%= message.user == current_user ? 'text-gray-400' : 'text-gray-500' %>">
+        <%= message.created_at.strftime("%H:%M") %>
+      </span>
+    </div>
+    <div class="text-sm leading-relaxed">
+      <%= simple_format(message.body, {}, wrapper_tag: "div") %>
+    </div>
+  </div>
+</div>

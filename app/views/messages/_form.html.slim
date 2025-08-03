@@ -1,0 +1,5 @@
+= form_with model: [conversation, message], local: false, data: { turbo: true }, class: "flex gap-3 items-end" do |f|
+  div.flex-1
+    = f.text_area :body, rows: 1, placeholder: 'Escribe tu mensaje...', class: 'w-full px-4 py-3 bg-gray-50 text-gray-900 placeholder-gray-500 resize-none focus:outline-none focus:bg-gray-100'
+  div
+    = f.submit 'Enviar', class: 'px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white font-medium cursor-pointer'

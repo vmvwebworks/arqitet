@@ -1,0 +1,6 @@
+p DEBUG PARCIAL: Mensaje ID #{message.id} de #{message.user.full_name}
+div id="message_#{message.id}"
+  p #{message.user.full_name}
+  p #{message.body}
+  p #{message.created_at.strftime("%H:%M - %d/%m/%Y")}
+p DEBUG PARCIAL: Fin mensaje #{message.id}
