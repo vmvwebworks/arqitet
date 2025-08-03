@@ -1,15 +1,23 @@
-<div id="message_<%= message.id %>" class="flex <%= message.user == current_user ? 'justify-end' : 'justify-start' %> mb-6">
-  <div class="max-w-md lg:max-w-lg px-6 py-4 <%= message.user == current_user ? 'bg-gray-800 text-white' : 'bg-white text-gray-900' %>">
-    <div class="flex items-center gap-3 mb-3">
-      <span class="text-sm font-medium <%= message.user == current_user ? 'text-gray-300' : 'text-gray-600' %>">
-        <%= message.user.full_name %>
-      </span>
-      <span class="text-sm <%= message.user == current_user ? 'text-gray-400' : 'text-gray-500' %>">
-        <%= message.created_at.strftime("%H:%M") %>
+<div class="mb-6 <%= message.user == current_user ? 'flex justify-end' : 'flex justify-start' %>">
+  <div class="flex items-start gap-3 max-w-2xl">
+    <!-- Avatar del usuario -->
+    <div class="flex-shrink-0">
+      <span class="inline-flex items-center justify-center rounded-full bg-gray-400 text-white font-bold w-8 h-8 text-sm">
+        <%= message.user.full_name.first.upcase %>
       </span>
     </div>
-    <div class="text-base leading-relaxed">
-      <%= simple_format(message.body, {}, wrapper_tag: "div") %>
+    
+    <!-- Contenido del mensaje -->
+    <div class="flex-grow">
+      <div class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-sm font-medium text-gray-900"><%= message.user.full_name %></span>
+          <span class="text-xs text-gray-500"><%= message.created_at.strftime("%H:%M · %d %b") %></span>
+        </div>
+        <div class="text-gray-800 leading-relaxed">
+          <%= simple_format(message.body, {}, wrapper_tag: "div") %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -59,7 +59,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea, .form
 .cursor-grab { cursor: grab !important; }
 .cursor-grabbing { cursor: grabbing !important; }
 
-/* Chat específico - Flat design sin sombras */
+/* Chat estilo app */
 #messages {
   scroll-behavior: smooth;
 }
@@ -69,37 +69,20 @@ input[type="text"], input[type="email"], input[type="password"], textarea, .form
 }
 
 #messages::-webkit-scrollbar-track {
-  background: #f3f4f6;
+  background: #f5f5f5;
 }
 
 #messages::-webkit-scrollbar-thumb {
   background: #d1d5db;
+  border-radius: 4px;
 }
 
 #messages::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
 
-/* Reset de estilos para elementos del chat */
-#messages div {
-  box-shadow: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-}
-
-#message_form input,
-#message_form textarea,
-#message_form button {
-  box-shadow: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-}
-
-/* Transiciones sutiles solo en hover/focus */
-#message_form textarea:focus {
-  transition: background-color 0.2s ease;
-}
-
-#message_form button:hover {
+/* Transiciones suaves para hover */
+.message-hover:hover {
+  background-color: #f9fafb;
   transition: background-color 0.2s ease;
 }

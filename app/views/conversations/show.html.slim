@@ -1,15 +1,20 @@
-div.min-h-screen.bg-gray-50.pt-8.pb-8
-  div.max-w-6xl.mx-auto.px-4
-    / Header del chat
-    div.bg-gray-800.text-white.px-8.py-6.mb-6
-      h1.text-2xl.font-semibold.m-0 Chat con #{@conversation.sender == current_user ? @conversation.recipient.full_name : @conversation.sender.full_name}
-    
-    / Área de mensajes
-    div#messages.h-screen.max-h-96.overflow-y-auto.p-6.bg-gray-100.mb-6
-      - @messages.each do |message|
-        = render 'messages/message', message: message
+main.flex-grow
+  / Header estilo app
+  header.bg-neutral-200
+    .container.mx-auto.px-6.py-4.flex.justify-between.items-center
+      h1.text-xl.font-semibold.text-gray-800 Chat con #{@conversation.sender == current_user ? @conversation.recipient.full_name : @conversation.sender.full_name}
+      .flex.items-center.gap-3
+        span.inline-flex.items-center.justify-center.rounded-full.bg-gray-400.text-white.font-bold.w-10.h-10.text-sm #{(@conversation.sender == current_user ? @conversation.recipient.full_name : @conversation.sender.full_name).first.upcase}
 
-    / Formulario de envío
-    div.bg-white.p-6
+  / Contenido principal
+  .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+    / Área de mensajes
+    .bg-white.rounded-xl.shadow-sm.border.border-gray-100.mb-6
+      div#messages style="height: calc(100vh - 300px); min-height: 500px;" class="overflow-y-auto p-6"
+        - @messages.each do |message|
+          = render 'messages/message', message: message
+
+    / Formulario
+    .bg-white.rounded-xl.shadow-sm.border.border-gray-100.p-6
       div#message_form
         = render 'messages/form', conversation: @conversation, message: @message
