@@ -13,3 +13,48 @@
  *= require_tree .
  *= require_self
  */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cursores personalizados para enlaces y botones */
+a, button, .btn, .link, [role="button"], .clickable, 
+input[type="submit"], input[type="button"], input[type="reset"],
+.hover\:underline, .hover\:text-gray-900, .hover\:text-gray-700,
+.hover\:border-gray-600, .hover\:bg-gray-300, .hover\:bg-gray-100,
+[data-action], [data-turbo-method] {
+  cursor: pointer !important;
+}
+
+a:hover, button:hover, .btn:hover, .link:hover, [role="button"]:hover, .clickable:hover,
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+  cursor: pointer !important;
+}
+
+/* Cursor para elementos deshabilitados */
+a[disabled], button[disabled], .btn[disabled], a.disabled, button.disabled, .btn.disabled {
+  cursor: not-allowed !important;
+}
+
+/* Cursor para elementos de texto seleccionable */
+input[type="text"], input[type="email"], input[type="password"], textarea, .form-control {
+  cursor: text !important;
+}
+
+/* Cursor para elementos arrastrables */
+.draggable, [draggable="true"] {
+  cursor: move !important;
+}
+
+/* Cursor para elementos redimensionables */
+.resizable {
+  cursor: nw-resize !important;
+}
+
+/* Clases de utilidad para cursores */
+.cursor-pointer { cursor: pointer !important; }
+.cursor-text { cursor: text !important; }
+.cursor-not-allowed { cursor: not-allowed !important; }
+.cursor-move { cursor: move !important; }
+.cursor-grab { cursor: grab !important; }
+.cursor-grabbing { cursor: grabbing !important; }

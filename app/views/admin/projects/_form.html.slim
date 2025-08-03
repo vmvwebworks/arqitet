@@ -1,0 +1,20 @@
+= form_with model: [:admin, project], local: true, class: 'flex flex-col gap-6' do |f|
+  .grid.grid-cols-1.md:grid-cols-3.gap-6
+    .flex.flex-col.gap-2
+      = f.label :title, 'Título', class: 'text-sm font-semibold text-gray-700'
+      = f.text_field :title, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg'
+    .flex.flex-col.gap-2
+      = f.label :category, 'Categoría', class: 'text-sm font-semibold text-gray-700'
+      = f.text_field :category, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg'
+    .flex.flex-col.gap-2
+      = f.label :location, 'Ubicación', class: 'text-sm font-semibold text-gray-700'
+      = f.text_field :location, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg'
+  .grid.grid-cols-1.md:grid-cols-2.gap-6
+    .flex.flex-col.gap-2.col-span-2
+      = f.label :description, 'Descripción', class: 'text-sm font-semibold text-gray-700'
+      = f.text_area :description, rows: 4, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg'
+    .flex.flex-col.gap-2
+      = f.label :author, 'Autor', class: 'text-sm font-semibold text-gray-700'
+      = f.text_field :author, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg'
+  .flex.items-center.gap-4.mt-8
+    = f.submit 'Guardar cambios', class: 'rounded-lg px-6 py-3 bg-gray-700 hover:bg-gray-900 text-white font-semibold transition cursor-pointer'

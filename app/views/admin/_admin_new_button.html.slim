@@ -1,0 +1,7 @@
+/ app/views/admin/_admin_new_button.html.slim
+-# label: texto del botón
+-# path: ruta del botón
+-# class_name: clases extra opcionales
+- class_name = local_assigns[:class_name] || 'btn btn-primary bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2 rounded-lg transition'
+.mb-6
+  = link_to label, path, class: class_name

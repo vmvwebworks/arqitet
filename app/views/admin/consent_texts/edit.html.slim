@@ -1,0 +1,13 @@
+- content_for :title, 'Editar texto de consentimiento RGPD'
+
+h2.text-lg.font-bold.mb-4 Editar texto de consentimiento RGPD
+
+= form_with model: [:admin, @consent_text], local: true do |f|
+  .mb-4
+    = f.label :locale, 'Idioma', class: 'block text-xs font-semibold mb-1'
+    = f.text_field :locale, class: 'border rounded px-2 py-1 w-32', disabled: true
+  .mb-4
+    = f.label :content, 'Texto', class: 'block text-xs font-semibold mb-1'
+    = f.text_area :content, rows: 8, class: 'border rounded px-3 py-2 w-full', required: true
+  = f.submit 'Guardar', class: 'bg-blue-700 hover:bg-blue-800 text-white font-semibold px-4 py-2 rounded transition'
+  = link_to 'Volver', admin_consent_texts_path, class: 'ml-4 text-gray-600 hover:underline'

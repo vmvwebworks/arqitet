@@ -1,0 +1,112 @@
+- content_for :title, "Mis Proyectos"
+
+.min-h-screen.bg-white
+  .max-w-full.px-4.sm:px-6.lg:px-8.py-8
+    / Cabecera tipo Pinterest - más compacta y elegante
+    .max-w-6xl.mx-auto
+      .flex.flex-col.sm:flex-row.sm:justify-between.sm:items-center.mb-8
+        div
+          h1.text-3xl.font-semibold.text-gray-900.mb-2 Mis Proyectos
+          p.text-gray-600 #{@projects.total_count} proyectos creados
+        = link_to new_project_path, class: 'inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium transition-colors duration-200 rounded-full shadow-sm mt-4 sm:mt-0' do
+          svg.w-5.h-5.mr-2 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"
+          | Crear proyecto
+      
+      / Barra de búsqueda tipo Pinterest
+      .relative.mb-8
+        = form_with url: my_projects_path, method: :get, local: true, class: 'relative' do |f|
+          .absolute.inset-y-0.left-0.pl-4.flex.items-center.pointer-events-none
+            svg.w-5.h-5.text-gray-400 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          = f.text_field :query, placeholder: 'Buscar proyectos...', value: params[:query], class: 'w-full pl-12 pr-4 py-4 bg-gray-100 rounded-full border-none focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all duration-200 text-lg'
+          - if params[:query].present?
+            = link_to my_projects_path, class: 'absolute right-4 top-1/2 transform -translate-y-1/2 p-2 hover:bg-gray-200 rounded-full transition-colors' do
+              svg.w-5.h-5.text-gray-500 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
+
+    / Grid tipo Pinterest Masonry
+    - if @projects.any?
+      .pinterest-grid
+        - @projects.each do |project|
+          .pinterest-card.group.cursor-pointer
+            = link_to project_path(project), class: 'block' do
+              / Imagen principal
+              - if project.images.attached?
+                .relative.overflow-hidden.rounded-2xl.bg-gray-100
+                  - image = project.images.first
+                  - if image.content_type == 'image/svg+xml'
+                    = image_tag image, class: 'w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105'
+                  - else
+                    = image_tag image.variant(resize_to_limit: [400, nil]), class: 'w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105'
+                  / Overlay con acciones al hover
+                  .absolute.inset-0.bg-black.bg-opacity-0.group-hover:bg-opacity-30.transition-all.duration-300.flex.items-center.justify-center.opacity-0.group-hover:opacity-100
+                    .flex.space-x-3
+                      .p-3.bg-white.bg-opacity-90.rounded-full.hover:bg-opacity-100.transition-all.transform.scale-90.group-hover:scale-100
+                        svg.w-5.h-5.text-gray-700 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7C7.523 19 3.732 16.057 2.458 12z"
+                      = link_to edit_project_path(project), class: 'p-3 bg-white bg-opacity-90 rounded-full hover:bg-opacity-100 transition-all transform scale-90 group-hover:scale-100', onclick: 'event.stopPropagation()' do
+                        svg.w-5.h-5.text-gray-700 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  
+                  / Badge de múltiples imágenes
+                  - if project.images.count > 1
+                    .absolute.top-4.right-4.px-3.py-1.bg-black.bg-opacity-70.text-white.text-sm.rounded-full.font-medium
+                      | #{project.images.count} fotos
+              - else
+                .relative.overflow-hidden.rounded-2xl.bg-gradient-to-br.from-gray-100.to-gray-200.h-64.flex.items-center.justify-center
+                  .text-center
+                    .w-16.h-16.bg-white.bg-opacity-70.rounded-full.flex.items-center.justify-center.mx-auto.mb-3
+                      svg.w-8.h-8.text-gray-400 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    p.text-gray-500.text-sm.font-medium Sin imagen
+              
+              / Contenido del card
+              .p-4
+                h3.font-semibold.text-gray-900.text-lg.leading-tight.mb-2.group-hover:text-red-600.transition-colors= project.title
+                - if project.description.present?
+                  p.text-gray-600.text-sm.line-clamp-2.mb-3= project.description
+                
+                .flex.items-center.justify-between.text-sm.text-gray-500.mb-3
+                  .flex.items-center
+                    .w-2.h-2.bg-red-500.rounded-full.mr-2
+                    = project.category || "Sin categoría"
+                  .flex.items-center
+                    svg.w-4.h-4.mr-1 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                      path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7C7.523 19 3.732 16.057 2.458 12z"
+                    | #{project.visits}
+                
+                .text-xs.text-gray-400= "Creado #{time_ago_in_words(project.created_at)} atrás"
+
+      / Paginación estilo Pinterest
+      - if @projects.respond_to?(:total_pages) && @projects.total_pages > 1
+        .max-w-6xl.mx-auto.flex.justify-center.mt-12
+          = paginate @projects, theme: 'twitter-bootstrap-4', views_prefix: 'kaminari/'
+
+    - else
+      / Estado vacío elegante
+      .max-w-6xl.mx-auto.text-center.py-20
+        - if params[:query].present?
+          .w-24.h-24.bg-gray-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-8
+            svg.w-12.h-12.text-gray-400 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          h3.text-2xl.font-semibold.text-gray-900.mb-3 No encontramos proyectos
+          p.text-gray-500.text-lg.mb-8 No hay proyectos que coincidan con "#{params[:query]}"
+          = link_to 'Ver todos mis proyectos', my_projects_path, class: 'inline-flex items-center px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-medium rounded-full transition-colors duration-200'
+        - else
+          .w-24.h-24.bg-gray-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-8
+            svg.w-12.h-12.text-gray-400 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          h3.text-2xl.font-semibold.text-gray-900.mb-3 Tu primera creación te espera
+          p.text-gray-500.text-lg.mb-8 Comienza tu viaje arquitectónico creando tu primer proyecto
+          = link_to new_project_path, class: 'inline-flex items-center px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-medium rounded-full transition-colors duration-200' do
+            svg.w-5.h-5.mr-2 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"
+            | Crear mi primer proyecto
+
+    / Enlace de regreso minimalista
+    .max-w-6xl.mx-auto.text-center.mt-16.pb-8
+      = link_to public_dashboard_path, class: 'inline-flex items-center text-gray-500 hover:text-gray-700 transition-colors duration-200 group' do
+        svg.w-4.h-4.mr-2.transition-transform.group-hover:-translate-x-1 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+        | Volver al Dashboard

@@ -1,0 +1,18 @@
+- content_for :title, "Mi impacto"
+
+.max-w-4xl.mx-auto.mt-12.bg-white/80.p-10.rounded-2xl
+  h1.text-3xl.font-bold.mb-8.text-gray-800 Mi impacto
+  .mb-8
+    h2.text-xl.font-bold.mb-4 Visitas por proyecto
+    - if @visits_by_project.present?
+      = bar_chart @visits_by_project, height: '200px', library: {legend: {display: false}, scales: {xAxes: [{title: {display: true, text: 'Visitas'}}]}}
+    - else
+      .text-gray-400.text-xs.mt-4 Sin datos
+  - if @my_projects.any?
+    ul.divide-y.divide-gray-200.mt-8
+      - @my_projects.each do |project|
+        li.flex.justify-between.items-center.py-3
+          span.font-semibold= project.title
+          span.text-xs.text-gray-500= "#{project.visits} visitas"
+  - else
+    p.text-gray-500.mt-8 No tienes proyectos aún.

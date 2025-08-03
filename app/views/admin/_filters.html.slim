@@ -1,0 +1,16 @@
+-# Partial reutilizable de filtros para admin (proyectos y usuarios)
+form class="mb-4 flex flex-wrap gap-2 items-end" method="get"
+  - if defined?(filter_fields) && filter_fields.present?
+    - filter_fields.each do |field|
+      .flex.flex-col
+        label.text-xs.font-semibold.mb-1 = field[:label]
+        - if field[:type] == :select
+          select.bg-white.rounded.px-2.py-1.text-sm name=field[:name]
+            option value="" Todas
+            - field[:options].each do |opt|
+              option value=opt[:value] selected=(params[field[:name]] == opt[:value].to_s) = opt[:label]
+        - else
+          input.bg-white.rounded.px-2.py-1.text-sm type=field[:type] name=field[:name] value=params[field[:name]]
+  button.btn.bg-blue-600.hover:bg-blue-700.text-white.font-bold.px-4.py-2.rounded-lg.transition.ml-2 type="submit"
+    | Filtrar
+  = link_to 'Limpiar', request.path, class: 'ml-2 text-gray-500 hover:underline text-xs'

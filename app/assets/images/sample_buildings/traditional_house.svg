@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" class="w-full h-full">
+  <defs>
+    <linearGradient id="skyGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFE5E5;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="houseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A0522D;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="roofGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B22222;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="400" height="600" fill="url(#skyGradient2)"/>
+  
+  <!-- Sun -->
+  <circle cx="320" cy="80" r="25" fill="#FFD700" opacity="0.8"/>
+  
+  <!-- House base -->
+  <rect x="100" y="350" width="200" height="250" fill="url(#houseGradient)"/>
+  
+  <!-- Roof -->
+  <polygon points="80,350 200,250 320,350" fill="url(#roofGradient)"/>
+  
+  <!-- Chimney -->
+  <rect x="260" y="280" width="20" height="70" fill="#654321"/>
+  <rect x="255" y="275" width="30" height="10" fill="#8B4513"/>
+  
+  <!-- Door -->
+  <rect x="180" y="500" width="40" height="100" fill="#654321" rx="20"/>
+  <circle cx="210" cy="550" r="3" fill="#FFD700"/>
+  
+  <!-- Windows -->
+  <rect x="130" y="400" width="30" height="30" fill="#87CEEB" stroke="#654321" stroke-width="3"/>
+  <line x1="145" y1="400" x2="145" y2="430" stroke="#654321" stroke-width="2"/>
+  <line x1="130" y1="415" x2="160" y2="415" stroke="#654321" stroke-width="2"/>
+  
+  <rect x="240" y="400" width="30" height="30" fill="#87CEEB" stroke="#654321" stroke-width="3"/>
+  <line x1="255" y1="400" x2="255" y2="430" stroke="#654321" stroke-width="2"/>
+  <line x1="240" y1="415" x2="270" y2="415" stroke="#654321" stroke-width="2"/>
+  
+  <!-- Garden -->
+  <ellipse cx="80" cy="580" rx="60" ry="20" fill="#228B22"/>
+  <ellipse cx="320" cy="570" rx="50" ry="15" fill="#228B22"/>
+  
+  <!-- Trees -->
+  <circle cx="60" cy="520" r="25" fill="#228B22"/>
+  <rect x="57" y="520" width="6" height="40" fill="#8B4513"/>
+  
+  <circle cx="340" cy="530" r="20" fill="#228B22"/>
+  <rect x="337" y="530" width="6" height="35" fill="#8B4513"/>
+</svg>

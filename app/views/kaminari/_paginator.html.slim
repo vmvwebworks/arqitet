@@ -1,0 +1,25 @@
+nav.flex.justify-center.mt-12[aria-label="Paginación"]
+  ul.inline-flex.items-center.gap-1
+    - if paginator.prev_page_tag
+      li
+        = link_to raw('&laquo;'), url_for(page: paginator.prev_page_tag), class: "px-4 py-2 rounded-full bg-terracota hover:bg-granate text-white font-semibold shadow transition focus:outline-none focus:ring-2 focus:ring-granate", aria: { label: 'Página anterior' }
+    - else
+      li
+        span.px-4.py-2.rounded-full.bg-gray-100.text-gray-400 &laquo;
+    - paginator.each_page do |page|
+      - if page
+        - if page == @current_page
+          li
+            span.px-4.py-2.rounded-full.bg-granate.text-white.font-bold.shadow-lg.border-2.border-terracota[aria-current="page"] = page
+        - else
+          li
+            = link_to page, url_for(page: page), class: "px-4 py-2 rounded-full bg-terracota hover:bg-granate text-white shadow transition focus:outline-none focus:ring-2 focus:ring-granate", aria: { label: "Ir a la página \\#{page}" }
+      - else
+        li
+          span.px-4.py-2.text-gray-400 …
+    - if paginator.next_page_tag
+      li
+        = link_to raw('&raquo;'), url_for(page: paginator.next_page_tag), class: "px-4 py-2 rounded-full bg-terracota hover:bg-granate text-white font-semibold shadow transition focus:outline-none focus:ring-2 focus:ring-granate", aria: { label: 'Página siguiente' }
+    - else
+      li
+        span.px-4.py-2.rounded-full.bg-gray-100.text-gray-400 &raquo;

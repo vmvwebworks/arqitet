@@ -1,0 +1,41 @@
+- consent_text = ConsentText.first
+- return unless show_consent_banner? && consent_text
+
+- consent_version = consent_text.updated_at.to_i
+
+/! Banner de consentimiento
+.fixed.bottom-0.left-0.w-full.bg-gray-900.bg-opacity-95.text-white.z-50.px-6.py-4.shadow-xl[data-controller="consent" data-consent-show-banner-value="true" data-consent-version-value="#{consent_version}"]
+  .flex.flex-col.md:flex-row.items-center.justify-between
+    .flex-1.mb-4.md:mb-0.md:mr-6
+      = consent_text.content
+    .flex.items-center.flex-shrink-0
+      button.text-sm.font-semibold.hover:underline.mr-4[data-action="click->consent#customize"]
+        | Personalizar
+      button.bg-gray-700.hover:bg-gray-600.text-white.font-semibold.px-4.py-2.rounded.mr-2.transition[data-action="click->consent#rejectAll"]
+        | Rechazar
+      button.bg-blue-600.hover:bg-blue-700.text-white.font-semibold.px-4.py-2.rounded.transition[data-action="click->consent#acceptAll"]
+        | Aceptar todas
+
+  /! Modal de personalización (inicialmente oculto)
+  .fixed.inset-0.bg-black.bg-opacity-50.flex.items-center.justify-center.hidden[data-consent-target="modal"]
+    .bg-white.text-gray-900.rounded-lg.shadow-xl.p-8.max-w-lg.w-full
+      h3.text-2xl.font-bold.mb-4 Preferencias de Cookies
+      p.mb-6 Puedes elegir qué tipo de cookies quieres aceptar. Las cookies esenciales no se pueden desactivar.
+
+      form[data-action="submit->consent#savePreferences"]
+        .space-y-4
+          label.flex.items-center
+            input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" data-consent-target="preference" value="analytics"
+            span.ml-3.text-gray-700 Analítica y Rendimiento
+          label.flex.items-center
+            input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" data-consent-target="preference" value="marketing"
+            span.ml-3.text-gray-700 Publicidad y Marketing
+
+        .mt-8.flex.justify-end
+          button.text-sm.font-semibold.hover:underline.mr-4[type="button" data-action="click->consent#closeModal"]
+            | Cancelar
+          button.bg-blue-600.hover:bg-blue-700.text-white.font-semibold.px-4.py-2.rounded.transition[type="submit"]
+            | Guardar preferencias
+
+
+

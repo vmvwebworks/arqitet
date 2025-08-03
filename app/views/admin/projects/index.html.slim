@@ -1,0 +1,9 @@
+- content_for :title do
+  | Proyectos
+= render 'admin/admin_page_wrapper' do
+  = render 'admin/filters', filter_fields: @filter_fields
+  = render 'admin/admin_new_button', label: 'Nuevo Proyecto', path: new_admin_project_path
+  = render 'admin/admin_table',
+      headers: ['Título', 'Descripción', 'Categoría', 'Ubicación', 'Autor', 'Acciones'],
+      rows: @rows,
+      actions: @actions

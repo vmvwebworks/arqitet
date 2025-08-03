@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    title = subject
+    = csrf_meta_tags
+    = csp_meta_tag
+    = action_mailer_meta_tag
+    = stylesheet_link_tag "mailer", media: "all"
+  body.bg-neutral-100.text-granate.font-sans
+    == yield

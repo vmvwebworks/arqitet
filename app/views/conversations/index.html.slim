@@ -1,0 +1,13 @@
+- content_for :title, 'Conversaciones'
+
+.max-w-3xl.mx-auto.mt-12.bg-white/80.p-10.rounded-2xl
+  h1.text-2xl.font-bold.mb-8.text-gray-800 Conversaciones
+  - if @conversations.any?
+    ul.divide-y.divide-gray-200
+      - @conversations.each do |conv|
+        - other = conv.sender == current_user ? conv.recipient : conv.sender
+        li.flex.justify-between.items-center.py-4
+          = link_to other.full_name, conversation_path(conv), class: 'font-semibold text-blue-700 hover:underline'
+          span.text-xs.text-gray-500= conv.messages.last&.created_at&.strftime('%d/%m/%Y %H:%M')
+  - else
+    p.text-gray-500.mt-8 No tienes conversaciones aún.

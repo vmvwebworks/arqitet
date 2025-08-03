@@ -1,0 +1,18 @@
+.bg-gray-100.min-h-screen.w-full.flex
+  = render 'admin/sidebar'
+  .container.mx-auto.max-w-3xl.px-6.py-8.ml-48
+    h2.text-2xl.font-extrabold.tracking-tight.bg-gradient-to-r.from-amber-400.to-amber-600.bg-clip-text.text-transparent.drop-shadow.mb-8= @project.title
+    p.mb-2.text-gray-700= @project.description
+    p.mb-2.text-gray-500
+      | Categoría: 
+      strong= @project.category
+    p.mb-2.text-gray-500
+      | Ubicación: 
+      strong= @project.location
+    p.mb-2.text-gray-500
+      | Autor: 
+      strong= @project.user.full_name
+
+    = link_to 'Editar', edit_admin_project_path(@project), class: 'btn btn-primary mr-2'
+    = link_to 'Volver', admin_projects_path, class: 'btn btn-secondary'
+    = button_to 'Eliminar', admin_project_path(@project), method: :delete, data: { confirm: '¿Seguro?' }, class: 'btn btn-danger ml-2'

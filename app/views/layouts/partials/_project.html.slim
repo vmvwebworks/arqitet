@@ -1,0 +1,7 @@
+.p-4.bg-white.rounded-xl
+  h3.text-lg.font-semibold.mb-1 = project.title
+  p.text-sm.text-gray-500.mb-2
+    = project.category
+    |  · 
+    = project.year
+  p.text-sm.text-gray-700 = truncate(project.description, length: 100)

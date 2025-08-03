@@ -1,0 +1,161 @@
+/* Masonry Gallery Styles */
+.masonry-grid {
+  column-count: 1;
+  column-gap: 1.5rem;
+  column-fill: balance;
+}
+
+@media (min-width: 640px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry-grid {
+    column-count: 4;
+  }
+}
+
+@media (min-width: 1280px) {
+  .masonry-grid {
+    column-count: 5;
+  }
+}
+
+.masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Evitar que las tarjetas se rompan en columnas */
+.masonry-item * {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Animaciones suaves para hover */
+.masonry-item .group {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.masonry-item .group:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Pinterest-style Grid */
+.pinterest-grid {
+  column-count: 1;
+  column-gap: 24px;
+  column-fill: balance;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .pinterest-grid {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .pinterest-grid {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pinterest-grid {
+    column-count: 4;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pinterest-grid {
+    column-count: 5;
+  }
+}
+
+.pinterest-card {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 24px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pinterest-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Evitar que las tarjetas se rompan en columnas */
+.pinterest-card * {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Efectos de gradient animados */
+.gradient-animation {
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Efectos de glassmorphism */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Truncar texto con elipsis */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Pinterest search bar animation */
+.pinterest-grid .group img {
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.pinterest-grid .group:hover img {
+  transform: scale(1.05);
+}
+
+/* Smooth overlay transitions */
+.pinterest-grid .group .absolute {
+  transition: all 0.3s ease;
+}

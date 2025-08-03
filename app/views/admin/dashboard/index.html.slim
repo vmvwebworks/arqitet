@@ -1,0 +1,111 @@
+- content_for :title, 'Panel de Administración '
+main.bg-gray-100.min-h-screen.w-full.flex.flex-grow
+  = render 'admin/sidebar'
+  .flex-1.w-full.px-4.py-8.overflow-hidden
+    = render 'admin/admin_page_wrapper' do
+      / Métricas principales en tarjetas
+      .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-4.gap-6.mb-8
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          .flex.items-center.justify-between
+            .flex.flex-col
+              p.text-sm.font-medium.text-gray-600 Total Proyectos
+              p.text-2xl.font-bold.text-blue-900= Project.count
+            .w-12.h-12.bg-blue-100.rounded-lg.flex.items-center.justify-center
+              svg.w-6.h-6.text-blue-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+        
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          .flex.items-center.justify-between
+            .flex.flex-col
+              p.text-sm.font-medium.text-gray-600 Total Usuarios
+              p.text-2xl.font-bold.text-green-900= User.count
+            .w-12.h-12.bg-green-100.rounded-lg.flex.items-center.justify-center
+              svg.w-6.h-6.text-green-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+        
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          .flex.items-center.justify-between
+            .flex.flex-col
+              p.text-sm.font-medium.text-gray-600 Visitas Totales
+              p.text-2xl.font-bold.text-purple-900= Project.sum(:visits)
+            .w-12.h-12.bg-purple-100.rounded-lg.flex.items-center.justify-center
+              svg.w-6.h-6.text-purple-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7C7.523 19 3.732 16.057 2.458 12z"
+        
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          .flex.items-center.justify-between
+            .flex.flex-col
+              p.text-sm.font-medium.text-gray-600 Promedio Visitas
+              p.text-2xl.font-bold.text-orange-900= (Project.count > 0 ? (Project.sum(:visits).to_f / Project.count).round(1) : 0)
+            .w-12.h-12.bg-orange-100.rounded-lg.flex.items-center.justify-center
+              svg.w-6.h-6.text-orange-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+
+      / Gráficos principales
+      .grid.grid-cols-1.lg:grid-cols-2.gap-8.mb-8
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          h4.text-lg.font-semibold.mb-4.text-gray-800 Proyectos por mes
+          - if @projects_per_month.present?
+            = render_line_chart(@projects_per_month, 'admin-projects-monthly', {height: 250, colors: ['#1E40AF']})
+          - else
+            .text-center.text-gray-400.py-12 Sin datos disponibles
+        
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          h4.text-lg.font-semibold.mb-4.text-gray-800 Nuevos usuarios por mes
+          - if @users_per_month.present?
+            = render_line_chart(@users_per_month, 'admin-users-monthly', {height: 250, colors: ['#059669']})
+          - else
+            .text-center.text-gray-400.py-12 Sin datos disponibles
+
+      / Gráficos de distribución
+      .grid.grid-cols-1.lg:grid-cols-2.gap-8.mb-8
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          h4.text-lg.font-semibold.mb-4.text-gray-800 Proyectos por categoría
+          - if @projects_by_category.present?
+            = render_pie_chart(@projects_by_category, 'admin-projects-category', {height: 280})
+          - else
+            .text-center.text-gray-400.py-12 Sin datos disponibles
+        
+        .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+          h4.text-lg.font-semibold.mb-4.text-gray-800 Top 5 usuarios más activos
+          - if @top_users.present?
+            = render_bar_chart(@top_users, 'admin-top-users', {height: 280, colors: ['#7C3AED']})
+          - else
+            .text-center.text-gray-400.py-12 Sin datos disponibles
+
+      / Lista de proyectos destacados
+      .bg-white.rounded-xl.p-6.shadow-sm.border.border-gray-200
+        h4.text-lg.font-semibold.mb-4.text-gray-800 Top 5 proyectos más visitados
+        - if @top_projects.present?
+          .overflow-x-auto
+            table.min-w-full.divide-y.divide-gray-200
+              thead.bg-gray-50
+                tr
+                  th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Proyecto
+                  th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Autor
+                  th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Categoría
+                  th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Visitas
+                  th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Acciones
+              tbody.bg-white.divide-y.divide-gray-200
+                - @top_projects.each do |project|
+                  tr.hover:bg-gray-50
+                    td.px-6.py-4.whitespace-nowrap
+                      .flex.items-center
+                        .flex-shrink-0.h-10.w-10
+                          .h-10.w-10.rounded-lg.bg-blue-100.flex.items-center.justify-center
+                            svg.w-5.h-5.text-blue-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                        .ml-4
+                          .text-sm.font-medium.text-gray-900= project.title
+                          .text-sm.text-gray-500= truncate(project.description, length: 50)
+                    td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900= project.user.full_name
+                    td.px-6.py-4.whitespace-nowrap
+                      span.inline-flex.px-2.py-1.text-xs.font-semibold.rounded-full.bg-blue-100.text-blue-800= project.category
+                    td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900
+                      span.font-semibold= project.visits
+                      span.text-gray-500.ml-1 visitas
+                    td.px-6.py-4.whitespace-nowrap.text-right.text-sm.font-medium
+                      = link_to 'Ver', project_path(project), target: '_blank', class: 'text-blue-600 hover:text-blue-900 mr-2'
+                      = link_to 'Editar', edit_admin_project_path(project), class: 'text-green-600 hover:text-green-900'
+        - else
+          .text-center.text-gray-400.py-12 No hay proyectos aún

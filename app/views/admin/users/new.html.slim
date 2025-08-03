@@ -1,0 +1,6 @@
+.bg-gray-100.min-h-screen.w-full.flex
+  = render 'admin/sidebar'
+  .container.mx-auto.max-w-3xl.px-6.py-8.ml-48
+    h2.text-2xl.font-extrabold.tracking-tight.bg-gradient-to-r.from-amber-400.to-amber-600.bg-clip-text.text-transparent.drop-shadow.mb-8 Nuevo Usuario
+    = render 'form', user: @user
+    = link_to 'Volver', admin_users_path, class: 'btn btn-secondary mt-4'

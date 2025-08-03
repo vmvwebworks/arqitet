@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" class="w-full h-full">
+  <defs>
+    <linearGradient id="skyGradient5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FEF3C7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="castleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#78716C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#57534E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="400" height="600" fill="url(#skyGradient5)"/>
+  
+  <!-- Sun -->
+  <circle cx="350" cy="100" r="30" fill="#FCD34D" opacity="0.9"/>
+  
+  <!-- Castle main walls -->
+  <rect x="80" y="300" width="240" height="300" fill="url(#castleGradient)"/>
+  
+  <!-- Castle towers -->
+  <rect x="60" y="200" width="50" height="400" fill="url(#castleGradient)"/>
+  <rect x="290" y="180" width="60" height="420" fill="url(#castleGradient)"/>
+  <rect x="170" y="220" width="60" height="380" fill="url(#castleGradient)"/>
+  
+  <!-- Tower tops -->
+  <polygon points="60,200 85,150 110,200" fill="#7C2D12"/>
+  <polygon points="290,180 320,130 350,180" fill="#7C2D12"/>
+  <polygon points="170,220 200,170 230,220" fill="#7C2D12"/>
+  
+  <!-- Castle battlements -->
+  <g fill="url(#castleGradient)">
+    <!-- Main wall -->
+    <rect x="80" y="290" width="20" height="20"/>
+    <rect x="120" y="290" width="20" height="20"/>
+    <rect x="160" y="290" width="20" height="20"/>
+    <rect x="200" y="290" width="20" height="20"/>
+    <rect x="240" y="290" width="20" height="20"/>
+    <rect x="280" y="290" width="20" height="20"/>
+    
+    <!-- Left tower -->
+    <rect x="60" y="190" width="12" height="15"/>
+    <rect x="78" y="190" width="12" height="15"/>
+    <rect x="96" y="190" width="12" height="15"/>
+    
+    <!-- Right tower -->
+    <rect x="290" y="170" width="15" height="15"/>
+    <rect x="312" y="170" width="15" height="15"/>
+    <rect x="334" y="170" width="15" height="15"/>
+    
+    <!-- Center tower -->
+    <rect x="170" y="210" width="12" height="15"/>
+    <rect x="190" y="210" width="12" height="15"/>
+    <rect x="210" y="210" width="12" height="15"/>
+  </g>
+  
+  <!-- Windows -->
+  <g fill="#1F2937">
+    <!-- Main wall windows -->
+    <rect x="130" y="360" width="8" height="12" rx="4"/>
+    <rect x="150" y="360" width="8" height="12" rx="4"/>
+    <rect x="240" y="360" width="8" height="12" rx="4"/>
+    <rect x="260" y="360" width="8" height="12" rx="4"/>
+    
+    <rect x="130" y="420" width="8" height="12" rx="4"/>
+    <rect x="150" y="420" width="8" height="12" rx="4"/>
+    <rect x="240" y="420" width="8" height="12" rx="4"/>
+    <rect x="260" y="420" width="8" height="12" rx="4"/>
+    
+    <!-- Tower windows -->
+    <rect x="75" y="280" width="6" height="10" rx="3"/>
+    <rect x="75" y="320" width="6" height="10" rx="3"/>
+    <rect x="75" y="360" width="6" height="10" rx="3"/>
+    
+    <rect x="315" y="260" width="8" height="12" rx="4"/>
+    <rect x="315" y="300" width="8" height="12" rx="4"/>
+    <rect x="315" y="340" width="8" height="12" rx="4"/>
+    
+    <rect x="195" y="300" width="6" height="10" rx="3"/>
+    <rect x="195" y="340" width="6" height="10" rx="3"/>
+  </g>
+  
+  <!-- Main gate -->
+  <rect x="180" y="520" width="40" height="80" fill="#8B4513" rx="20"/>
+  <rect x="185" y="525" width="30" height="70" fill="#A3A3A3" rx="15"/>
+  
+  <!-- Flag -->
+  <line x1="205" y1="170" x2="205" y2="120" stroke="#8B4513" stroke-width="2"/>
+  <polygon points="207,120 207,140 240,130" fill="#DC2626"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="580" width="400" height="20" fill="#A3A3A3"/>
+</svg>

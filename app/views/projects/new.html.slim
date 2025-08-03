@@ -1,0 +1,26 @@
+section.max-w-3xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
+  h1.text-2xl.font-bold.text-gray-800.mb-6 Nuevo proyecto
+  = form_with model: @project, local: true, html: {multipart: true} do |form|
+    .flex.flex-col.gap-4
+      = form.label :title, 'Título', class: "font-semibold text-gray-700"
+      = form.text_field :title, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+      = form.label :category, 'Categoría', class: "font-semibold text-gray-700"
+      = form.text_field :category, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+      = form.label :year, 'Año', class: "font-semibold text-gray-700"
+      = form.text_field :year, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+      = form.label :description, 'Descripción', class: "font-semibold text-gray-700"
+      = form.text_area :description, rows: 5, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+      = form.label :images, 'Imágenes', class: "font-semibold text-gray-700"
+      div data-controller="image-upload"
+        #images-drop-area.bg-neutral-100.border-2.border-dashed.border-gray-300.rounded-xl.p-6.flex.flex-col.items-center.justify-center.cursor-pointer.mb-2 data-image-upload-target="dropArea"
+          span.text-gray-500.text-base Arrastra y suelta imágenes aquí o haz click para seleccionar
+          = form.file_field :images, id: "project_images", multiple: true, direct_upload: true, class: "hidden", data: { image_upload_target: "fileInput" }
+        #images-preview.flex.flex-wrap.gap-4 data-image-upload-target="preview"
+
+    .flex.gap-4.mt-6
+      = form.submit 'Crear', class: "px-6 py-2 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-700 transition"
+      = link_to 'Cancelar', projects_path, class: "px-6 py-2 rounded-full bg-neutral-200 text-gray-700 font-semibold hover:bg-neutral-300 transition"

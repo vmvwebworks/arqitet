@@ -1,0 +1,21 @@
+.p-6.bg-white.rounded-2xl.mb-8.flex.flex-col.gap-4
+  h2.text-2xl.font-bold.text-gray-800.mb-2.leading-tight = link_to project.title, project_path(project), class: "hover:underline"
+  
+  / Imagen del proyecto con fallback SVG
+  - if project.images.attached?
+    = render 'shared/image_carousel', images: project.images, size: 'sm'
+  - else
+    - building_images = ['sample_buildings/modern_tower.svg', 'sample_buildings/traditional_house.svg', 'sample_buildings/glass_office.svg', 'sample_buildings/village_houses.svg', 'sample_buildings/medieval_castle.svg', 'sample_buildings/futuristic_city.svg']
+    - building_image = building_images[project.id % building_images.length]
+    .w-full.h-96.bg-gradient-to-br.from-blue-100.to-indigo-100.flex.items-center.justify-center.relative.rounded-lg.overflow-hidden
+      = image_tag asset_path(building_image), class: 'w-full h-full object-contain opacity-80'
+  
+  .flex.flex-col.gap-1
+    p.text-sm.text-gray-600.mb-1
+      = project.category
+      |  · 
+      = project.year
+      span.ml-2
+        | por 
+        = link_to project.user.full_name, user_path(project.user), class: "text-gray-700 hover:underline"
+    p.mt-1.text-gray-700.leading-relaxed = truncate(project.description, length: 150)

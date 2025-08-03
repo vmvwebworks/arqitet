@@ -1,0 +1,54 @@
+- content_for :title, request.path == my_projects_path ? "Mis Proyectos" : "Proyectos"
+
+section.bg-gray-100.py-20.px-6
+  .max-w-4xl.mx-auto.text-center
+    - if request.path == my_projects_path
+      h1.text-4xl.md:text-5xl.font-bold.text-gray-800.mb-4 Mis Proyectos
+      p.text-lg.text-gray-600.mb-8 Gestiona y visualiza todos tus proyectos arquitectónicos
+    - else
+      h1.text-4xl.md:text-5xl.font-bold.text-gray-800.mb-4 Proyectos de Arquitectura
+      p.text-lg.text-gray-600.mb-8 Descubre obras increíbles de arquitectos alrededor del mundo
+    
+    / Botón crear proyecto si es la página personal
+    - if user_signed_in? && request.path == my_projects_path
+      .mb-8
+        = link_to new_project_path, class: 'inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors duration-200 rounded-full shadow-lg' do
+          svg.w-5.h-5.mr-2 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"
+          | Crear nuevo proyecto
+    
+    .flex.justify-center
+      = form_with url: request.path == my_projects_path ? my_projects_path : projects_path, method: :get, local: true, class: "w-full max-w-2xl" do |form|
+        .relative
+          = form.text_field :query,
+            value: params[:query],
+            placeholder: "Buscar por título, descripción, categoría, ubicación o autor...",
+            class: "w-full pl-14 pr-6 py-6 rounded-full bg-neutral-200 text-gray-800 placeholder:text-gray-500 focus:outline-none focus:ring-4 focus:ring-blue-400 text-xl"
+          button type="submit" class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-700 focus:outline-none"
+            svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7"
+              path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 6.65 6.65a7.5 7.5 0 0 0 10.6 10.6z"
+
+section.py-16.px-6
+  .max-w-6xl.mx-auto
+    - if @projects.any?
+      .grid.grid-cols-1.sm:grid-cols-2.lg:grid-cols-3.gap-8.mb-12
+        = render @projects
+      
+      .flex.justify-center
+        = paginate @projects
+    - else
+      .text-center.text-gray-500.text-xl.py-16
+        - if params[:query].present?
+          | No se encontraron proyectos que coincidan con "#{params[:query]}"
+        - elsif request.path == my_projects_path
+          | Aún no tienes proyectos. ¡Crea tu primer proyecto!
+        - else
+          | No hay proyectos para mostrar aún. ¡Sé el primero en publicar uno!
+
+    / Enlace de regreso si es página personal
+    - if request.path == my_projects_path
+      .text-center.mt-16.pb-8
+        = link_to public_dashboard_path, class: 'inline-flex items-center text-gray-500 hover:text-gray-700 transition-colors duration-200 group' do
+          svg.w-4.h-4.mr-2.transition-transform.group-hover:-translate-x-1 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+          | Volver al Dashboard

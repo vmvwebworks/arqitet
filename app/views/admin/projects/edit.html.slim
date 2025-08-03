@@ -1,0 +1,7 @@
+- content_for :title, "Editar proyecto"
+
+.max-w-4xl.mx-auto.mt-12.bg-white/80.p-10.rounded-2xl
+  h1.text-3xl.font-bold.mb-8.text-gray-800 Editar proyecto
+  = render 'form', project: @project
+  .flex.items-center.gap-4.mt-8
+    = link_to "Volver", admin_projects_path, class: "text-gray-800 hover:underline text-lg cursor-pointer"

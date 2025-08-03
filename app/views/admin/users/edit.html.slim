@@ -1,0 +1,9 @@
+- content_for :title, "Editar usuario"
+
+.bg-gray-100.min-h-screen.w-full.flex
+  = render 'admin/sidebar'
+  .max-w-4xl.mx-auto.mt-12.bg-white/80.p-10.rounded-2xl
+    h1.text-3xl.font-bold.mb-8.text-gray-800 Editar usuario
+    = render 'form', user: @user
+    .flex.items-center.gap-4.mt-8
+      = link_to "Volver", admin_users_path, class: "text-gray-800 hover:underline text-lg cursor-pointer"

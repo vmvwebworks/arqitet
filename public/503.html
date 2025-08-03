@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>En mantenimiento | arqitet</title>
+    <link rel="icon" type="image/png" href="/templo-griego.png">
+    <style>
+      :root {
+        --aa-primary: #D9825B;
+        --aa-bg: #f3f4f6;
+        --aa-accent: #8B4C4A;
+        --aa-gray: #A79D8E;
+      }
+      body {
+        background: var(--aa-bg);
+        color: #222;
+        font-family: 'Inter', system-ui, sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .box {
+        background: #fff;
+        border-radius: 1.5rem;
+        padding: 3rem 2.5rem;
+        text-align: center;
+        max-width: 420px;
+        width: 100%;
+      }
+      .logo {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1.5rem;
+        border-radius: 1rem;
+        object-fit: cover;
+      }
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        color: #1f2937;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      p {
+        font-size: 1.15rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+      }
+      .tag {
+        display: inline-block;
+        background: #fca5a5;
+        color: #b91c1c;
+        font-weight: 700;
+        border-radius: 9999px;
+        padding: 0.4em 1.2em;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.03em;
+      }
+      @media (max-width: 600px) {
+        .box { padding: 2rem 0.5rem; }
+        h1 { font-size: 1.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <img src="/templo-griego.png" alt="arqitet logo" class="logo" loading="lazy">
+      <div class="tag">EN MANTENIMIENTO</div>
+      <h1>Estamos realizando mejoras</h1>
+      <p>La aplicación está temporalmente en modo mantenimiento.<br>Por favor, vuelve a intentarlo en unos minutos.<br><br>Gracias por tu paciencia.</p>
+    </div>
+  </body>
+</html>

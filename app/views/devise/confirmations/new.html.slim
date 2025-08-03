@@ -1,0 +1,11 @@
+section.flex.justify-center.items-center.min-h-screen.bg-neutral-100
+  .w-full.max-w-lg.bg-white/90.rounded-2xl.p-10.shadow-md
+    h2.text-3xl.font-bold.text-granate.mb-8.text-center Confirmar cuenta
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { class: "flex flex-col gap-6" }) do |f|
+      = devise_error_messages!
+      .flex.flex-col.gap-2
+        = f.label :confirmation_token, "Token de confirmación", class: "text-sm font-semibold text-oliva mb-1"
+        = f.text_field :confirmation_token, autofocus: true, class: "rounded-xl px-5 py-4 w-full focus:ring-2 focus:ring-terracota focus:outline-none bg-neutral-200 text-granate placeholder:text-granate/60 border-0 shadow-none text-lg"
+      = f.submit "Confirmar cuenta", class: "rounded-lg px-8 py-3 bg-terracota hover:bg-granate text-white font-semibold transition mt-4 shadow-sm w-full text-lg"
+    .mt-6.text-center.text-sm.text-gray-600
+      = link_to "Volver a iniciar sesión", new_session_path(resource_name), class: "text-terracota font-semibold hover:underline"

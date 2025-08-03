@@ -1,0 +1,13 @@
+table.w-full.text-sm.bg-white.rounded-lg.shadow-sm
+  thead
+    tr
+      th.px-4.py-2.text-left Contenido
+      th.px-4.py-2.text-left Idioma
+      th.px-4.py-2.text-left Acciones
+  tbody
+    - consent_texts.each do |ct|
+      tr
+        td.px-4.py-2.truncate.max-w-xs= ct.content.truncate(80)
+        td.px-4.py-2= ct.locale
+        td.px-4.py-2
+          = link_to 'Editar', edit_admin_consent_text_path(ct), class: 'text-blue-700 hover:underline'

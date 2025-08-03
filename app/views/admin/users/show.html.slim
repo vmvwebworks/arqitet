@@ -1,0 +1,12 @@
+.bg-gray-100.min-h-screen.w-full.flex
+  = render 'admin/sidebar'
+  .container.mx-auto.max-w-3xl.px-6.py-8.ml-48
+    h2.text-2xl.font-extrabold.tracking-tight.bg-gradient-to-r.from-amber-400.to-amber-600.bg-clip-text.text-transparent.drop-shadow.mb-8= @user.email
+    p.mb-2.text-gray-700= @user.full_name
+    p.mb-2.text-gray-500
+      | Rol: 
+      strong= @user.role
+
+    = link_to 'Editar', edit_admin_user_path(@user), class: 'btn btn-primary mr-2'
+    = link_to 'Volver', admin_users_path, class: 'btn btn-secondary'
+    = button_to 'Eliminar', admin_user_path(@user), method: :delete, data: { confirm: '¿Seguro?' }, class: 'btn btn-danger ml-2'

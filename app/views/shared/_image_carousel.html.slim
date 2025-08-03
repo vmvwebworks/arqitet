@@ -1,0 +1,11 @@
+-# app/views/shared/_image_carousel.html.slim
+- images = local_assigns[:images] || []
+- return if images.blank?
+
+.splide.relative.w-full.h-96[data-controller="carousel"]
+  .splide__track
+    ul.splide__list
+      - images.each do |img|
+        li.splide__slide.flex.items-center.justify-center.bg-neutral-100
+          = image_tag img, class: "object-contain h-full w-full"
+

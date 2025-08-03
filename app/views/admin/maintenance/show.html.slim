@@ -1,0 +1,16 @@
+- content_for :title do
+  | Modo mantenimiento
+= render 'admin/admin_page_wrapper' do
+  .mx-auto.max-w-3xl
+    - if @maintenance_on
+      p.text-green-600.font-semibold.flex.items-center.gap-2
+        | El modo mantenimiento está 
+        strong ACTIVO.
+        |  Ahora solo los usuarios administradores tienen acceso.
+      = button_to 'Desactivar', toggle_admin_maintenance_path, method: :post, class: 'btn bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2 rounded-lg transition mt-6 cursor-pointer'
+    - else
+      p.text-gray-600.font-semibold.flex.items-center.gap-2
+        | El modo mantenimiento está 
+        strong INACTIVO.
+        |  El acceso es público.
+      = button_to 'Activar', toggle_admin_maintenance_path, method: :post, class: 'btn bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2 rounded-lg transition mt-6 cursor-pointer'

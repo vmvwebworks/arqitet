@@ -1,0 +1,17 @@
+/ app/views/admin/_admin_table.html.slim
+-# headers: array de strings
+-# rows: array de arrays (cada subarray es una fila)
+-# actions: proc/lambda opcional para renderizar acciones por fila
+.table-responsive.bg-white.rounded-lg.p-0
+  table.w-full.table-auto.border-separate.border-spacing-0
+    thead.bg-gray-800
+      tr
+        - headers.each do |header|
+          th.px-6.py-3.text-left.text-xs.font-bold.uppercase.tracking-wider.text-white.bg-gray-800= header
+    tbody
+      - rows.each do |row|
+        tr class=(cycle('bg-gray-100', 'bg-white'))
+          - row.each do |cell|
+            td.px-6.py-3.text-gray-800= cell
+          - if defined?(actions) && actions
+            td.px-6.py-3.flex.gap-2= actions.call(row)

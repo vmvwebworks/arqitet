@@ -1,0 +1,1184 @@
+=> Booting Puma
+=> Rails 7.2.2.1 application starting in development 
+=> Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Puma version: 6.6.0 ("Return to Forever")
+* Ruby version: ruby 3.1.7p261 (2025-03-26 revision 0a3704f218) [x86_64-linux]
+*  Min threads: 3
+*  Max threads: 3
+*  Environment: development
+*          PID: 61729
+* Listening on http://127.0.0.1:3000
+* Listening on http://[::1]:3000
+Use Ctrl-C to stop
+Started GET "/?id=d98b3ec2-a1fc-4818-b7f8-d862cd5e738a&vscodeBrowserReqId=1754184936688" for ::1 at 2025-08-03 03:35:37 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ApplicationController#index as HTML
+  Parameters: {"id"=>"d98b3ec2-a1fc-4818-b7f8-d862cd5e738a", "vscodeBrowserReqId"=>"1754184936688"}
+  Rendering layout layouts/application.html.slim
+  Rendering application/index.html.slim within layouts/application
+  [1m[36mProject Load (5.6ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+  ↳ app/views/application/index.html.slim:19
+  [1m[36mActiveStorage::Attachment Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE User Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 107.1ms | GC: 4.5ms)
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  Rendered collection of projects/_project.html.slim [3 times] (Duration: 383.1ms | GC: 75.9ms)
+  Rendered application/index.html.slim within layouts/application (Duration: 509.4ms | GC: 75.9ms)
+  [1m[36mConsentText Load (0.5ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 140.8ms | GC: 59.6ms)
+  Rendered layout layouts/application.html.slim (Duration: 749.1ms | GC: 142.9ms)
+Completed 200 OK in 911ms (Views: 731.2ms | ActiveRecord: 34.6ms (13 queries, 4 cached) | GC: 142.9ms)
+
+
+Started GET "/" for ::1 at 2025-08-03 03:37:42 +0200
+Processing by ApplicationController#index as */*
+  Rendering layout layouts/application.html.slim
+  Rendering application/index.html.slim within layouts/application
+  [1m[36mProject Load (4.6ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+  ↳ app/views/application/index.html.slim:19
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  [1m[36mActiveStorage::Attachment Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (1.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 107.8ms | GC: 2.8ms)
+  [1m[36mCACHE User Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  Rendered collection of projects/_project.html.slim [3 times] (Duration: 290.8ms | GC: 6.8ms)
+  Rendered application/index.html.slim within layouts/application (Duration: 549.8ms | GC: 9.9ms)
+  [1m[36mConsentText Load (0.4ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 76.6ms | GC: 4.5ms)
+  Rendered layout layouts/application.html.slim (Duration: 773.2ms | GC: 60.0ms)
+Completed 200 OK in 796ms (Views: 753.0ms | ActiveRecord: 23.2ms (13 queries, 4 cached) | GC: 60.3ms)
+
+
+Started GET "/public_dashboard?id=d98b3ec2-a1fc-4818-b7f8-d862cd5e738a&vscodeBrowserReqId=1754185083148" for ::1 at 2025-08-03 03:38:03 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/public_dashboard"):
+  
+Started GET "/dashboard?id=d98b3ec2-a1fc-4818-b7f8-d862cd5e738a&vscodeBrowserReqId=1754185120648" for ::1 at 2025-08-03 03:38:40 +0200
+Processing by PublicDashboardController#index as HTML
+  Parameters: {"id"=>"d98b3ec2-a1fc-4818-b7f8-d862cd5e738a", "vscodeBrowserReqId"=>"1754185120648"}
+  [1m[36mProject Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects"[0m
+  ↳ app/controllers/public_dashboard_controller.rb:12:in `index'
+  [1m[36mUser Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/public_dashboard_controller.rb:13:in `index'
+  [1m[36mProject Count (1.6ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "projects"."category" AS "projects_category" FROM "projects" GROUP BY "projects"."category"[0m
+  ↳ app/controllers/public_dashboard_controller.rb:14:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering public_dashboard/index.html.slim within layouts/application
+  [1m[36mProject Load (1.0ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/views/public_dashboard/index.html.slim:42
+  Rendered public_dashboard/index.html.slim within layouts/application (Duration: 49.1ms | GC: 4.9ms)
+  [1m[36mConsentText Load (0.5ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 10.9ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.slim (Duration: 67.1ms | GC: 5.2ms)
+Completed 200 OK in 97ms (Views: 67.6ms | ActiveRecord: 2.6ms (6 queries, 1 cached) | GC: 6.2ms)
+
+
+Started GET "/users/sign_in?id=d98b3ec2-a1fc-4818-b7f8-d862cd5e738a&vscodeBrowserReqId=1754185257654" for ::1 at 2025-08-03 03:40:57 +0200
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"id"=>"d98b3ec2-a1fc-4818-b7f8-d862cd5e738a", "vscodeBrowserReqId"=>"1754185257654"}
+  Rendering layout layouts/application.html.slim
+  Rendering devise/sessions/new.html.slim within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper#devise_error_messages!` is deprecated and will be
+removed in the next major version.
+
+Devise now uses a partial under "devise/shared/error_messages" to display
+error messages by default, and make them easier to customize. Update your
+views changing calls from:
+
+    <%= devise_error_messages! %>
+
+to:
+
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+To start customizing how errors are displayed, you can copy the partial
+from devise to your `app/views` folder. Alternatively, you can run
+`rails g devise:views` which will copy all of them again to your app.
+ (called from block in _app_views_devise_sessions_new_html_slim__956298591411620080_48020 at /home/marcos/misApps/arqitet/app/views/devise/sessions/new.html.slim:5)
+  Rendered devise/sessions/new.html.slim within layouts/application (Duration: 86.5ms | GC: 23.8ms)
+  [1m[36mConsentText Load (1.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 15.9ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.slim (Duration: 111.9ms | GC: 24.2ms)
+Completed 200 OK in 137ms (Views: 122.4ms | ActiveRecord: 1.1ms (2 queries, 1 cached) | GC: 24.6ms)
+
+
+Started GET "/charts_test?id=d98b3ec2-a1fc-4818-b7f8-d862cd5e738a&vscodeBrowserReqId=1754185491236" for ::1 at 2025-08-03 03:44:51 +0200
+Processing by ChartsTestController#index as HTML
+  Parameters: {"id"=>"d98b3ec2-a1fc-4818-b7f8-d862cd5e738a", "vscodeBrowserReqId"=>"1754185491236"}
+  Rendering layout layouts/application.html.slim
+  Rendering charts_test/index.html.slim within layouts/application
+  Rendered charts_test/index.html.slim within layouts/application (Duration: 68.7ms | GC: 3.2ms)
+  Rendered layout layouts/application.html.slim (Duration: 69.5ms | GC: 3.2ms)
+Completed 500 Internal Server Error in 86ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 3.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `render_line_chart' for #<ActionView::Base:0x0000000001e410>):
+
+Causes:
+NoMethodError (undefined method `render_line_chart' for #<ActionView::Base:0x0000000001e410>)
+     5:   
+     6:   .mb-8
+     7:     h2.text-xl.font-bold.mb-4 Evolución de visitas y publicaciones
+     8:     = render_line_chart([{name: 'Visitas', data: @visits_per_month}, {name: 'Proyectos', data: @projects_per_month}], 'visits-evolution-chart', {height: 300})
+     9:   
+    10:   .mb-8
+    11:     h2.text-xl.font-bold.mb-4 Visitas por proyecto
+  
+app/views/charts_test/index.html.slim:8
+Started GET "/charts_test?id=d98b3ec2-a1fc-4818-b7f8-d862cd5e738a&vscodeBrowserReqId=1754185607867" for ::1 at 2025-08-03 03:46:47 +0200
+Processing by ChartsTestController#index as HTML
+  Parameters: {"id"=>"d98b3ec2-a1fc-4818-b7f8-d862cd5e738a", "vscodeBrowserReqId"=>"1754185607867"}
+  Rendering layout layouts/application.html.slim
+  Rendering charts_test/index.html.slim within layouts/application
+  Rendered charts_test/index.html.slim within layouts/application (Duration: 37.0ms | GC: 3.5ms)
+  [1m[36mConsentText Load (0.9ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 590.4ms | GC: 272.2ms)
+  Rendered layout layouts/application.html.slim (Duration: 726.3ms | GC: 284.5ms)
+Completed 200 OK in 747ms (Views: 717.7ms | ActiveRecord: 17.7ms (2 queries, 1 cached) | GC: 285.0ms)
+
+
+Started GET "/?id=d98b3ec2-a1fc-4818-b7f8-d862cd5e738a&vscodeBrowserReqId=1754185708554" for ::1 at 2025-08-03 03:48:28 +0200
+Processing by ApplicationController#index as HTML
+  Parameters: {"id"=>"d98b3ec2-a1fc-4818-b7f8-d862cd5e738a", "vscodeBrowserReqId"=>"1754185708554"}
+  Rendering layout layouts/application.html.slim
+  Rendering application/index.html.slim within layouts/application
+  [1m[36mProject Load (1.0ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+  ↳ app/views/application/index.html.slim:19
+  [1m[36mActiveStorage::Attachment Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  [1m[36mActiveStorage::Attachment Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  [1m[36mActiveStorage::Attachment Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 93.5ms | GC: 2.7ms)
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  [1m[36mActiveStorage::Attachment Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE User Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:12
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 308.1ms | GC: 7.9ms)
+  Rendered application/index.html.slim within layouts/application (Duration: 619.5ms | GC: 11.6ms)
+  [1m[36mConsentText Load (0.6ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 16.8ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.slim (Duration: 653.0ms | GC: 11.9ms)
+Completed 200 OK in 1016ms (Views: 635.6ms | ActiveRecord: 22.6ms (15 queries, 5 cached) | GC: 13.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-08-03 03:50:04 +0200
+Processing by ApplicationController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:9:in `index'
+Redirected to http://localhost:3000/dashboard
+Completed 302 Found in 405ms (ActiveRecord: 39.4ms (1 query, 0 cached) | GC: 2.8ms)
+
+
+Started GET "/dashboard" for 127.0.0.1 at 2025-08-03 03:50:06 +0200
+Processing by PublicDashboardController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:3:in `index'
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ? ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:5:in `map'
+  [1m[36mProject Sum (0.3ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:6:in `index'
+  [1m[36mCACHE Project Sum (0.1ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:7:in `index'
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:8:in `index'
+  [1m[36mProject Sum (0.6ms)[0m  [1m[34mSELECT SUM("projects"."visits") AS "sum_visits", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering public_dashboard/index.html.slim within layouts/application
+  Rendered public_dashboard/index.html.slim within layouts/application (Duration: 167.7ms | GC: 24.3ms)
+  [1m[36mConsentText Load (0.7ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 102.7ms | GC: 3.3ms)
+  [1m[36mConversation Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (1.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 643.1ms | GC: 33.5ms)
+Completed 200 OK in 997ms (Views: 644.5ms | ActiveRecord: 30.1ms (11 queries, 2 cached) | GC: 37.6ms)
+
+
+Started GET "/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MiwicHVyIjoiYmxvYl9pZCJ9fQ==--f42ccf9c47e06715412614db4369d50c7dea2489/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGVnIiwicmVzaXplX3RvX2xpbWl0IjpbNDgsNDhdfSwicHVyIjoidmFyaWF0aW9uIn19--84e14bba78ca6d321d3fbfc8914c37e504234bfb/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg" for 127.0.0.1 at 2025-08-03 03:50:08 +0200
+Processing by ActiveStorage::Representations::RedirectController#show as JPEG
+  Parameters: {"signed_blob_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MiwicHVyIjoiYmxvYl9pZCJ9fQ==--f42ccf9c47e06715412614db4369d50c7dea2489", "variation_key"=>"[FILTERED]", "filename"=>"Detail from medieval manuscript, British Library Stowe MS 17 'The Maastricht Hours', f139v"}
+  [1m[36mActiveStorage::Blob Load (3.9ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mActiveStorage::VariantRecord Load (3.1ms)[0m  [1m[34mSELECT "active_storage_variant_records".* FROM "active_storage_variant_records" WHERE "active_storage_variant_records"."blob_id" = ? AND "active_storage_variant_records"."variation_digest" = ? LIMIT ?[0m  [["blob_id", 2], ["variation_digest", "aIp3kWveCHIOlgC0vvp6BYxAt7o="], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "ActiveStorage::VariantRecord"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+[36m  Disk Storage (1.9ms) [0m[34mGenerated URL for file at key: vyj972l9es8ca2wegu9zfdhdbz7u (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ2eWo5NzJsOWVzOGNhMndlZ3U5emZkaGRiejd1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTowOC40NDZaIiwicHVyIjoiYmxvYl9rZXkifX0=--d709440704922c4eb8c604d9fa49d4a25e5e0974/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg)[0m
+Redirected to http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ2eWo5NzJsOWVzOGNhMndlZ3U5emZkaGRiejd1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTowOC40NDZaIiwicHVyIjoiYmxvYl9rZXkifX0=--d709440704922c4eb8c604d9fa49d4a25e5e0974/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg
+Completed 302 Found in 117ms (ActiveRecord: 5.9ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ2eWo5NzJsOWVzOGNhMndlZ3U5emZkaGRiejd1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTowOC40NDZaIiwicHVyIjoiYmxvYl9rZXkifX0=--d709440704922c4eb8c604d9fa49d4a25e5e0974/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg" for 127.0.0.1 at 2025-08-03 03:50:08 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"Detail from medieval manuscript, British Library Stowe MS 17 'The Maastricht Hours', f139v"}
+Completed 200 OK in 6ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-08-03 03:50:30 +0200
+Processing by ApplicationController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:9:in `index'
+Redirected to http://localhost:3000/dashboard
+Completed 302 Found in 6ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dashboard" for 127.0.0.1 at 2025-08-03 03:50:30 +0200
+Processing by PublicDashboardController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:3:in `index'
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ? ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:5:in `map'
+  [1m[36mProject Sum (0.1ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:6:in `index'
+  [1m[36mCACHE Project Sum (0.0ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:7:in `index'
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:8:in `index'
+  [1m[36mProject Sum (0.4ms)[0m  [1m[34mSELECT SUM("projects"."visits") AS "sum_visits", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering public_dashboard/index.html.slim within layouts/application
+  Rendered public_dashboard/index.html.slim within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 5.4ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 18.9ms | GC: 0.0ms)
+Completed 200 OK in 43ms (Views: 18.8ms | ActiveRecord: 2.2ms (11 queries, 2 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-08-03 03:50:31 +0200
+Processing by ApplicationController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:9:in `index'
+Redirected to http://localhost:3000/dashboard
+Completed 302 Found in 5ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dashboard" for 127.0.0.1 at 2025-08-03 03:50:31 +0200
+Processing by PublicDashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:3:in `index'
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ? ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:5:in `map'
+  [1m[36mProject Sum (0.2ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:6:in `index'
+  [1m[36mCACHE Project Sum (0.0ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:7:in `index'
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:8:in `index'
+  [1m[36mProject Sum (0.4ms)[0m  [1m[34mSELECT SUM("projects"."visits") AS "sum_visits", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering public_dashboard/index.html.slim within layouts/application
+  Rendered public_dashboard/index.html.slim within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 5.4ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 20.3ms | GC: 0.0ms)
+Completed 200 OK in 47ms (Views: 20.2ms | ActiveRecord: 2.3ms (11 queries, 2 cached) | GC: 0.0ms)
+
+
+Started POST "/consent_banner/accept" for 127.0.0.1 at 2025-08-03 03:50:34 +0200
+Processing by ConsentBannerController#accept as */*
+  Parameters: {"consent"=>{"version"=>"1754072717", "preferences"=>{"analytics"=>true, "marketing"=>true}}, "consent_banner"=>{"consent"=>{"version"=>"1754072717", "preferences"=>{"analytics"=>true, "marketing"=>true}}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/consent_banner_controller.rb:8:in `accept'
+  [1m[36mUser Update (2.6ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = ?, "consent_preferences" = ? WHERE "users"."id" = ?[0m  [["updated_at", "2025-08-03 01:50:34.733992"], ["consent_preferences", "{\"version\":\"1754072717\",\"preferences\":{\"analytics\":true,\"marketing\":true}}"], ["id", 1]]
+  ↳ app/controllers/consent_banner_controller.rb:8:in `accept'
+  [1m[36mTRANSACTION (6.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/consent_banner_controller.rb:8:in `accept'
+Completed 200 OK in 23ms (Views: 0.3ms | ActiveRecord: 9.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:50:39 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (1.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 72.2ms | GC: 26.2ms)
+  [1m[36mActiveStorage::Attachment Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 131.6ms | GC: 26.5ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 268.0ms | GC: 26.5ms)
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (0.3ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 8.6ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 304.8ms | GC: 27.5ms)
+Completed 200 OK in 313ms (Views: 298.5ms | ActiveRecord: 8.3ms (17 queries, 2 cached) | GC: 27.5ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MjYsInB1ciI6ImJsb2JfaWQifX0=--95a7e72c4578ad59f41d93249a5bc350e6ea46ed/denver.png" for 127.0.0.1 at 2025-08-03 03:50:39 +0200
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MjYsInB1ciI6ImJsb2JfaWQifX0=--95a7e72c4578ad59f41d93249a5bc350e6ea46ed", "filename"=>"denver"}
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MjQsInB1ciI6ImJsb2JfaWQifX0=--22a8ce977448efc0789c6b8eed307de8fd08d05d/edificio-moderno-de-una-casa.png" for 127.0.0.1 at 2025-08-03 03:50:39 +0200
+  [1m[36mActiveStorage::Blob Load (2.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+[36m  Disk Storage (1.3ms) [0m[34mGenerated URL for file at key: m2109sdyanvfr7rxrobluiqkimyq (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJtMjEwOXNkeWFudmZyN3J4cm9ibHVpcWtpbXlxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZGVudmVyLnBuZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ2RlbnZlci5wbmciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9wbmciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI1LTA4LTAzVDAxOjU1OjM5Ljk4MFoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--3fa75be4740d6bd8702a4a29793dadb843eff327/denver.png)[0m
+Redirected to http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJtMjEwOXNkeWFudmZyN3J4cm9ibHVpcWtpbXlxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZGVudmVyLnBuZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ2RlbnZlci5wbmciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9wbmciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI1LTA4LTAzVDAxOjU1OjM5Ljk4MFoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--3fa75be4740d6bd8702a4a29793dadb843eff327/denver.png
+Completed 302 Found in 37ms (ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 1.0ms)
+
+
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MjQsInB1ciI6ImJsb2JfaWQifX0=--22a8ce977448efc0789c6b8eed307de8fd08d05d", "filename"=>"edificio-moderno-de-una-casa"}
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+[36m  Disk Storage (0.9ms) [0m[34mGenerated URL for file at key: hm6l3wgves8a9p223e9u4agte2ns (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJobTZsM3dndmVzOGE5cDIyM2U5dTRhZ3RlMm5zIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZWRpZmljaW8tbW9kZXJuby1kZS11bmEtY2FzYS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydlZGlmaWNpby1tb2Rlcm5vLWRlLXVuYS1jYXNhLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMDNUMDE6NTU6NDAuMDE2WiIsInB1ciI6ImJsb2Jfa2V5In19--96050a511bf478eef8cc4f9638182b584eb22b4a/edificio-moderno-de-una-casa.png)[0m
+Redirected to http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJobTZsM3dndmVzOGE5cDIyM2U5dTRhZ3RlMm5zIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZWRpZmljaW8tbW9kZXJuby1kZS11bmEtY2FzYS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydlZGlmaWNpby1tb2Rlcm5vLWRlLXVuYS1jYXNhLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMDNUMDE6NTU6NDAuMDE2WiIsInB1ciI6ImJsb2Jfa2V5In19--96050a511bf478eef8cc4f9638182b584eb22b4a/edificio-moderno-de-una-casa.png
+Completed 302 Found in 17ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJtMjEwOXNkeWFudmZyN3J4cm9ibHVpcWtpbXlxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZGVudmVyLnBuZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ2RlbnZlci5wbmciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9wbmciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI1LTA4LTAzVDAxOjU1OjM5Ljk4MFoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--3fa75be4740d6bd8702a4a29793dadb843eff327/denver.png" for 127.0.0.1 at 2025-08-03 03:50:40 +0200
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJobTZsM3dndmVzOGE5cDIyM2U5dTRhZ3RlMm5zIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZWRpZmljaW8tbW9kZXJuby1kZS11bmEtY2FzYS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydlZGlmaWNpby1tb2Rlcm5vLWRlLXVuYS1jYXNhLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMDNUMDE6NTU6NDAuMDE2WiIsInB1ciI6ImJsb2Jfa2V5In19--96050a511bf478eef8cc4f9638182b584eb22b4a/edificio-moderno-de-una-casa.png" for 127.0.0.1 at 2025-08-03 03:50:40 +0200
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"edificio-moderno-de-una-casa"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"denver"}
+Completed 200 OK in 3ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2025-08-03 03:50:42 +0200
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:5:in `index'
+  [1m[36mUser Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "users"."created_at") AS "strftime_y_m_01_users_created_at" FROM "users" WHERE ("users"."created_at" >= ? AND "users"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "users"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:6:in `index'
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "projects"."category" AS "projects_category" FROM "projects" GROUP BY "projects"."category"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:7:in `index'
+  [1m[36mUser Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."role" AS "users_role" FROM "users" GROUP BY "users"."role"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:8:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT("projects"."id") AS "count_projects_id", "users"."id" AS "users_id", "users"."full_name" AS "users_full_name" FROM "users" INNER JOIN "projects" ON "projects"."user_id" = "users"."id" GROUP BY "users"."id", "users"."full_name" ORDER BY COUNT(projects.id) DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/controllers/admin/dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering admin/dashboard/index.html.slim within layouts/application
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 5.8ms | GC: 0.3ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 4.2ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 25.1ms | GC: 1.8ms)
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.6ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.1ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 1.7ms | GC: 0.0ms)
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."visits" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/views/admin/dashboard/index.html.slim:39
+  Rendered admin/_admin_page_wrapper.html.slim (Duration: 10.5ms | GC: 0.6ms)
+  Rendered admin/dashboard/index.html.slim within layouts/application (Duration: 66.5ms | GC: 4.9ms)
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 5.0ms | GC: 0.2ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 83.8ms | GC: 5.3ms)
+Completed 200 OK in 131ms (Views: 85.1ms | ActiveRecord: 3.5ms (12 queries, 1 cached) | GC: 6.1ms)
+
+
+Started GET "/users/usuario-demo" for 127.0.0.1 at 2025-08-03 03:50:43 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"usuario-demo"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."slug" = ? LIMIT ?[0m  [["slug", "usuario-demo"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:26:in `set_user'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `show'
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ? ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:9:in `map'
+  Rendering layout layouts/application.html.slim
+  Rendering users/show.html.slim within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.slim:7
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.slim:8
+  [1m[36mProject Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" WHERE "projects"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.slim:17
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/views/users/show.html.slim:20
+  Rendered users/show.html.slim within layouts/application (Duration: 34.5ms | GC: 2.1ms)
+  [1m[36mConsentText Load (0.4ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 5.9ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mCACHE ActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 57.2ms | GC: 2.6ms)
+Completed 200 OK in 75ms (Views: 57.9ms | ActiveRecord: 2.9ms (12 queries, 3 cached) | GC: 3.5ms)
+
+
+Started GET "/users/usuario-demo" for 127.0.0.1 at 2025-08-03 03:50:47 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"usuario-demo"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."slug" = ? LIMIT ?[0m  [["slug", "usuario-demo"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:26:in `set_user'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `show'
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ? ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:9:in `map'
+  Rendering layout layouts/application.html.slim
+  Rendering users/show.html.slim within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.slim:7
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.slim:8
+  [1m[36mProject Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" WHERE "projects"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.slim:17
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/views/users/show.html.slim:20
+  Rendered users/show.html.slim within layouts/application (Duration: 28.3ms | GC: 0.4ms)
+  [1m[36mConsentText Load (0.3ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 7.2ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mCACHE ActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 54.6ms | GC: 1.4ms)
+Completed 200 OK in 76ms (Views: 53.9ms | ActiveRecord: 2.9ms (12 queries, 3 cached) | GC: 1.8ms)
+
+
+Started GET "/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MiwicHVyIjoiYmxvYl9pZCJ9fQ==--f42ccf9c47e06715412614db4369d50c7dea2489/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGVnIiwicmVzaXplX3RvX2xpbWl0IjpbMTAwLDEwMF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--f491bdb36bab6ff72537393e4447a4688c54ee4c/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg" for 127.0.0.1 at 2025-08-03 03:50:47 +0200
+Processing by ActiveStorage::Representations::RedirectController#show as JPEG
+  Parameters: {"signed_blob_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MiwicHVyIjoiYmxvYl9pZCJ9fQ==--f42ccf9c47e06715412614db4369d50c7dea2489", "variation_key"=>"[FILTERED]", "filename"=>"Detail from medieval manuscript, British Library Stowe MS 17 'The Maastricht Hours', f139v"}
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mActiveStorage::VariantRecord Load (0.3ms)[0m  [1m[34mSELECT "active_storage_variant_records".* FROM "active_storage_variant_records" WHERE "active_storage_variant_records"."blob_id" = ? AND "active_storage_variant_records"."variation_digest" = ? LIMIT ?[0m  [["blob_id", 2], ["variation_digest", "6/MbmLdOctrj7ukuFyVm7nWShm4="], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "ActiveStorage::VariantRecord"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[36m  Disk Storage (2.1ms) [0m[34mGenerated URL for file at key: bb1ic2ts04mhf7lpvuyd6u5xorqu (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJiYjFpYzJ0czA0bWhmN2xwdnV5ZDZ1NXhvcnF1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTo0OC4wMDFaIiwicHVyIjoiYmxvYl9rZXkifX0=--e1198395e99835931f68477078de212389909289/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg)[0m
+Redirected to http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJiYjFpYzJ0czA0bWhmN2xwdnV5ZDZ1NXhvcnF1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTo0OC4wMDFaIiwicHVyIjoiYmxvYl9rZXkifX0=--e1198395e99835931f68477078de212389909289/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg
+Completed 302 Found in 33ms (ActiveRecord: 1.3ms (4 queries, 0 cached) | GC: 1.5ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJiYjFpYzJ0czA0bWhmN2xwdnV5ZDZ1NXhvcnF1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTo0OC4wMDFaIiwicHVyIjoiYmxvYl9rZXkifX0=--e1198395e99835931f68477078de212389909289/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg" for 127.0.0.1 at 2025-08-03 03:50:48 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"Detail from medieval manuscript, British Library Stowe MS 17 'The Maastricht Hours', f139v"}
+Completed 200 OK in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2025-08-03 03:50:49 +0200
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:5:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "users"."created_at") AS "strftime_y_m_01_users_created_at" FROM "users" WHERE ("users"."created_at" >= ? AND "users"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "users"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:6:in `index'
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "projects"."category" AS "projects_category" FROM "projects" GROUP BY "projects"."category"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:7:in `index'
+  [1m[36mUser Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."role" AS "users_role" FROM "users" GROUP BY "users"."role"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:8:in `index'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT("projects"."id") AS "count_projects_id", "users"."id" AS "users_id", "users"."full_name" AS "users_full_name" FROM "users" INNER JOIN "projects" ON "projects"."user_id" = "users"."id" GROUP BY "users"."id", "users"."full_name" ORDER BY COUNT(projects.id) DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/controllers/admin/dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering admin/dashboard/index.html.slim within layouts/application
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.9ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.3ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 4.8ms | GC: 0.0ms)
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.9ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.3ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 2.7ms | GC: 0.0ms)
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."visits" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/views/admin/dashboard/index.html.slim:39
+  Rendered admin/_admin_page_wrapper.html.slim (Duration: 13.2ms | GC: 0.4ms)
+  Rendered admin/dashboard/index.html.slim within layouts/application (Duration: 19.6ms | GC: 0.4ms)
+  [1m[36mConsentText Load (0.7ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 13.7ms | GC: 0.3ms)
+  [1m[36mConversation Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 54.6ms | GC: 1.0ms)
+Completed 200 OK in 105ms (Views: 53.9ms | ActiveRecord: 5.0ms (12 queries, 1 cached) | GC: 2.7ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:50:50 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 18.8ms | GC: 0.2ms)
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 44.5ms | GC: 0.7ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 61.4ms | GC: 1.1ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 5.9ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 88.0ms | GC: 1.9ms)
+Completed 200 OK in 92ms (Views: 84.6ms | ActiveRecord: 4.2ms (17 queries, 2 cached) | GC: 1.9ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2025-08-03 03:51:07 +0200
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:5:in `index'
+  [1m[36mUser Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "users"."created_at") AS "strftime_y_m_01_users_created_at" FROM "users" WHERE ("users"."created_at" >= ? AND "users"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "users"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:6:in `index'
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "projects"."category" AS "projects_category" FROM "projects" GROUP BY "projects"."category"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:7:in `index'
+  [1m[36mUser Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."role" AS "users_role" FROM "users" GROUP BY "users"."role"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:8:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT("projects"."id") AS "count_projects_id", "users"."id" AS "users_id", "users"."full_name" AS "users_full_name" FROM "users" INNER JOIN "projects" ON "projects"."user_id" = "users"."id" GROUP BY "users"."id", "users"."full_name" ORDER BY COUNT(projects.id) DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/controllers/admin/dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering admin/dashboard/index.html.slim within layouts/application
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.8ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.3ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 3.3ms | GC: 0.0ms)
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.9ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.2ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 2.6ms | GC: 0.0ms)
+  [1m[36mProject Load (0.6ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."visits" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/views/admin/dashboard/index.html.slim:39
+  Rendered admin/_admin_page_wrapper.html.slim (Duration: 7.8ms | GC: 0.9ms)
+  Rendered admin/dashboard/index.html.slim within layouts/application (Duration: 12.7ms | GC: 0.9ms)
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 4.6ms | GC: 0.3ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 32.3ms | GC: 1.6ms)
+Completed 200 OK in 76ms (Views: 31.7ms | ActiveRecord: 3.5ms (12 queries, 1 cached) | GC: 14.1ms)
+
+
+Started GET "/admin/consent_texts" for 127.0.0.1 at 2025-08-03 03:51:22 +0200
+  
+Zeitwerk::NameError (expected file /home/marcos/misApps/arqitet/app/controllers/admin/application_controller.rb to define constant Admin::ApplicationController, but didn't
+
+      raise Zeitwerk::NameError.new(msg, cref.cname)
+      ^^^^^):
+  
+app/controllers/admin/consent_texts_controller.rb:2:in `<module:Admin>'
+app/controllers/admin/consent_texts_controller.rb:1:in `<main>'
+Started GET "/admin" for 127.0.0.1 at 2025-08-03 03:51:26 +0200
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProject Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:5:in `index'
+  [1m[36mUser Count (3.8ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "users"."created_at") AS "strftime_y_m_01_users_created_at" FROM "users" WHERE ("users"."created_at" >= ? AND "users"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "users"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:6:in `index'
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "projects"."category" AS "projects_category" FROM "projects" GROUP BY "projects"."category"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:7:in `index'
+  [1m[36mUser Count (7.5ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."role" AS "users_role" FROM "users" GROUP BY "users"."role"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:8:in `index'
+  [1m[36mUser Count (9.9ms)[0m  [1m[34mSELECT COUNT("projects"."id") AS "count_projects_id", "users"."id" AS "users_id", "users"."full_name" AS "users_full_name" FROM "users" INNER JOIN "projects" ON "projects"."user_id" = "users"."id" GROUP BY "users"."id", "users"."full_name" ORDER BY COUNT(projects.id) DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/controllers/admin/dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering admin/dashboard/index.html.slim within layouts/application
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 4.0ms | GC: 0.5ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.5ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 14.2ms | GC: 0.5ms)
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 3.0ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.3ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 9.0ms | GC: 0.0ms)
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."visits" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/views/admin/dashboard/index.html.slim:39
+  Rendered admin/_admin_page_wrapper.html.slim (Duration: 24.6ms | GC: 0.0ms)
+  Rendered admin/dashboard/index.html.slim within layouts/application (Duration: 42.6ms | GC: 0.5ms)
+  [1m[36mConsentText Load (0.3ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 21.1ms | GC: 0.5ms)
+  [1m[36mConversation Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 106.6ms | GC: 2.2ms)
+Completed 200 OK in 279ms (Views: 106.2ms | ActiveRecord: 24.9ms (12 queries, 1 cached) | GC: 4.9ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ2eWo5NzJsOWVzOGNhMndlZ3U5emZkaGRiejd1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTowOC40NDZaIiwicHVyIjoiYmxvYl9rZXkifX0=--d709440704922c4eb8c604d9fa49d4a25e5e0974/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg" for 127.0.0.1 at 2025-08-03 03:51:27 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"Detail from medieval manuscript, British Library Stowe MS 17 'The Maastricht Hours', f139v"}
+Completed 304 Not Modified in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:51:27 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 27.6ms | GC: 1.0ms)
+  [1m[36mActiveStorage::Attachment Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 61.2ms | GC: 2.0ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 86.7ms | GC: 3.1ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 6.5ms | GC: 0.4ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 116.9ms | GC: 4.0ms)
+Completed 200 OK in 122ms (Views: 114.2ms | ActiveRecord: 4.5ms (17 queries, 2 cached) | GC: 4.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ2eWo5NzJsOWVzOGNhMndlZ3U5emZkaGRiejd1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiRGV0YWlsIGZyb20gbWVkaWV2YWwgbWFudXNjcmlwdCUyQyBCcml0aXNoIExpYnJhcnkgU3Rvd2UgTVMgMTcgJTI3VGhlIE1hYXN0cmljaHQgSG91cnMlMjclMkMgZjEzOXYuanBlZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ0RldGFpbCUyMGZyb20lMjBtZWRpZXZhbCUyMG1hbnVzY3JpcHQlMkMlMjBCcml0aXNoJTIwTGlicmFyeSUyMFN0b3dlJTIwTVMlMjAxNyUyMCUyN1RoZSUyME1hYXN0cmljaHQlMjBIb3VycyUyNyUyQyUyMGYxMzl2LmpwZWciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9qcGVnIiwic2VydmljZV9uYW1lIjoibG9jYWwifSwiZXhwIjoiMjAyNS0wOC0wM1QwMTo1NTowOC40NDZaIiwicHVyIjoiYmxvYl9rZXkifX0=--d709440704922c4eb8c604d9fa49d4a25e5e0974/Detail%20from%20medieval%20manuscript,%20British%20Library%20Stowe%20MS%2017%20'The%20Maastricht%20Hours',%20f139v.jpeg" for 127.0.0.1 at 2025-08-03 03:51:28 +0200
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJobTZsM3dndmVzOGE5cDIyM2U5dTRhZ3RlMm5zIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZWRpZmljaW8tbW9kZXJuby1kZS11bmEtY2FzYS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydlZGlmaWNpby1tb2Rlcm5vLWRlLXVuYS1jYXNhLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMDNUMDE6NTU6NDAuMDE2WiIsInB1ciI6ImJsb2Jfa2V5In19--96050a511bf478eef8cc4f9638182b584eb22b4a/edificio-moderno-de-una-casa.png" for 127.0.0.1 at 2025-08-03 03:51:28 +0200
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJtMjEwOXNkeWFudmZyN3J4cm9ibHVpcWtpbXlxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiZGVudmVyLnBuZ1wiOyBmaWxlbmFtZSo9VVRGLTgnJ2RlbnZlci5wbmciLCJjb250ZW50X3R5cGUiOiJpbWFnZS9wbmciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI1LTA4LTAzVDAxOjU1OjM5Ljk4MFoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--3fa75be4740d6bd8702a4a29793dadb843eff327/denver.png" for 127.0.0.1 at 2025-08-03 03:51:28 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"Detail from medieval manuscript, British Library Stowe MS 17 'The Maastricht Hours', f139v"}
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"edificio-moderno-de-una-casa"}
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"denver"}
+Completed 304 Not Modified in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Completed 304 Not Modified in 6ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Completed 304 Not Modified in 4ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:51:31 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 26.0ms | GC: 0.6ms)
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 48.4ms | GC: 1.9ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 64.2ms | GC: 2.9ms)
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 7.5ms | GC: 0.5ms)
+  [1m[36mConversation Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 95.5ms | GC: 3.6ms)
+Completed 200 OK in 100ms (Views: 92.5ms | ActiveRecord: 4.1ms (17 queries, 2 cached) | GC: 3.6ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:51:33 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 17.0ms | GC: 0.7ms)
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 44.4ms | GC: 1.5ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 61.0ms | GC: 2.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (0.3ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 7.3ms | GC: 0.5ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 85.4ms | GC: 3.4ms)
+Completed 200 OK in 89ms (Views: 81.7ms | ActiveRecord: 5.1ms (17 queries, 2 cached) | GC: 3.4ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2025-08-03 03:51:34 +0200
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProject Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:5:in `index'
+  [1m[36mUser Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "users"."created_at") AS "strftime_y_m_01_users_created_at" FROM "users" WHERE ("users"."created_at" >= ? AND "users"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "users"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:6:in `index'
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "projects"."category" AS "projects_category" FROM "projects" GROUP BY "projects"."category"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:7:in `index'
+  [1m[36mUser Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."role" AS "users_role" FROM "users" GROUP BY "users"."role"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:8:in `index'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT("projects"."id") AS "count_projects_id", "users"."id" AS "users_id", "users"."full_name" AS "users_full_name" FROM "users" INNER JOIN "projects" ON "projects"."user_id" = "users"."id" GROUP BY "users"."id", "users"."full_name" ORDER BY COUNT(projects.id) DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/controllers/admin/dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering admin/dashboard/index.html.slim within layouts/application
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.8ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.2ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 2.3ms | GC: 0.0ms)
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 1.0ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.2ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 2.4ms | GC: 0.0ms)
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."visits" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/views/admin/dashboard/index.html.slim:39
+  Rendered admin/_admin_page_wrapper.html.slim (Duration: 7.4ms | GC: 0.5ms)
+  Rendered admin/dashboard/index.html.slim within layouts/application (Duration: 10.5ms | GC: 0.5ms)
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 6.9ms | GC: 0.5ms)
+  [1m[36mConversation Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 38.2ms | GC: 1.7ms)
+Completed 200 OK in 72ms (Views: 37.0ms | ActiveRecord: 4.8ms (12 queries, 1 cached) | GC: 3.9ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:51:35 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 24.0ms | GC: 0.3ms)
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 58.2ms | GC: 1.2ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 93.3ms | GC: 2.0ms)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (0.3ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 7.2ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 137.9ms | GC: 2.7ms)
+Completed 200 OK in 144ms (Views: 134.5ms | ActiveRecord: 5.0ms (17 queries, 2 cached) | GC: 2.7ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2025-08-03 03:51:37 +0200
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:5:in `index'
+  [1m[36mUser Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "users"."created_at") AS "strftime_y_m_01_users_created_at" FROM "users" WHERE ("users"."created_at" >= ? AND "users"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "users"."created_at")[0m  [[nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/admin/dashboard_controller.rb:6:in `index'
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "projects"."category" AS "projects_category" FROM "projects" GROUP BY "projects"."category"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:7:in `index'
+  [1m[36mUser Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."role" AS "users_role" FROM "users" GROUP BY "users"."role"[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:8:in `index'
+  [1m[36mUser Count (0.5ms)[0m  [1m[34mSELECT COUNT("projects"."id") AS "count_projects_id", "users"."id" AS "users_id", "users"."full_name" AS "users_full_name" FROM "users" INNER JOIN "projects" ON "projects"."user_id" = "users"."id" GROUP BY "users"."id", "users"."full_name" ORDER BY COUNT(projects.id) DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/controllers/admin/dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering admin/dashboard/index.html.slim within layouts/application
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.8ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.2ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 2.3ms | GC: 0.0ms)
+  Rendered admin/_maintenance_toggle_button.html.slim (Duration: 0.8ms | GC: 0.0ms)
+  Rendered admin/_sidebar_consent_texts.html.slim (Duration: 0.2ms | GC: 0.0ms)
+  Rendered admin/_sidebar.html.slim (Duration: 2.1ms | GC: 0.0ms)
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."visits" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  ↳ app/views/admin/dashboard/index.html.slim:39
+  Rendered admin/_admin_page_wrapper.html.slim (Duration: 7.0ms | GC: 0.3ms)
+  Rendered admin/dashboard/index.html.slim within layouts/application (Duration: 10.2ms | GC: 0.3ms)
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 6.5ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 33.3ms | GC: 1.2ms)
+Completed 200 OK in 68ms (Views: 32.9ms | ActiveRecord: 3.5ms (12 queries, 1 cached) | GC: 2.6ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:51:39 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (2.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 43.8ms | GC: 0.5ms)
+  [1m[36mActiveStorage::Attachment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 111.8ms | GC: 1.4ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 151.8ms | GC: 2.2ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (3.6ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 13.6ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 200.5ms | GC: 2.9ms)
+Completed 200 OK in 213ms (Views: 188.6ms | ActiveRecord: 13.6ms (17 queries, 2 cached) | GC: 3.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-08-03 03:51:41 +0200
+Processing by ApplicationController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:9:in `index'
+Redirected to http://localhost:3000/dashboard
+Completed 302 Found in 7ms (ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/dashboard" for 127.0.0.1 at 2025-08-03 03:51:41 +0200
+Processing by PublicDashboardController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:3:in `index'
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."user_id" = ? ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:5:in `map'
+  [1m[36mProject Sum (0.1ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:6:in `index'
+  [1m[36mCACHE Project Sum (0.1ms)[0m  [1m[34mSELECT SUM("projects"."visits") FROM "projects" WHERE "projects"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/public_dashboard_controller.rb:7:in `index'
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:8:in `index'
+  [1m[36mProject Sum (0.3ms)[0m  [1m[34mSELECT SUM("projects"."visits") AS "sum_visits", strftime('%Y-%m-01', "projects"."created_at") AS "strftime_y_m_01_projects_created_at" FROM "projects" WHERE "projects"."user_id" = ? AND ("projects"."created_at" >= ? AND "projects"."created_at" < ?) GROUP BY strftime('%Y-%m-01', "projects"."created_at") ORDER BY "projects"."created_at" DESC[0m  [["user_id", 1], [nil, "2024-09-01 00:00:00"], [nil, "2025-09-01 00:00:00"]]
+  ↳ app/controllers/public_dashboard_controller.rb:9:in `index'
+  Rendering layout layouts/application.html.slim
+  Rendering public_dashboard/index.html.slim within layouts/application
+  Rendered public_dashboard/index.html.slim within layouts/application (Duration: 0.7ms | GC: 0.0ms)
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.1ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 5.9ms | GC: 0.4ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (7.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 28.1ms | GC: 7.6ms)
+Completed 200 OK in 51ms (Views: 20.6ms | ActiveRecord: 9.8ms (11 queries, 2 cached) | GC: 8.4ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2025-08-03 03:51:58 +0200
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.slim
+  Rendering projects/index.html.slim within layouts/application
+  [1m[36mProject Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "projects" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:20
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY "projects"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 9], ["OFFSET", 0]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/projects/index.html.slim:22
+  [1m[36mActiveStorage::Attachment Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mCACHE ActiveStorage::Attachment Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:3
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ?[0m  [["record_id", 3], ["record_type", "Project"], ["name", "images"]]
+  ↳ app/views/shared/_image_carousel.html.slim:8
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  ↳ app/views/shared/_image_carousel.html.slim:10
+  Rendered shared/_image_carousel.html.slim (Duration: 13.0ms | GC: 0.7ms)
+  [1m[36mActiveStorage::Attachment Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  [1m[36mActiveStorage::Attachment Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Project"], ["name", "images"], ["LIMIT", 1]]
+  ↳ app/views/projects/_project.html.slim:3
+  Rendered collection of projects/_project.html.slim [4 times] (Duration: 28.7ms | GC: 1.6ms)
+  Rendered projects/index.html.slim within layouts/application (Duration: 39.7ms | GC: 2.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:21
+  [1m[36mConsentText Load (0.2ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/shared/_consent_banner.html.slim:1
+  [1m[36mCACHE ConsentText Load (0.0ms)[0m  [1m[34mSELECT "consent_texts".* FROM "consent_texts" ORDER BY "consent_texts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/helpers/consent_helper.rb:14:in `show_consent_banner?'
+  Rendered shared/_consent_banner.html.slim (Duration: 5.1ms | GC: 0.0ms)
+  [1m[36mConversation Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "conversations" WHERE (sender_id = ? OR recipient_id = ?) LIMIT ?[0m  [[nil, 1], [nil, 1], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:47
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:59
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.slim:61
+  Rendered layout layouts/application.html.slim (Duration: 62.0ms | GC: 3.7ms)
+Completed 200 OK in 65ms (Views: 59.6ms | ActiveRecord: 3.1ms (17 queries, 2 cached) | GC: 3.7ms)
+
+
+- Gracefully stopping, waiting for requests to finish
+Exiting

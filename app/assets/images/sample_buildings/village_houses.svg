@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" class="w-full h-full">
+  <defs>
+    <linearGradient id="skyGradient4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D1FAE5;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="villageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D97706;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="400" height="600" fill="url(#skyGradient4)"/>
+  
+  <!-- Mountains in background -->
+  <polygon points="0,300 100,200 200,250 300,180 400,220 400,600 0,600" fill="#6B7280" opacity="0.6"/>
+  
+  <!-- House 1 -->
+  <rect x="50" y="450" width="80" height="150" fill="url(#villageGradient)"/>
+  <polygon points="40,450 90,380 140,450" fill="#DC2626"/>
+  <rect x="70" y="520" width="15" height="25" fill="#8B4513"/>
+  <rect x="100" y="500" width="20" height="20" fill="#60A5FA"/>
+  
+  <!-- House 2 -->
+  <rect x="150" y="430" width="70" height="170" fill="#8B5CF6"/>
+  <polygon points="140,430 185,370 230,430" fill="#7C3AED"/>
+  <rect x="170" y="510" width="12" height="20" fill="#8B4513"/>
+  <rect x="190" y="480" width="15" height="15" fill="#60A5FA"/>
+  
+  <!-- House 3 -->
+  <rect x="240" y="460" width="90" height="140" fill="#EF4444"/>
+  <polygon points="230,460 285,390 340,460" fill="#DC2626"/>
+  <rect x="265" y="530" width="18" height="30" fill="#8B4513"/>
+  <rect x="295" y="500" width="18" height="18" fill="#60A5FA"/>
+  <rect x="250" y="510" width="15" height="15" fill="#60A5FA"/>
+  
+  <!-- Trees -->
+  <circle cx="30" cy="520" r="20" fill="#22C55E"/>
+  <rect x="27" y="520" width="6" height="30" fill="#8B4513"/>
+  
+  <circle cx="350" cy="510" r="25" fill="#22C55E"/>
+  <rect x="347" y="510" width="6" height="35" fill="#8B4513"/>
+  
+  <circle cx="120" cy="400" r="15" fill="#22C55E"/>
+  <rect x="117" y="400" width="6" height="25" fill="#8B4513"/>
+  
+  <!-- Path -->
+  <path d="M 0 580 Q 100 570 200 575 Q 300 580 400 570" stroke="#A3A3A3" stroke-width="8" fill="none"/>
+  
+  <!-- Flowers -->
+  <circle cx="80" cy="570" r="3" fill="#F59E0B"/>
+  <circle cx="160" cy="575" r="3" fill="#EF4444"/>
+  <circle cx="290" cy="572" r="3" fill="#8B5CF6"/>
+</svg>

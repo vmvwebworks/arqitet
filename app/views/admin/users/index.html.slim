@@ -1,0 +1,9 @@
+- content_for :title do
+  | Usuarios
+= render 'admin/admin_page_wrapper' do
+  = render 'admin/filters', filter_fields: @filter_fields
+  = render 'admin/admin_new_button', label: 'Nuevo Usuario', path: new_admin_user_path
+  = render 'admin/admin_table',
+      headers: ['Email', 'Nombre', 'Rol', 'Acciones'],
+      rows: @rows,
+      actions: @actions

@@ -1,0 +1,20 @@
+= form_with model: [:admin, user], local: true, class: 'flex flex-col gap-6' do |f|
+  .grid.grid-cols-1.md:grid-cols-3.gap-6
+    .flex.flex-col.gap-2
+      = f.label :email, 'Email', class: 'text-sm font-semibold text-gray-700'
+      = f.email_field :email, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg'
+    .flex.flex-col.gap-2
+      = f.label :name, 'Nombre', class: 'text-sm font-semibold text-gray-700'
+      = f.text_field :name, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg'
+    .flex.flex-col.gap-2
+      = f.label :role, 'Rol', class: 'text-sm font-semibold text-gray-700'
+      = f.select :role, [['Admin', 'admin'], ['Usuario', 'user']], {}, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 border-0 shadow-none text-lg'
+  .grid.grid-cols-1.md:grid-cols-2.gap-6
+    .flex.flex-col.gap-2
+      = f.label :password, 'Contraseña', class: 'text-sm font-semibold text-gray-700'
+      = f.password_field :password, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg', autocomplete: 'new-password'
+    .flex.flex-col.gap-2
+      = f.label :password_confirmation, 'Confirmar contraseña', class: 'text-sm font-semibold text-gray-700'
+      = f.password_field :password_confirmation, class: 'rounded-xl px-6 py-5 w-full focus:ring-2 focus:ring-gray-400 focus:outline-none bg-neutral-200 text-gray-900 placeholder:text-gray-500 border-0 shadow-none text-lg', autocomplete: 'new-password'
+  .flex.items-center.gap-4.mt-8
+    = f.submit 'Guardar cambios', class: 'rounded-lg px-6 py-3 bg-gray-700 hover:bg-gray-900 text-white font-semibold transition cursor-pointer'

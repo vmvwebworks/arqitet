@@ -1,0 +1,24 @@
+- content_for :title, "Prueba de Gráficos"
+
+.max-w-4xl.mx-auto.mt-12.bg-white/80.p-10.rounded-2xl
+  h1.text-3xl.font-bold.mb-8.text-gray-800 Prueba de Gráficos con ApexCharts
+  
+  .mb-8
+    h2.text-xl.font-bold.mb-4 Evolución de visitas y publicaciones
+    = render_line_chart([{name: 'Visitas', data: @visits_per_month}, {name: 'Proyectos', data: @projects_per_month}], 'visits-evolution-chart', {height: 300})
+  
+  .mb-8
+    h2.text-xl.font-bold.mb-4 Visitas por proyecto
+    = render_bar_chart(@visits_by_project, 'visits-by-project-chart', {height: 300})
+    
+  .mb-8
+    h2.text-xl.font-bold.mb-4 Estado de implementación
+    .bg-green-100.border-l-4.border-green-500.text-green-700.p-4
+      h3.font-bold ✅ Completado:
+      ul.mt-2.ml-4.list-disc
+        li ApexCharts integrado correctamente
+        li Controlador Stimulus funcionando
+        li Helper ChartsHelper implementado
+        li Gráficos de línea y barras renderizando
+        li Assets compilados y libres de errores
+        li Splide.js configurado para carruseles
