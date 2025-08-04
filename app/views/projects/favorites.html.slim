@@ -1,0 +1,30 @@
+main.flex-grow
+  .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+    .mb-8
+      h1.text-3xl.font-bold.text-gray-800.mb-2
+        | Favoritos de #{@user.full_name}
+      - if @is_own_favorites
+        p.text-gray-600 Proyectos que has marcado como favoritos
+      - else
+        p.text-gray-600 Proyectos favoritos de #{@user.full_name}
+    
+    - if @projects.any?
+      .grid.gap-8.md:grid-cols-2.lg:grid-cols-3
+        - @projects.each do |project|
+          = render 'projects/project', project: project
+      
+      / Paginación
+      - if @projects.respond_to?(:current_page)
+        .mt-12.flex.justify-center
+          = paginate @projects
+    - else
+      .text-center.py-16
+        svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+        - if @is_own_favorites
+          h3.text-xl.font-semibold.text-gray-700.mb-2 Aún no tienes favoritos
+          p.text-gray-500.mb-6 Explora proyectos y marca los que más te gusten como favoritos
+          = link_to "Explorar Proyectos", projects_path, class: "px-6 py-3 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-700 transition"
+        - else
+          h3.text-xl.font-semibold.text-gray-700.mb-2 #{@user.full_name} aún no tiene favoritos
+          p.text-gray-500 Este usuario no ha marcado ningún proyecto como favorito

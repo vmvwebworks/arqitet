@@ -36,6 +36,29 @@ class ProjectsController < ApplicationController
     render :index
   end
 
+  # GET /:username/favoritos
+  def my_favorites
+    if params[:username].present?
+      # Vista pública de los proyectos favoritos de un usuario específico por su slug
+      @user = User.friendly.find(params[:username])
+      @projects = @user.favorite_projects.includes(:user, images_attachments: :blob).order(created_at: :desc)
+      @is_favorites_page = true
+      @is_own_favorites = user_signed_in? && current_user == @user
+    else
+      # Fallback - redirigir al usuario autenticado
+      authenticate_user!
+      redirect_to user_favorites_path(current_user.slug)
+      return
+    end
+
+    if params[:query].present?
+      q = params[:query].downcase
+      @projects = @projects.where("lower(title) LIKE :q OR lower(description) LIKE :q OR lower(category) LIKE :q OR lower(location) LIKE :q", q: "%#{q}%")
+    end
+    @projects = @projects.page(params[:page]).per(12)
+    render :favorites
+  end
+
   # GET /projects/1 or /projects/1.json
   def show
     @project.increment_visits!

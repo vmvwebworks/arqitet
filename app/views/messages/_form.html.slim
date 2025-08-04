@@ -1,7 +1,7 @@
 = form_with model: [conversation, message], local: false, data: { turbo: true }, class: "space-y-4" do |f|
   / Campo de texto estilo app
   div
-    = f.text_area :body, rows: 3, placeholder: 'Escribe tu mensaje...', class: 'w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 resize-none'
+    = f.text_area :body, rows: 3, placeholder: 'Escribe tu mensaje...', class: 'w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400 resize-none', data: { action: "keydown->chat#handleEnter input->chat#autoResize" }
   
   / Botones estilo app
   div.flex.justify-end.gap-3

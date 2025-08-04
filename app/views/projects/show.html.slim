@@ -1,5 +1,7 @@
 section.max-w-3xl.mx-auto.bg-white.rounded-2xl.mb-8.p-8.mt-10.shadow-none.px-4.md:px-8.lg:px-16
-  h1.text-3xl.font-bold.text-gray-800.mb-2.leading-tight = @project.title
+  .flex.justify-between.items-start.mb-4
+    h1.text-3xl.font-bold.text-gray-800.leading-tight.flex-grow = @project.title
+    = render 'shared/favorite_button', project: @project
   - if @project.images.attached?
     = render 'shared/image_carousel', images: @project.images, size: 'lg'
   .flex.flex-col.gap-1

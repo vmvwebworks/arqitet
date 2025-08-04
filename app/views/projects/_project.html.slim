@@ -1,5 +1,7 @@
 .p-6.bg-white.rounded-2xl.mb-8.flex.flex-col.gap-4
-  h2.text-2xl.font-bold.text-gray-800.mb-2.leading-tight = link_to project.title, project_path(project), class: "hover:underline"
+  .flex.justify-between.items-start.mb-2
+    h2.text-2xl.font-bold.text-gray-800.leading-tight.flex-grow = link_to project.title, project_path(project), class: "hover:underline"
+    = render 'shared/favorite_button', project: project
   
   / Imagen del proyecto con fallback SVG
   - if project.images.attached?

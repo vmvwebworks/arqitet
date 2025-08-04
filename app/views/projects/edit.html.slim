@@ -34,9 +34,6 @@ section.max-w-3xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
       = form.submit 'Guardar', class: "px-6 py-2 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-700 transition"
       = link_to 'Cancelar', project_path(@project), class: "px-6 py-2 rounded-full bg-neutral-200 text-gray-700 font-semibold hover:bg-neutral-300 transition"
 
-    / Incluir el JS de drag and drop para imágenes
-    = javascript_include_tag 'project_images', 'data-turbo-track': 'reload'
-
     / JS para toggle visual de eliminación de imágenes
     script type="text/javascript"
       | document.addEventListener('DOMContentLoaded', function() {

@@ -8,6 +8,8 @@ class User < ApplicationRecord
   friendly_id :full_name, use: :slugged
 
   has_many :projects
+  has_many :project_favorites, dependent: :destroy
+  has_many :favorite_projects, through: :project_favorites, source: :project
   has_one_attached :avatar
 
   validates :full_name, presence: true
@@ -16,6 +18,19 @@ class User < ApplicationRecord
 
   def admin?
     respond_to?(:role) ? role == "admin" : false
+  end
+
+  # Métodos para manejar favoritos
+  def favorite_project(project)
+    project_favorites.find_or_create_by(project: project)
+  end
+
+  def unfavorite_project(project)
+    project_favorites.find_by(project: project)&.destroy
+  end
+
+  def has_favorited?(project)
+    project_favorites.exists?(project: project)
   end
 
   def self.ransackable_attributes(auth_object = nil)

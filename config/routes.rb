@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :projects
+
+  # Rutas específicas antes de la ruta genérica de usuarios
+  get "dashboard" => "public_dashboard#index", as: :public_dashboard
+  get "charts_test" => "charts_test#index", as: :charts_test
+
+  resources :projects do
+    resources :project_favorites, only: [ :create, :destroy ], path: "favorites"
+  end
   resources :users, only: [ :show, :edit, :update ], constraints: { id: /[a-zA-Z0-9\-]+/ }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -15,12 +22,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "application#index"
 
-  get "dashboard" => "public_dashboard#index", as: :public_dashboard
-  get "charts_test" => "charts_test#index", as: :charts_test
-
-  # Ruta personalizada para proyectos de usuario: /username/projects
-  get ":username/projects" => "projects#my_projects", as: :user_projects, constraints: { username: /[a-zA-Z0-9\-_]+/ }
-
   namespace :admin, as: "admin" do
     get "/" => "dashboard#index", as: ""
     resources :projects
@@ -34,6 +35,12 @@ Rails.application.routes.draw do
   namespace :users do
     get "dashboard" => "dashboard#index", as: :dashboard
   end
+
+  # Ruta personalizada para proyectos de usuario: /username/projects
+  get ":username/projects" => "projects#my_projects", as: :user_projects, constraints: { username: /[a-zA-Z0-9\-_]+/ }
+
+  # Ruta personalizada para favoritos de usuario: /username/favoritos
+  get ":username/favoritos" => "projects#my_favorites", as: :user_favorites, constraints: { username: /[a-zA-Z0-9\-_]+/ }
 
   resources :conversations, only: [ :index, :show, :create ] do
     resources :messages, only: [ :create ]
