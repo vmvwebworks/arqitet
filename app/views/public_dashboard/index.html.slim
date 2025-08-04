@@ -4,6 +4,20 @@
   / Dashboard Personal del Usuario - Diseño Flat
   .min-h-screen.bg-gray-50
     .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-12
+      / Notificación de confirmación pendiente
+      - unless current_user.confirmed?
+        .bg-yellow-50.border.border-yellow-200.rounded-lg.p-4.mb-6
+          .flex.items-center
+            span.text-2xl.mr-3 ⚠️
+            div
+              h3.font-semibold.text-yellow-800 Confirma tu cuenta
+              p.text-yellow-700.text-sm 
+                | Te hemos enviado un email de confirmación a <strong>#{current_user.email}</strong>. 
+                | Revisa tu bandeja de entrada y confirma tu cuenta para acceder a todas las funcionalidades.
+              .mt-2
+                = link_to "Reenviar email de confirmación", new_user_confirmation_path, 
+                  class: "text-yellow-800 underline hover:text-yellow-900 text-sm font-medium"
+
       / Cabecera del Dashboard
       .mb-12
         h1.text-4xl.font-light.text-gray-900.mb-3 ¡Hola, #{current_user.full_name}!

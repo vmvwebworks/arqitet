@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_04_134657) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_04_154951) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -111,6 +111,31 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_04_134657) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "subscription_plans", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "price_cents"
+    t.string "interval"
+    t.text "features"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "subscription_plan_id", null: false
+    t.string "status"
+    t.string "stripe_subscription_id"
+    t.datetime "current_period_start"
+    t.datetime "current_period_end"
+    t.datetime "trial_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscription_plan_id"], name: "index_subscriptions_on_subscription_plan_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -128,6 +153,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_04_134657) do
     t.boolean "consent_accepted", default: false, null: false
     t.datetime "consent_accepted_at"
     t.text "consent_preferences"
+    t.string "stripe_customer_id"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
@@ -142,4 +173,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_04_134657) do
   add_foreign_key "project_favorites", "projects"
   add_foreign_key "project_favorites", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "subscriptions", "subscription_plans"
+  add_foreign_key "subscriptions", "users"
 end

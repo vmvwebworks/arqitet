@@ -1,7 +1,10 @@
 class ProjectsController < ApplicationController
+  include Subscribable
+
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: %i[index show]
   before_action :authorize_user!, only: %i[edit update destroy]
+  before_action :check_project_limit, only: %i[new create]
 
   # GET /projects or /projects.json
   def index
@@ -132,6 +135,25 @@ class ProjectsController < ApplicationController
     def authorize_user!
       unless @project.user == current_user
         redirect_to projects_path, alert: "No tienes permiso para realizar esta acción."
+      end
+    end
+
+    def check_subscription!
+      return if current_user.admin?
+
+      unless current_user.subscribed?
+        # Para plan gratuito, verificar límites
+        if action_name.in?([ "new", "create" ]) && current_user.projects.count >= 3
+          flash[:alert] = "Has alcanzado el límite de proyectos para el plan gratuito. Actualiza tu suscripción para crear más proyectos."
+          redirect_to subscription_plans_path
+          return
+        end
+
+        # Para edición/eliminación, permitir si ya tiene proyectos
+        return if action_name.in?([ "edit", "update", "destroy" ])
+
+        flash[:alert] = "Necesitas una suscripción activa para realizar esta acción."
+        redirect_to subscription_plans_path
       end
     end
 

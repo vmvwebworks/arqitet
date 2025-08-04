@@ -1,11 +1,27 @@
-section.flex.justify-center.items-center.min-h-screen.bg-neutral-100
-  .w-full.max-w-lg.bg-white/90.rounded-2xl.p-10.shadow-md
-    h2.text-3xl.font-bold.text-granate.mb-8.text-center Confirmar cuenta
-    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { class: "flex flex-col gap-6" }) do |f|
-      = devise_error_messages!
-      .flex.flex-col.gap-2
-        = f.label :confirmation_token, "Token de confirmación", class: "text-sm font-semibold text-oliva mb-1"
-        = f.text_field :confirmation_token, autofocus: true, class: "rounded-xl px-5 py-4 w-full focus:ring-2 focus:ring-terracota focus:outline-none bg-neutral-200 text-granate placeholder:text-granate/60 border-0 shadow-none text-lg"
-      = f.submit "Confirmar cuenta", class: "rounded-lg px-8 py-3 bg-terracota hover:bg-granate text-white font-semibold transition mt-4 shadow-sm w-full text-lg"
-    .mt-6.text-center.text-sm.text-gray-600
-      = link_to "Volver a iniciar sesión", new_session_path(resource_name), class: "text-terracota font-semibold hover:underline"
+main.flex-grow
+  .max-w-md.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+    .bg-white.rounded-2xl.shadow-lg.border.border-gray-200.overflow-hidden
+      .px-6.py-8.text-center.bg-blue-600.text-white
+        .flex.justify-center.mb-4
+          span.text-4xl 📧
+        h1.text-2xl.font-bold Reenviar confirmación
+        p.text-blue-100.mt-2 ¿No recibiste el email de confirmación?
+
+      .px-6.py-8
+        = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "space-y-6" }) do |f|
+          = render "devise/shared/error_messages", resource: resource
+
+          .space-y-2
+            = f.label :email, "Email", class: "block text-sm font-medium text-gray-700"
+            = f.email_field :email, 
+              autofocus: true, 
+              autocomplete: "email", 
+              value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+              class: "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+
+          .text-center
+            = f.submit "Reenviar instrucciones", 
+              class: "w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+
+        .mt-6.text-center
+          = render "devise/shared/links"

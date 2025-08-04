@@ -1,0 +1,63 @@
+main.flex-grow
+  .max-w-4xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+    .bg-white.rounded-2xl.shadow-lg.border.border-gray-200.overflow-hidden
+      .px-6.py-8.text-center.bg-blue-600.text-white
+        h1.text-3xl.font-bold Gestionar Suscripción
+
+      .px-6.py-8
+        / Información actual
+        .mb-8
+          h2.text-xl.font-semibold.text-gray-900.mb-4 Suscripción Actual
+          .bg-gray-50.p-6.rounded-lg
+            .grid.md:grid-cols-2.gap-6
+              div
+                h3.font-semibold.text-gray-900 Plan
+                p.text-gray-600 = @subscription.subscription_plan.name
+              div
+                h3.font-semibold.text-gray-900 Precio
+                p.text-gray-600 = @subscription.subscription_plan.price
+              div
+                h3.font-semibold.text-gray-900 Estado
+                span.inline-flex.px-2.py-1.rounded-full.text-xs.font-medium class="#{@subscription.active? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}"
+                  = @subscription.status.humanize
+              div
+                h3.font-semibold.text-gray-900 Próximo Cobro
+                p.text-gray-600 = @subscription.current_period_end&.strftime('%d de %B de %Y')
+
+        / Características del plan
+        .mb-8
+          h3.text-lg.font-semibold.text-gray-900.mb-4 Características Incluidas
+          ul.grid.md:grid-cols-2.gap-2
+            - @subscription.subscription_plan.features.each do |feature|
+              li.flex.items-center
+                svg.w-4.h-4.text-green-500.mr-2 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                  path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"
+                span.text-gray-700 = feature
+
+        / Acciones
+        .space-y-4
+          / Cambiar plan
+          .flex.justify-between.items-center.p-4.bg-blue-50.rounded-lg
+            div
+              h4.font-semibold.text-blue-900 Cambiar Plan
+              p.text-blue-700.text-sm Actualiza o cambia tu plan de suscripción
+            = link_to "Ver Planes", subscription_plans_path, 
+              class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+
+          / Cancelar suscripción (solo si no es gratuita)
+          - unless @subscription.subscription_plan.free?
+            .flex.justify-between.items-center.p-4.bg-red-50.rounded-lg
+              div
+                h4.font-semibold.text-red-900 Cancelar Suscripción
+                p.text-red-700.text-sm Tu suscripción permanecerá activa hasta el final del período actual
+              = link_to "Cancelar", subscription_path(@subscription), 
+                method: :delete,
+                data: { 
+                  confirm: "¿Estás seguro de que quieres cancelar tu suscripción?" 
+                },
+                class: "bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+
+        / Información adicional
+        .mt-8.pt-6.border-t.border-gray-200.text-center.text-gray-600
+          p.mb-2 ¿Necesitas ayuda con tu suscripción?
+          = link_to "Contacta con soporte", "#", class: "text-blue-600 hover:text-blue-800"

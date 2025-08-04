@@ -1,0 +1,51 @@
+main.flex-grow
+  .max-w-2xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+    .bg-white.rounded-2xl.shadow-lg.border.border-gray-200.overflow-hidden
+      .px-6.py-8.text-center.bg-blue-600.text-white
+        h1.text-3xl.font-bold Confirmar Suscripción
+        h2.text-xl.mt-2 = @subscription_plan.name
+        .mt-4
+          span.text-4xl.font-bold = @subscription_plan.price
+          span.text-lg.text-blue-100 /#{@subscription_plan.monthly? ? 'mes' : 'año'}
+
+      .px-6.py-8
+        / Plan gratuito
+        - if @subscription_plan.free?
+          .text-center
+            h3.text-lg.font-semibold.text-gray-900.mb-4 Plan Gratuito
+            p.text-gray-600.mb-6 No se requiere información de pago
+            
+            = form_with model: @subscription, local: true, class: "space-y-6" do |f|
+              = f.hidden_field :subscription_plan_id, value: @subscription_plan.id
+              
+              .text-center
+                = f.submit "Confirmar Suscripción Gratuita", 
+                  class: "w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+
+        / Plan de pago
+        - else
+          div id="payment-form"
+            h3.text-lg.font-semibold.text-gray-900.mb-4 Información de Pago
+            p.text-gray-600.mb-6 Procesamos los pagos de forma segura a través de Stripe
+            
+            / Aquí iría el formulario de Stripe Elements
+            .bg-gray-50.p-4.rounded-lg.mb-6
+              p.text-center.text-gray-600 Formulario de pago con Stripe
+              p.text-center.text-sm.text-gray-500 (Se implementará con Stripe Elements)
+            
+            .text-center
+              button#submit-payment.w-full.bg-blue-600.text-white.py-3.px-4.rounded-lg.font-medium.hover:bg-blue-700.transition-colors Confirmar Pago
+
+        / Características del plan
+        .mt-8.pt-8.border-t.border-gray-200
+          h4.text-lg.font-semibold.text-gray-900.mb-4 Este plan incluye:
+          ul.space-y-2
+            - @subscription_plan.features.each do |feature|
+              li.flex.items-center
+                svg.w-4.h-4.text-green-500.mr-2 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                  path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"
+                span.text-gray-700 = feature
+
+      .px-6.py-4.bg-gray-50.text-center
+        = link_to "Volver a Planes", subscription_plans_path, 
+          class: "text-blue-600 hover:text-blue-800 font-medium"

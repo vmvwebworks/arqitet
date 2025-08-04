@@ -1,5 +1,78 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirma tu cuenta - Arqitet</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+    .content {
+      padding: 30px 0;
+    }
+    .button {
+      display: inline-block;
+      background-color: #2563eb;
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      margin: 20px 0;
+    }
+    .footer {
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🏛️ Arqitet</div>
+  </div>
+  
+  <div class="content">
+    <h1>¡Bienvenido a Arqitet!</h1>
+    
+    <p>Hola <strong><%= @resource.full_name || @email %></strong>,</p>
+    
+    <p>Gracias por registrarte en Arqitet, la plataforma para arquitectos donde puedes compartir tus proyectos y conectar con otros profesionales.</p>
+    
+    <p>Para completar tu registro y comenzar a usar tu cuenta, necesitas confirmar tu dirección de email haciendo clic en el siguiente botón:</p>
+    
+    <div style="text-align: center;">
+      <%= link_to 'Confirmar mi cuenta', confirmation_url(@resource, confirmation_token: @token), class: 'button' %>
+    </div>
+    
+    <p>Si no puedes hacer clic en el botón, copia y pega este enlace en tu navegador:</p>
+    <p style="word-break: break-all; color: #2563eb;"><%= confirmation_url(@resource, confirmation_token: @token) %></p>
+    
+    <p><strong>Importante:</strong> Este enlace expira en 3 días. Si no confirmas tu cuenta dentro de este plazo, deberás registrarte nuevamente.</p>
+    
+    <p>Si no creaste esta cuenta, puedes ignorar este email.</p>
+  </div>
+  
+  <div class="footer">
+    <p>Saludos,<br>El equipo de Arqitet</p>
+    <p><small>Este es un email automático, por favor no respondas a este mensaje.</small></p>
+  </div>
+</body>
+</html>

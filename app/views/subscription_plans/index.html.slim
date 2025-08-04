@@ -1,0 +1,59 @@
+main.flex-grow
+  .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+    .text-center.mb-12
+      h1.text-4xl.font-bold.text-gray-900.mb-4 Planes de Suscripción
+      p.text-xl.text-gray-600 Elige el plan que mejor se adapte a tus necesidades
+
+    / Plan actual si existe
+    - if current_user&.subscribed?
+      .bg-blue-50.border.border-blue-200.rounded-lg.p-4.mb-8
+        .flex.items-center.justify-between
+          div
+            h3.text-lg.font-semibold.text-blue-900 Plan Actual
+            p.text-blue-700 #{@current_plan.name} - #{@current_plan.price}
+          div
+            - if current_user.current_subscription.present?
+              = link_to "Gestionar Suscripción", edit_subscription_path(current_user.current_subscription),
+                class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200"
+
+    / Grid de planes
+    .grid.lg:grid-cols-3.gap-8.mb-8
+      - @subscription_plans.each do |plan|
+        .bg-white.rounded-2xl.shadow-lg.border.border-gray-200.overflow-hidden class="#{'ring-2 ring-blue-500' if @current_plan == plan}"
+          / Header del plan
+          .px-6.py-8.text-center class="#{plan.name == 'Pro' ? 'bg-blue-600 text-white' : 'bg-gray-50'}"
+            h3.text-2xl.font-bold class="#{plan.name == 'Pro' ? 'text-white' : 'text-gray-900'}" = plan.name
+            .mt-4
+              span.text-4xl.font-bold class="#{plan.name == 'Pro' ? 'text-white' : 'text-gray-900'}" = plan.price
+              span.text-lg class="#{plan.name == 'Pro' ? 'text-blue-100' : 'text-gray-500'}" 
+                | /#{plan.monthly? ? 'mes' : 'año'}
+            p.mt-4 class="#{plan.name == 'Pro' ? 'text-blue-100' : 'text-gray-600'}" = plan.description
+
+          / Características
+          .px-6.py-8
+            ul.space-y-4
+              - plan.features.each do |feature|
+                li.flex.items-center
+                  svg.w-5.h-5.text-green-500.mr-3 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"
+                  span.text-gray-700 = feature
+
+          / Botón de acción
+          .px-6.pb-8
+            - if user_signed_in?
+              - if @current_plan == plan
+                .bg-gray-100.text-gray-600.text-center.py-3.rounded-lg.font-medium Plan Actual
+              - else
+                = link_to new_subscription_path(plan_id: plan.id),
+                  class: "w-full bg-blue-600 text-white text-center py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors block"
+                  | #{plan.free? ? 'Seleccionar Plan Gratuito' : 'Suscribirse'}
+            - else
+              = link_to new_user_registration_path,
+                class: "w-full bg-blue-600 text-white text-center py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors block"
+                | Registrarse
+
+    / Información adicional
+    .text-center.text-gray-600
+      p.mb-4 Todos los planes incluyen soporte técnico y actualizaciones gratuitas
+      p.text-sm ¿Necesitas ayuda? 
+        = link_to "Contacta con nosotros", "#", class: "text-blue-600 hover:text-blue-800"

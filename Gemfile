@@ -49,6 +49,14 @@ group :development, :test do
 end
 
 group :development do
+  # Preview mail in the browser instead of sending
+  gem "letter_opener"
+  
+  # Load environment variables from .env file
+  gem "dotenv-rails"
+end
+
+group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
@@ -71,3 +79,7 @@ gem "cancancan", "~> 3.6"
 gem "chartkick", "~> 5.1"
 
 gem "groupdate", "~> 6.5"
+
+# Sistema de suscripciones y pagos
+gem "stripe"
+gem "money-rails"

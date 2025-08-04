@@ -1,0 +1,36 @@
+main.flex-grow
+  .max-w-2xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+    .bg-white.rounded-2xl.shadow-lg.border.border-gray-200.overflow-hidden
+      .px-6.py-8.text-center.bg-green-600.text-white
+        .flex.justify-center.mb-4
+          span.text-6xl ✅
+        h1.text-3xl.font-bold ¡Cuenta confirmada!
+        p.text-green-100.mt-2 Tu cuenta ha sido verificada exitosamente
+
+      .px-6.py-8.text-center
+        h2.text-xl.font-semibold.text-gray-900.mb-4 ¡Bienvenido a Arqitet!
+        p.text-gray-600.mb-6 
+          | Tu cuenta ha sido confirmada correctamente. Ahora puedes disfrutar de todas las funcionalidades de nuestra plataforma.
+
+        .bg-blue-50.rounded-lg.p-6.mb-6
+          h3.font-semibold.text-blue-900.mb-3 ¿Qué puedes hacer ahora?
+          ul.text-left.space-y-2.text-blue-800
+            li.flex.items-center
+              span.mr-2 🏗️
+              | Crear y compartir tus proyectos arquitectónicos
+            li.flex.items-center
+              span.mr-2 💬
+              | Conectar con otros arquitectos a través del chat
+            li.flex.items-center
+              span.mr-2 ❤️
+              | Guardar proyectos en favoritos
+            li.flex.items-center
+              span.mr-2 🔍
+              | Explorar proyectos de la comunidad
+
+        .space-y-4
+          = link_to "Ir al Dashboard", public_dashboard_path, 
+            class: "inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          br
+          = link_to "Explorar Proyectos", projects_path, 
+            class: "inline-block text-blue-600 hover:text-blue-800 font-medium"

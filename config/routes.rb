@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   get "dashboard" => "public_dashboard#index", as: :public_dashboard
   get "charts_test" => "charts_test#index", as: :charts_test
 
+  # Rutas de suscripciones
+  resources :subscription_plans, only: [ :index, :show ]
+  resources :subscriptions, only: [ :new, :create, :edit, :update, :destroy ]
+
   resources :projects do
     resources :project_favorites, only: [ :create, :destroy ], path: "favorites"
   end

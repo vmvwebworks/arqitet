@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_action :check_maintenance_mode
   before_action :store_user_location!, if: :storable_location?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def index
     @projects = Project.all
@@ -11,11 +12,15 @@ class ApplicationController < ActionController::Base
 
   # Devise: redirigir tras login/logout
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || root_path
+    stored_location_for(resource) || public_dashboard_path
   end
 
   def after_sign_out_path_for(resource_or_scope)
     root_path
+  end
+
+  def after_sign_up_path_for(resource)
+    public_dashboard_path
   end
 
   private
@@ -33,5 +38,12 @@ class ApplicationController < ActionController::Base
 
   def storable_location?
     request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :full_name ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :full_name ])
   end
 end

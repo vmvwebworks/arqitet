@@ -38,15 +38,26 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
 
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-
-  # Print deprecation notices to the Rails logger.
+  
+  # Configuración para envío real de emails usando Gmail SMTP
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: ENV['GMAIL_USERNAME'] || 'tu-email@gmail.com',
+    password: ENV['GMAIL_APP_PASSWORD'] || 'tu-app-password',
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }  # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
   # Raise exceptions for disallowed deprecations.

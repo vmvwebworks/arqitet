@@ -46,4 +46,4 @@ SubscriptionPlan.find_or_create_by!(name: 'Pro Anual') do |plan|
   plan.active = true
 end
 
-# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
