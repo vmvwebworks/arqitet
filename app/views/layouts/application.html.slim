@@ -43,19 +43,20 @@ html
                 .p-4.flex.justify-between.items-center.bg-gray-100.rounded-t-2xl
                   span.font-semibold.text-gray-700 Conversaciones
                   = link_to 'Ver todas', conversations_path, class: 'text-xs text-blue-600 hover:underline'
+                
                 - if defined?(current_user) && current_user
                   - convs = Conversation.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id).order(updated_at: :desc).limit(5)
                   - if convs.any?
-                    ul.divide-y.divide-gray-200.max-h-[28rem].overflow-y-auto.bg-gray-200
+                    .overflow-y-auto.bg-gray-200.max-h-[28rem]
                       - convs.each do |conv|
                         - other = conv.sender == current_user ? conv.recipient : conv.sender
-                        li.flex.justify-between.items-center.py-4.px-4.hover\:bg-gray-300.transition
+                        .flex.justify-between.items-center.py-4.px-4.hover:bg-gray-300.transition.border-b.border-gray-300.last:border-b-0
                           = link_to other.full_name, conversation_path(conv), class: 'font-semibold text-gray-800 hover:underline truncate max-w-[60%]'
-                          span.text-xs.text-gray-500= conv.messages.last&.created_at&.strftime('%d/%m/%y %H:%M')
+                          span.text-xs.text-gray-500 = conv.messages.last&.created_at&.strftime('%d/%m/%y %H:%M')
                   - else
-                    p.text-gray-400.text-xs.mt-2.px-4.py-2.mb-4 No tienes conversaciones recientes.
+                    .p-6.text-center.text-gray-500 No tienes conversaciones aún
                 - else
-                  p.text-gray-400.text-xs.mt-2.px-4.py-2.mb-4 Inicia sesión para ver tus chats.
+                  .p-6.text-center.text-gray-500 Inicia sesión para ver tus chats.
             
             - if current_user.avatar.attached?
               = link_to user_path(current_user), class: "inline-block align-middle" do
