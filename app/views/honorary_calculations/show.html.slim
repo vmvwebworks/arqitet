@@ -1,0 +1,90 @@
+- content_for :title, "Detalle del Cálculo"
+
+.container.mx-auto.px-4.py-8
+  .max-w-4xl.mx-auto
+    .bg-white.rounded-lg.shadow-lg.p-8
+      .flex.justify-between.items-center.mb-8
+        h1.text-3xl.font-bold.text-gray-800 Detalle del Cálculo
+        .flex.space-x-3
+          = link_to honorary_calculations_path, class: "bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 flex items-center"
+            svg.w-4.h-4.mr-2 fill="currentColor" viewBox="0 0 20 20"
+              path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414-1.414L10.586 9 6.293 4.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5z" clip-rule="evenodd"
+            | Volver a la lista
+          
+          = link_to honorary_calculation_path(@calculation, format: :pdf), target: "_blank", class: "bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center"
+            svg.w-4.h-4.mr-2 fill="currentColor" viewBox="0 0 20 20"
+              path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"
+            | Descargar PDF
+
+      .grid.md:grid-cols-2.gap-8
+        div
+          .mb-6
+            h2.text-xl.font-semibold.text-gray-800.mb-4 Información del Proyecto
+            .space-y-3
+              .flex.justify-between
+                span.text-gray-600 Nombre del proyecto:
+                span.font-medium = @calculation.project_name.presence || "Sin nombre"
+              
+              .flex.justify-between
+                span.text-gray-600 Cliente:
+                span.font-medium = @calculation.client_name.presence || "No especificado"
+              
+              .flex.justify-between
+                span.text-gray-600 Tipo de proyecto:
+                span.font-medium = @calculation.project_type
+              
+              .flex.justify-between
+                span.text-gray-600 Superficie:
+                span.font-medium = "#{@calculation.surface_area} m²"
+              
+              .flex.justify-between
+                span.text-gray-600 Ubicación:
+                span.font-medium = @calculation.location
+              
+              .flex.justify-between
+                span.text-gray-600 Complejidad:
+                span.font-medium = @calculation.complexity
+
+          - if @calculation.notes.present?
+            .mb-6
+              h3.text-lg.font-semibold.text-gray-800.mb-2 Notas
+              p.text-gray-700.bg-gray-50.p-3.rounded = @calculation.notes
+
+        div
+          .mb-6
+            h2.text-xl.font-semibold.text-gray-800.mb-4 Desglose del Cálculo
+            .bg-blue-50.border.border-blue-200.rounded-lg.p-4.space-y-3
+              .flex.justify-between
+                span.text-gray-700 Tarifa base:
+                span.font-medium = "€#{sprintf('%.2f', @calculation.base_rate)}/m²"
+              
+              .flex.justify-between
+                span.text-gray-700 Factor de complejidad:
+                span.font-medium = "#{@calculation.complexity_factor}x"
+              
+              .flex.justify-between
+                span.text-gray-700 Superficie total:
+                span.font-medium = "#{@calculation.surface_area} m²"
+              
+              .border-t.border-blue-300.pt-3.mt-3
+                .flex.justify-between.items-center
+                  span.text-lg.font-semibold.text-gray-800 Total:
+                  span.text-2xl.font-bold.text-green-600 = "€#{sprintf('%.2f', @calculation.total_amount)}"
+
+          .text-xs.text-gray-500.bg-gray-50.p-3.rounded
+            p
+              strong Información del cálculo:
+            p Fecha de creación: #{l(@calculation.created_at, format: :long)}
+            - if @calculation.calculation_data.present?
+              p ID de cálculo: ##{@calculation.id}
+
+      .mt-8.pt-6.border-t.border-gray-200
+        .bg-yellow-50.border.border-yellow-200.rounded-lg.p-4
+          .flex.items-start
+            svg.w-5.h-5.text-yellow-600.mt-0.5.mr-3 fill="currentColor" viewBox="0 0 20 20"
+              path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"
+            div
+              h4.text-yellow-800.font-medium Aviso importante
+              p.text-yellow-700.text-sm.mt-1
+                | Este cálculo es orientativo y se basa en las tarifas estándar del colegio profesional. 
+                | Consulta siempre la normativa vigente y considera las particularidades específicas de cada proyecto.

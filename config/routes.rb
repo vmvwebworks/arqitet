@@ -9,6 +9,16 @@ Rails.application.routes.draw do
   resources :subscription_plans, only: [ :index, :show ]
   resources :subscriptions, only: [ :new, :create, :edit, :update, :destroy ]
 
+  # Rutas de calculadora de honorarios
+  resources :honorary_calculations do
+    member do
+      get :pdf
+    end
+    collection do
+      post :calculate_preview
+    end
+  end
+
   resources :projects do
     resources :project_favorites, only: [ :create, :destroy ], path: "favorites"
   end

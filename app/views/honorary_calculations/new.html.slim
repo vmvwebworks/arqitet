@@ -1,0 +1,103 @@
+- content_for :title, "Calculadora de Honorarios"
+
+.container.mx-auto.px-4.py-8
+  .max-w-4xl.mx-auto
+    .bg-white.rounded-lg.shadow-lg.p-6
+      .flex.justify-between.items-center.mb-6
+        h1.text-3xl.font-bold.text-gray-800 Calculadora de Honorarios Profesionales
+        = link_to honorary_calculations_path, class: "bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 flex items-center"
+          svg.w-4.h-4.mr-2 fill="currentColor" viewBox="0 0 20 20"
+            path d="M7.707 14.707a1 1 0 01-1.414-1.414L10.586 9 6.293 4.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5z"
+          | Ver mis cálculos
+
+      = form_with model: @calculation, local: true, class: "space-y-6" do |form|
+        .grid.md:grid-cols-2.gap-6
+          .space-y-4
+            .form-group
+              = form.label :project_name, "Nombre del proyecto", class: "block text-sm font-medium text-gray-700 mb-1"
+              = form.text_field :project_name, placeholder: "Ej: Vivienda unifamiliar en Madrid", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            
+            .form-group
+              = form.label :client_name, "Cliente", class: "block text-sm font-medium text-gray-700 mb-1"
+              = form.text_field :client_name, placeholder: "Nombre del cliente", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            
+            .form-group
+              = form.label :project_type, "Tipo de proyecto", class: "block text-sm font-medium text-gray-700 mb-1"
+              = form.select :project_type, options_for_select(@project_types.map { |type| [type, type] }, @calculation.project_type), { prompt: "Selecciona un tipo" }, { class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", required: true }
+            
+            .form-group
+              = form.label :surface_area, "Superficie (m²)", class: "block text-sm font-medium text-gray-700 mb-1"
+              = form.number_field :surface_area, step: 0.01, min: 1, placeholder: "150", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", required: true
+          
+          .space-y-4
+            .form-group
+              = form.label :location, "Región/Ubicación", class: "block text-sm font-medium text-gray-700 mb-1"
+              = form.select :location, options_for_select(@regions.map { |region| [region, region] }, @calculation.location), { prompt: "Selecciona una región" }, { class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", required: true }
+            
+            .form-group
+              = form.label :complexity, "Complejidad del proyecto", class: "block text-sm font-medium text-gray-700 mb-1"
+              = form.select :complexity, options_for_select(@complexities.map { |key| [key, key] }, @calculation.complexity), { prompt: "Selecciona complejidad" }, { class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", required: true }
+            
+            .form-group
+              = form.label :notes, "Notas adicionales", class: "block text-sm font-medium text-gray-700 mb-1"
+              = form.text_area :notes, rows: 3, placeholder: "Observaciones o comentarios específicos del proyecto", class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+
+        .mt-6.bg-gray-50.p-4.rounded-lg#calculation-preview style="display: none;"
+          h3.text-lg.font-semibold.text-gray-800.mb-2 Vista previa del cálculo
+          .grid.grid-cols-2.gap-4.text-sm
+            div
+              span.text-gray-600 Tarifa base:
+              span.font-medium.ml-2#preview-base-rate —
+            div
+              span.text-gray-600 Factor de complejidad:
+              span.font-medium.ml-2#preview-complexity —
+            div.col-span-2
+              span.text-gray-600 Total estimado:
+              span.font-bold.text-xl.text-green-600.ml-2#preview-total —
+
+        .flex.justify-between.items-center.mt-8
+          button.bg-blue-600.hover:bg-blue-700.text-white.px-6.py-3.rounded-lg.font-medium.transition-colors.duration-200.flex.items-center type="button" onclick="calculatePreview()"
+            svg.w-4.h-4.mr-2 fill="currentColor" viewBox="0 0 20 20"
+              path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            | Calcular vista previa
+          
+          = form.submit "Guardar cálculo", class: "bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+
+      javascript:
+        function calculatePreview() {
+          const formData = {
+            project_type: document.querySelector('#honorary_calculation_project_type').value,
+            surface_area: document.querySelector('#honorary_calculation_surface_area').value,
+            location: document.querySelector('#honorary_calculation_location').value,
+            complexity: document.querySelector('#honorary_calculation_complexity').value
+          };
+
+          if (!formData.project_type || !formData.surface_area || !formData.location || !formData.complexity) {
+            alert('Por favor, completa todos los campos obligatorios');
+            return;
+          }
+
+          fetch('/honorary_calculations/calculate_preview', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': document.querySelector('[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(formData)
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              document.getElementById('preview-base-rate').textContent = `€${data.base_rate}/m²`;
+              document.getElementById('preview-complexity').textContent = `${data.complexity_factor}x`;
+              document.getElementById('preview-total').textContent = data.formatted_amount;
+              document.getElementById('calculation-preview').style.display = 'block';
+            } else {
+              alert(data.error);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error al calcular la vista previa');
+          });
+        }

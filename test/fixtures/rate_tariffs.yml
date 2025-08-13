@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  region: MyString
+  project_type: MyString
+  min_rate: 9.99
+  max_rate: 9.99
+  base_rate: 9.99
+  active: false
+
+two:
+  region: MyString
+  project_type: MyString
+  min_rate: 9.99
+  max_rate: 9.99
+  base_rate: 9.99
+  active: false

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_04_154951) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_09_115039) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -79,6 +79,24 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_04_154951) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "honorary_calculations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "project_type"
+    t.decimal "surface_area"
+    t.string "location"
+    t.decimal "complexity_factor"
+    t.decimal "base_rate"
+    t.decimal "total_amount"
+    t.text "calculation_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "project_name"
+    t.string "client_name"
+    t.text "notes"
+    t.string "complexity"
+    t.index ["user_id"], name: "index_honorary_calculations_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer "conversation_id", null: false
     t.integer "user_id", null: false
@@ -109,6 +127,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_04_154951) do
     t.datetime "updated_at", null: false
     t.integer "visits", default: 0, null: false
     t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "rate_tariffs", force: :cascade do |t|
+    t.string "region"
+    t.string "project_type"
+    t.decimal "min_rate"
+    t.decimal "max_rate"
+    t.decimal "base_rate"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subscription_plans", force: :cascade do |t|
@@ -168,6 +197,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_04_154951) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "conversations", "users", column: "recipient_id"
   add_foreign_key "conversations", "users", column: "sender_id"
+  add_foreign_key "honorary_calculations", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "project_favorites", "projects"

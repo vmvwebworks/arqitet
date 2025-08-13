@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :favorite_projects, through: :project_favorites, source: :project
   has_many :subscriptions, dependent: :destroy
   has_one :current_subscription, -> { where(status: [ "active", "trialing" ]).order(created_at: :desc) }, class_name: "Subscription"
+  has_many :honorary_calculations, dependent: :destroy
   has_one_attached :avatar
 
   validates :full_name, presence: true
@@ -52,6 +53,17 @@ class User < ApplicationRecord
 
   def trial_active?
     current_subscription&.trial_active?
+  end
+
+  # Métodos para calculadora de honorarios
+  def can_create_calculation?
+    return true if admin? || subscribed?
+    honorary_calculations.count < 3  # Límite para usuarios gratuitos
+  end
+
+  def calculations_remaining
+    return Float::INFINITY if admin? || subscribed?
+    [3 - honorary_calculations.count, 0].max
   end
 
   def self.ransackable_attributes(auth_object = nil)
