@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_09_115039) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -97,6 +97,40 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_09_115039) do
     t.index ["user_id"], name: "index_honorary_calculations_on_user_id"
   end
 
+  create_table "invoice_items", force: :cascade do |t|
+    t.integer "invoice_id", null: false
+    t.string "description", null: false
+    t.decimal "quantity", precision: 8, scale: 2, default: "1.0"
+    t.decimal "unit_price", precision: 10, scale: 2, null: false
+    t.decimal "total", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.string "invoice_number", null: false
+    t.string "client_name", null: false
+    t.string "client_email"
+    t.text "client_address"
+    t.decimal "subtotal", precision: 10, scale: 2, default: "0.0"
+    t.decimal "tax_rate", precision: 5, scale: 2, default: "21.0"
+    t.decimal "tax_amount", precision: 10, scale: 2, default: "0.0"
+    t.decimal "total_amount", precision: 10, scale: 2, default: "0.0"
+    t.integer "status", default: 0
+    t.date "issue_date", null: false
+    t.date "due_date"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_number"], name: "index_invoices_on_invoice_number", unique: true
+    t.index ["project_id"], name: "index_invoices_on_project_id"
+    t.index ["status"], name: "index_invoices_on_status"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer "conversation_id", null: false
     t.integer "user_id", null: false
@@ -126,6 +160,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_09_115039) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "visits", default: 0, null: false
+    t.string "client_name"
+    t.string "client_email"
+    t.string "client_phone"
+    t.decimal "budget", precision: 10, scale: 2
+    t.decimal "surface_area", precision: 8, scale: 2
+    t.integer "status", default: 0
+    t.date "start_date"
+    t.date "expected_end_date"
+    t.string "project_type"
+    t.boolean "is_public", default: true
+    t.index ["is_public"], name: "index_projects_on_is_public"
+    t.index ["status"], name: "index_projects_on_status"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -198,6 +244,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_09_115039) do
   add_foreign_key "conversations", "users", column: "recipient_id"
   add_foreign_key "conversations", "users", column: "sender_id"
   add_foreign_key "honorary_calculations", "users"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoices", "projects"
+  add_foreign_key "invoices", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "project_favorites", "projects"

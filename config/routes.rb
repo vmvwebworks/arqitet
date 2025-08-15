@@ -19,6 +19,18 @@ Rails.application.routes.draw do
     end
   end
 
+  # Rutas de gestión de proyectos (unificadas)
+  get 'proyectos' => 'projects#management', as: :management_projects
+
+  # Rutas de facturación
+  resources :invoices, path: 'facturas' do
+    member do
+      get :pdf
+      patch :mark_as_sent
+      patch :mark_as_paid
+    end
+  end
+
   resources :projects do
     resources :project_favorites, only: [ :create, :destroy ], path: "favorites"
   end

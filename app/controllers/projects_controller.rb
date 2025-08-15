@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.includes(:user).order(created_at: :desc)
+    @projects = Project.public_gallery.includes(:user).order(created_at: :desc)
     if params[:query].present?
       q = params[:query].downcase
       @projects = @projects.joins(:user).where("lower(projects.title) LIKE :q OR lower(projects.description) LIKE :q OR lower(projects.category) LIKE :q OR lower(projects.location) LIKE :q OR lower(users.full_name) LIKE :q", q: "%#{q}%")
@@ -16,18 +16,26 @@ class ProjectsController < ApplicationController
     @projects = @projects.page(params[:page]).per(9)
   end
 
+  # GET /proyectos - Vista de gestión de proyectos privados
+  def management
+    authenticate_user!
+    @projects = current_user.management_projects.recent
+    @active_projects = @projects.active
+    @total_budget = @projects.sum(:budget) || 0
+  end
+
   # GET /:username/projects
   def my_projects
     if params[:username].present?
       # Vista pública de los proyectos de un usuario específico por su slug
       @user = User.friendly.find(params[:username])
-      @projects = @user.projects.order(created_at: :desc)
+      @projects = @user.public_projects.order(created_at: :desc)
       @is_own_projects = user_signed_in? && current_user == @user
     else
       # Vista privada de mis propios proyectos (fallback para compatibilidad)
       authenticate_user!
       @user = current_user
-      @projects = current_user.projects.order(created_at: :desc)
+      @projects = current_user.public_projects.order(created_at: :desc)
       @is_own_projects = true
     end
 
@@ -64,16 +72,19 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
-    @project.increment_visits!
+    @project.increment_visits! if @project.is_public?
   end
 
   # GET /projects/new
   def new
     @project = Project.new
+    # Por defecto, los proyectos son públicos a menos que se especifique lo contrario
+    @project.is_public = params[:private] != 'true'
   end
 
   # GET /projects/1/edit
   def edit
+    # No necesitamos @is_management, el formulario se adapta al estado del proyecto
   end
 
   # POST /projects or /projects.json
@@ -82,7 +93,11 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: "Project was successfully created." }
+        if @project.is_public
+          format.html { redirect_to @project, notice: "Proyecto publicado exitosamente." }
+        else
+          format.html { redirect_to @project, notice: "Proyecto privado creado exitosamente." }
+        end
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -107,7 +122,7 @@ class ProjectsController < ApplicationController
     end
     respond_to do |format|
       if @project.update(project_params.except(:images))
-        format.html { redirect_to @project, notice: "Project was successfully updated." }
+        format.html { redirect_to @project, notice: "Proyecto actualizado exitosamente." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -118,10 +133,15 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
+    is_management = !@project.is_public
     @project.destroy!
 
     respond_to do |format|
-      format.html { redirect_to projects_path, status: :see_other, notice: "Project was successfully destroyed." }
+      if is_management
+        format.html { redirect_to management_projects_path, status: :see_other, notice: "Proyecto eliminado exitosamente." }
+      else
+        format.html { redirect_to projects_path, status: :see_other, notice: "Proyecto eliminado exitosamente." }
+      end
       format.json { head :no_content }
     end
   end
@@ -138,27 +158,34 @@ class ProjectsController < ApplicationController
       end
     end
 
-    def check_subscription!
+    def check_project_limit
       return if current_user.admin?
-
-      unless current_user.subscribed?
-        # Para plan gratuito, verificar límites
-        if action_name.in?([ "new", "create" ]) && current_user.projects.count >= 3
-          flash[:alert] = "Has alcanzado el límite de proyectos para el plan gratuito. Actualiza tu suscripción para crear más proyectos."
-          redirect_to subscription_plans_path
-          return
+      
+      unless current_user.can_create_project?
+        limit = current_user.project_limit
+        plan_name = current_user.subscription_plan&.name || 'Estudiante'
+        
+        flash[:alert] = if limit == Float::INFINITY
+          "Error inesperado con el límite de proyectos. Contacta con soporte."
+        else
+          "Has alcanzado el límite de #{limit} proyectos para el plan #{plan_name}. Actualiza tu suscripción para crear más proyectos."
         end
-
-        # Para edición/eliminación, permitir si ya tiene proyectos
-        return if action_name.in?([ "edit", "update", "destroy" ])
-
-        flash[:alert] = "Necesitas una suscripción activa para realizar esta acción."
+        
         redirect_to subscription_plans_path
       end
     end
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:title, :description, :location, :year, :category, images: [])
+      # Filtrar parámetros según el plan del usuario
+      allowed_params = [:title, :description, :location, :year, :category, :is_public, images: []]
+      
+      # Solo usuarios con gestión de clientes pueden usar estos campos
+      if current_user.admin? || current_user.can_manage_clients?
+        allowed_params += [:client_name, :client_email, :client_phone, :budget, 
+                          :surface_area, :status, :start_date, :expected_end_date, :project_type]
+      end
+      
+      params.require(:project).permit(*allowed_params)
     end
 end

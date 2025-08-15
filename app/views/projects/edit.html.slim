@@ -1,40 +1,129 @@
-section.max-w-3xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
-  h1.text-2xl.font-bold.text-gray-800.mb-6 Editar proyecto
+section.max-w-4xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
+  h1.text-2xl.font-bold.text-gray-800.mb-6 Editar Proyecto
+  
   = form_with model: @project, local: true, html: {multipart: true} do |form|
-    .flex.flex-col.gap-4
-      = form.label :title, 'Título', class: "font-semibold text-gray-700"
-      = form.text_field :title, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+    .grid.grid-cols-1.lg:grid-cols-2.gap-6
+      // Columna Izquierda - Información Básica
+      .space-y-4
+        h2.text-lg.font-semibold.text-gray-800.border-b.pb-2 Información Básica
+        
+        // Casilla de Proyecto Público - MUY VISIBLE
+        .form-group.bg-blue-50.p-4.rounded-lg.border-2.border-blue-200
+          .flex.items-center.space-x-3
+            = form.check_box :is_public, class: "w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+            .flex-1
+              = form.label :is_public, class: "block font-semibold text-blue-800 cursor-pointer" do
+                span Mostrar en portfolio público
+                p.text-sm.text-blue-600.mt-1 Si está marcado, este proyecto aparecerá en tu galería pública y podrá ser visto por otros usuarios
+        
+        .form-group
+          = form.label :title, 'Título del Proyecto *', class: "block font-semibold text-gray-700 mb-2"
+          = form.text_field :title, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400", required: true
 
-      = form.label :category, 'Categoría', class: "font-semibold text-gray-700"
-      = form.text_field :category, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+        .form-group
+          = form.label :category, 'Categoría *', class: "block font-semibold text-gray-700 mb-2"
+          - category_options = [['Residencial', 'residential'], ['Comercial', 'commercial'], ['Institucional', 'institutional'], ['Industrial', 'industrial'], ['Urbanismo', 'urban'], ['Interiorismo', 'interior'], ['Restauración', 'restoration'], ['Paisajismo', 'landscape']]
+          = form.select :category, options_for_select(category_options, @project.category), { prompt: 'Selecciona una categoría' }, { class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400", required: true }
 
-      = form.label :year, 'Año', class: "font-semibold text-gray-700"
-      = form.text_field :year, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+        .grid.grid-cols-1.md:grid-cols-2.gap-4
+          .form-group
+            = form.label :year, 'Año', class: "block font-semibold text-gray-700 mb-2"
+            = form.number_field :year, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
 
-      = form.label :description, 'Descripción', class: "font-semibold text-gray-700"
-      = form.text_area :description, rows: 5, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+          - if @is_management
+            .form-group
+              = form.label :project_type, 'Tipo de Proyecto', class: "block font-semibold text-gray-700 mb-2"
+              - project_type_options = [['Obra Nueva', 'new_construction'], ['Rehabilitación', 'rehabilitation'], ['Reforma', 'renovation'], ['Ampliación', 'extension'], ['Proyecto Básico', 'basic_project'], ['Proyecto de Ejecución', 'execution_project'], ['Dirección de Obra', 'construction_management']]
+              = form.select :project_type, options_for_select(project_type_options, @project.project_type), { prompt: 'Selecciona el tipo' }, { class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400" }
 
-      = form.label :images, 'Imágenes', class: "font-semibold text-gray-700"
+        .form-group
+          = form.label :location, 'Ubicación', class: "block font-semibold text-gray-700 mb-2"
+          = form.text_field :location, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+        .form-group
+          = form.label :description, 'Descripción *', class: "block font-semibold text-gray-700 mb-2"
+          = form.text_area :description, rows: 4, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400", required: true
+
+      // Columna Derecha - Gestión (solo para proyectos de gestión)
+      - if @is_management
+        .space-y-4
+          h2.text-lg.font-semibold.text-gray-800.border-b.pb-2 Información de Gestión
+
+          .form-group
+            h3.text-md.font-medium.text-gray-700.mb-3 Información del Cliente
+            
+            .space-y-3
+              .form-group
+                = form.label :client_name, 'Nombre del Cliente', class: "block font-medium text-gray-700 mb-1"
+                = form.text_field :client_name, class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+              .form-group
+                = form.label :client_email, 'Email del Cliente', class: "block font-medium text-gray-700 mb-1"
+                = form.email_field :client_email, class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+              .form-group
+                = form.label :client_phone, 'Teléfono del Cliente', class: "block font-medium text-gray-700 mb-1"
+                = form.telephone_field :client_phone, class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+          .grid.grid-cols-1.md:grid-cols-2.gap-4
+            .form-group
+              = form.label :budget, 'Presupuesto (€)', class: "block font-medium text-gray-700 mb-1"
+              = form.number_field :budget, step: 0.01, class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+            .form-group
+              = form.label :surface_area, 'Superficie (m²)', class: "block font-medium text-gray-700 mb-1"
+              = form.number_field :surface_area, step: 0.01, class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+          .form-group
+            = form.label :status, 'Estado del Proyecto', class: "block font-medium text-gray-700 mb-1"
+            - status_options = [['Propuesta', 'proposal'], ['En Progreso', 'in_progress'], ['Completado', 'completed'], ['Cancelado', 'cancelled']]
+            = form.select :status, options_for_select(status_options, @project.status), {}, { class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400" }
+
+          .grid.grid-cols-1.md:grid-cols-2.gap-4
+            .form-group
+              = form.label :start_date, 'Fecha de Inicio', class: "block font-medium text-gray-700 mb-1"
+              = form.date_field :start_date, class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+            .form-group
+              = form.label :expected_end_date, 'Fecha Esperada de Finalización', class: "block font-medium text-gray-700 mb-1"
+              = form.date_field :expected_end_date, class: "w-full rounded-lg bg-neutral-200 text-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+
+    // Imágenes (en ambos tipos de proyecto)
+    .mt-8
+      h2.text-lg.font-semibold.text-gray-800.border-b.pb-2.mb-4 Imágenes
+      
+      // Imágenes existentes
       - if @project.images.attached?
-        .flex.flex-wrap.gap-4.mb-2
-          - @project.images.each do |img|
-            .relative.img-toggle
-              - if img.content_type == 'image/svg+xml'
-                = image_tag img, class: "rounded-xl w-24 h-24 object-cover border-2 border-gray-200 transition-opacity duration-200"
-              - else
-                = image_tag img.variant(resize_to_limit: [120, 120]), class: "rounded-xl w-24 h-24 object-cover border-2 border-gray-200 transition-opacity duration-200"
-              = check_box_tag 'remove_images[]', img.id, false, class: 'hidden peer', title: 'Eliminar', autocomplete: 'off'
-              span.img-x.absolute.inset-0.flex.items-center.justify-center.rounded-xl.opacity-0.transition-opacity.duration-200.text-white.text-2xl.font-bold.z-10.cursor-pointer.hover\:scale-110 &times;
-      #images-drop-area.bg-neutral-100.border-2.border-dashed.border-gray-300.rounded-xl.p-6.flex.flex-col.items-center.justify-center.cursor-pointer.mb-2
-        span.text-gray-500.text-base Arrastra y suelta imágenes aquí o haz click para seleccionar
-        = form.file_field :images, id: "project_images", multiple: true, direct_upload: true, class: "hidden"
-      #images-preview.flex.flex-wrap.gap-4
+        .mb-4
+          h3.text-md.font-medium.text-gray-700.mb-3 Imágenes actuales
+          .flex.flex-wrap.gap-4
+            - @project.images.each do |img|
+              .relative.img-toggle
+                - if img.content_type == 'image/svg+xml'
+                  = image_tag img, class: "rounded-xl w-24 h-24 object-cover border-2 border-gray-200 transition-opacity duration-200"
+                - else
+                  = image_tag img.variant(resize_to_limit: [120, 120]), class: "rounded-xl w-24 h-24 object-cover border-2 border-gray-200 transition-opacity duration-200"
+                = check_box_tag 'remove_images[]', img.id, false, class: 'hidden peer', title: 'Eliminar', autocomplete: 'off'
+                span.img-x.absolute.inset-0.flex.items-center.justify-center.rounded-xl.opacity-0.transition-opacity.duration-200.text-white.text-2xl.font-bold.z-10.cursor-pointer.hover\:scale-110.bg-red-500.bg-opacity-75 &times;
 
-    .flex.gap-4.mt-6
-      = form.submit 'Guardar', class: "px-6 py-2 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-700 transition"
-      = link_to 'Cancelar', project_path(@project), class: "px-6 py-2 rounded-full bg-neutral-200 text-gray-700 font-semibold hover:bg-neutral-300 transition"
+      // Agregar nuevas imágenes
+      .form-group
+        = form.label :images, 'Agregar Nuevas Imágenes', class: "block font-semibold text-gray-700 mb-2"
+        div data-controller="image-upload"
+          #images-drop-area.bg-neutral-100.border-2.border-dashed.border-gray-300.rounded-xl.p-6.flex.flex-col.items-center.justify-center.cursor-pointer.mb-2 data-image-upload-target="dropArea"
+            svg.w-12.h-12.text-gray-400.mb-3 fill="currentColor" viewBox="0 0 20 20"
+              path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"
+            span.text-gray-500.text-base.mb-2 Arrastra y suelta imágenes aquí o haz click para seleccionar
+            span.text-gray-400.text-sm Formatos soportados: JPG, PNG, GIF (máx. 10MB cada una)
+            = form.file_field :images, id: "project_images", multiple: true, direct_upload: true, class: "hidden", data: { image_upload_target: "fileInput" }
+          #images-preview.flex.flex-wrap.gap-4.mt-4 data-image-upload-target="preview"
 
-    / JS para toggle visual de eliminación de imágenes
+    // Botones de acción
+    .flex.gap-4.mt-8.pt-6.border-t
+      = form.submit 'Guardar Cambios', class: "px-8 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-200"
+      = link_to 'Cancelar', project_path(@project), class: "px-8 py-3 rounded-full bg-neutral-200 text-gray-700 font-semibold hover:bg-neutral-300 transition-colors duration-200"
+
+    // JS para toggle visual de eliminación de imágenes
     script type="text/javascript"
       | document.addEventListener('DOMContentLoaded', function() {
       |   document.querySelectorAll('.img-toggle').forEach(function(wrapper) {

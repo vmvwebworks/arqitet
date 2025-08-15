@@ -32,6 +32,8 @@ html
             = link_to "Admin", "/admin", class: "text-gray-800 font-semibold hover:text-gray-900 mr-4"
           - if user_signed_in?
             = link_to "Mi Espacio", public_dashboard_path, class: "text-gray-700 hover:underline"
+            = link_to "Proyectos", management_projects_path, class: "text-gray-700 hover:underline"
+            = link_to "Facturas", invoices_path, class: "text-gray-700 hover:underline"
             = link_to "Calculadora", honorary_calculations_path, class: "text-gray-700 hover:underline"
             = link_to "Favoritos", user_favorites_path(current_user.slug), class: "text-gray-700 hover:underline"
           - if user_signed_in?
