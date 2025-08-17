@@ -21,3 +21,13 @@
         | por 
         = link_to project.user.full_name, user_path(project.user), class: "text-gray-700 hover:underline"
     p.mt-1.text-gray-700.leading-relaxed = truncate(project.description, length: 150)
+    
+    / Botones de acción si es tu proyecto
+    - if user_signed_in? && project.user == current_user
+      .flex.gap-2.mt-4
+        = link_to project_path(project), class: "px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          | Ver Detalles
+        = link_to project_documents_path(project), class: "px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors flex items-center"
+          svg.w-4.h-4.mr-1 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          | Documentos

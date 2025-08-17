@@ -1,0 +1,166 @@
+- content_for :title, "Subir Documento - #{@project.title}"
+
+.container.mx-auto.px-4.py-8
+  .max-w-2xl.mx-auto
+    / Header
+    .flex.items-center.gap-4.mb-8
+      = link_to project_documents_path(@project), class: "text-gray-600 hover:text-gray-800"
+        svg.w-6.h-6 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18"
+      div
+        h1.text-3xl.font-bold.text-gray-900 Subir Documento
+        p.text-gray-600.mt-1 
+          | Proyecto: 
+          span.font-semibold = @project.title
+
+    .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-8
+      = form_with model: [@project, @document], local: true, multipart: true, class: "space-y-6" do |form|
+        - if @document.errors.any?
+          .bg-red-50.border.border-red-200.rounded-md.p-4
+            .flex
+              svg.h-5.w-5.text-red-400 fill="currentColor" viewBox="0 0 20 20"
+                path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"
+              .ml-3
+                h3.text-sm.font-medium.text-red-800 
+                  = pluralize(@document.errors.count, "error")
+                  = " evitó que se guardara el documento:"
+                ul.mt-2.text-sm.text-red-700.list-disc.list-inside
+                  - @document.errors.full_messages.each do |message|
+                    li = message
+
+        / Subida de archivo - Drag & Drop
+        .space-y-2
+          = form.label :file, "Archivo", class: "block text-sm font-medium text-gray-700"
+          .relative
+            = form.file_field :file, accept: ".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar", class: "hidden", id: "file-upload", onchange: "handleFileSelect(event)"
+            
+            label for="file-upload" class="block w-full border-2 border-gray-300 border-dashed rounded-lg p-8 text-center hover:border-gray-400 transition-colors cursor-pointer"
+              .mx-auto.w-12.h-12.text-gray-400 id="upload-icon"
+                svg fill="none" stroke="currentColor" viewBox="0 0 48 48"
+                  path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+              
+              .mt-4 id="upload-text"
+                p.text-sm.text-gray-600
+                  span.font-semibold Haz clic para subir
+                  |  o arrastra y suelta
+                p.text-xs.text-gray-500.mt-1 PDF, DOC, XLS, PPT, TXT, imágenes, ZIP hasta 10MB
+              
+              .mt-4.hidden id="file-info"
+                .text-sm.text-gray-900.font-medium id="file-name"
+                .text-xs.text-gray-500 id="file-size"
+
+        / Nombre del documento
+        .space-y-2
+          = form.label :name, "Nombre del documento", class: "block text-sm font-medium text-gray-700"
+          = form.text_field :name, placeholder: "Ingresa un nombre descriptivo", class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          p.text-xs.text-gray-500 Deja vacío para usar el nombre del archivo
+
+        / Descripción
+        .space-y-2
+          = form.label :description, "Descripción (opcional)", class: "block text-sm font-medium text-gray-700"
+          = form.text_area :description, rows: 3, placeholder: "Descripción del documento, notas adicionales...", class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+
+        / Categoría
+        .space-y-2
+          = form.label :category, "Categoría", class: "block text-sm font-medium text-gray-700"
+          = form.select :category, options_for_select(Document.categories.map { |k, v| [Document.new.tap { |d| d.category = k }.category_spanish, k] }, @document.category), { prompt: "Selecciona una categoría" }, { class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" }
+
+        / Botones de acción
+        .flex.justify-end.space-x-3.pt-6
+          = link_to project_documents_path(@project), class: "px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            | Cancelar
+          
+          = form.submit "Subir Documento", class: "px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed", id: "submit-btn", disabled: true
+
+javascript:
+  function handleFileSelect(event) {
+    const file = event.target.files[0];
+    const uploadIcon = document.getElementById('upload-icon');
+    const uploadText = document.getElementById('upload-text');
+    const fileInfo = document.getElementById('file-info');
+    const fileName = document.getElementById('file-name');
+    const fileSize = document.getElementById('file-size');
+    const submitBtn = document.getElementById('submit-btn');
+    const nameInput = document.querySelector('input[name="document[name]"]');
+    
+    if (file) {
+      // Mostrar información del archivo
+      uploadIcon.classList.add('hidden');
+      uploadText.classList.add('hidden');
+      fileInfo.classList.remove('hidden');
+      
+      fileName.textContent = file.name;
+      fileSize.textContent = formatFileSize(file.size);
+      
+      // Habilitar botón submit
+      submitBtn.disabled = false;
+      
+      // Auto-llenar nombre si está vacío
+      if (!nameInput.value) {
+        const baseName = file.name.replace(/\.[^/.]+$/, "");
+        nameInput.value = baseName;
+      }
+      
+      // Cambiar estilo del área de subida
+      event.target.parentElement.querySelector('label').classList.remove('border-gray-300');
+      event.target.parentElement.querySelector('label').classList.add('border-green-300', 'bg-green-50');
+    } else {
+      // Restaurar estado original
+      uploadIcon.classList.remove('hidden');
+      uploadText.classList.remove('hidden');
+      fileInfo.classList.add('hidden');
+      submitBtn.disabled = true;
+      
+      event.target.parentElement.querySelector('label').classList.remove('border-green-300', 'bg-green-50');
+      event.target.parentElement.querySelector('label').classList.add('border-gray-300');
+    }
+  }
+  
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+  
+  // Drag and drop functionality
+  const dropArea = document.querySelector('label[for="file-upload"]');
+  const fileInput = document.getElementById('file-upload');
+  
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+  });
+  
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false);
+  });
+  
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false);
+  });
+  
+  function highlight(e) {
+    dropArea.classList.add('border-blue-400', 'bg-blue-50');
+  }
+  
+  function unhighlight(e) {
+    dropArea.classList.remove('border-blue-400', 'bg-blue-50');
+  }
+  
+  dropArea.addEventListener('drop', handleDrop, false);
+  
+  function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    
+    if (files.length > 0) {
+      fileInput.files = files;
+      handleFileSelect({ target: { files: files } });
+    }
+  }

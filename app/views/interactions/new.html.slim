@@ -1,0 +1,51 @@
+- content_for :title, "Nueva Interacción"
+
+.container.mx-auto.px-4.py-8
+  .max-w-2xl.mx-auto
+    .bg-white.rounded-lg.shadow-lg.p-8
+      .flex.justify-between.items-center.mb-8
+        div
+          h1.text-3xl.font-bold.text-gray-900 Nueva Interacción
+          p.text-gray-600.mt-2 Cliente: #{@client.name}
+        
+        = link_to @client, class: "text-gray-600 hover:text-gray-800 flex items-center gap-2"
+          svg.w-5.h-5 fill="currentColor" viewBox="0 0 20 20"
+            path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414-1.414L10.586 9 6.293 4.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5z" clip-rule="evenodd"
+          | Volver al cliente
+
+      = form_with model: [@client, @interaction], local: true, class: "space-y-6" do |form|
+        - if @interaction.errors.any?
+          .bg-red-50.border.border-red-200.rounded-lg.p-4.mb-6
+            h3.text-red-800.font-medium.mb-2 Se encontraron #{pluralize(@interaction.errors.count, "error")}:
+            ul.text-red-700.text-sm.list-disc.list-inside
+              - @interaction.errors.full_messages.each do |message|
+                li = message
+
+        .form-group
+          = form.label :interaction_type, "Tipo de interacción", class: "block text-sm font-medium text-gray-700 mb-2"
+          = form.select :interaction_type, options_for_select([
+              ['Llamada', 'call'], 
+              ['Email', 'email'], 
+              ['Reunión', 'meeting'], 
+              ['Nota', 'note'], 
+              ['Propuesta', 'proposal'], 
+              ['Contrato', 'contract']
+            ], @interaction.interaction_type), 
+            { prompt: "Selecciona el tipo" }, 
+            { class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", required: true }
+
+        .form-group
+          = form.label :subject, "Asunto", class: "block text-sm font-medium text-gray-700 mb-2"
+          = form.text_field :subject, placeholder: "Ej: Primera reunión del proyecto", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", required: true
+
+        .form-group
+          = form.label :date, "Fecha y hora", class: "block text-sm font-medium text-gray-700 mb-2"
+          = form.datetime_local_field :date, value: @interaction.date&.strftime("%Y-%m-%dT%H:%M"), class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", required: true
+
+        .form-group
+          = form.label :content, "Contenido de la interacción", class: "block text-sm font-medium text-gray-700 mb-2"
+          = form.text_area :content, rows: 6, placeholder: "Describe los detalles de la interacción, acuerdos, próximos pasos, etc.", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+
+        .flex.justify-end.gap-4.pt-6.border-t.border-gray-200
+          = link_to "Cancelar", @client, class: "px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          = form.submit "Registrar Interacción", class: "px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"

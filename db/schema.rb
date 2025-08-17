@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_16_121248) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,24 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.text "address"
+    t.string "company"
+    t.string "tax_id"
+    t.string "website"
+    t.text "notes"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "created_by_id"
+    t.index ["created_by_id"], name: "index_clients_on_created_by_id"
+    t.index ["user_id"], name: "index_clients_on_user_id"
+  end
+
   create_table "consent_texts", force: :cascade do |t|
     t.text "content", null: false
     t.string "locale", default: "es"
@@ -66,6 +84,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id"
     t.index ["sender_id", "recipient_id"], name: "index_conversations_on_sender_id_and_recipient_id", unique: true
     t.index ["sender_id"], name: "index_conversations_on_sender_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "user_id", null: false
+    t.string "name"
+    t.string "file_type"
+    t.integer "file_size"
+    t.text "description"
+    t.string "category"
+    t.integer "version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "uploaded_by_id"
+    t.index ["project_id"], name: "index_documents_on_project_id"
+    t.index ["uploaded_by_id"], name: "index_documents_on_uploaded_by_id"
+    t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -95,6 +130,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
     t.text "notes"
     t.string "complexity"
     t.index ["user_id"], name: "index_honorary_calculations_on_user_id"
+  end
+
+  create_table "interactions", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "user_id", null: false
+    t.string "interaction_type"
+    t.string "subject"
+    t.text "content"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_interactions_on_client_id"
+    t.index ["user_id"], name: "index_interactions_on_user_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
@@ -170,6 +218,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
     t.date "expected_end_date"
     t.string "project_type"
     t.boolean "is_public", default: true
+    t.integer "client_id"
+    t.index ["client_id"], name: "index_projects_on_client_id"
     t.index ["is_public"], name: "index_projects_on_is_public"
     t.index ["status"], name: "index_projects_on_status"
     t.index ["user_id"], name: "index_projects_on_user_id"
@@ -241,9 +291,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "clients", "users"
+  add_foreign_key "clients", "users", column: "created_by_id"
   add_foreign_key "conversations", "users", column: "recipient_id"
   add_foreign_key "conversations", "users", column: "sender_id"
+  add_foreign_key "documents", "projects"
+  add_foreign_key "documents", "users"
+  add_foreign_key "documents", "users", column: "uploaded_by_id"
   add_foreign_key "honorary_calculations", "users"
+  add_foreign_key "interactions", "clients"
+  add_foreign_key "interactions", "users"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoices", "projects"
   add_foreign_key "invoices", "users"
@@ -251,6 +308,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_13_213550) do
   add_foreign_key "messages", "users"
   add_foreign_key "project_favorites", "projects"
   add_foreign_key "project_favorites", "users"
+  add_foreign_key "projects", "clients"
   add_foreign_key "projects", "users"
   add_foreign_key "subscriptions", "subscription_plans"
   add_foreign_key "subscriptions", "users"

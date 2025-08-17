@@ -1,9 +1,11 @@
 class Project < ApplicationRecord
   belongs_to :user
+  belongs_to :client, optional: true
   has_many_attached :images
   has_many :project_favorites, dependent: :destroy
   has_many :favorited_by_users, through: :project_favorites, source: :user
   has_many :invoices, dependent: :destroy
+  has_many :documents, dependent: :destroy
 
   # Enum para estados de proyecto (gestión arquitectónica)
   enum status: {
@@ -77,6 +79,26 @@ class Project < ApplicationRecord
   
   def pending_invoice_amount
     invoices.pending.sum(:total_amount)
+  end
+
+  def client_display_name
+    if client.present?
+      client.name
+    elsif client_name.present?
+      client_name
+    else
+      "Sin cliente"
+    end
+  end
+
+  def client_display_email
+    if client.present?
+      client.email
+    elsif client_email.present?
+      client_email
+    else
+      nil
+    end
   end
 
   # Método para crear proyecto de gestión

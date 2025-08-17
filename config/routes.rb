@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # Rutas de CRM
+  resources :clients do
+    resources :interactions, except: [:index]
+  end
+
   # Rutas de gestión de proyectos (unificadas)
   get 'proyectos' => 'projects#management', as: :management_projects
 
@@ -33,6 +38,11 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :project_favorites, only: [ :create, :destroy ], path: "favorites"
+    resources :documents, except: [:edit, :update] do
+      member do
+        get :download
+      end
+    end
   end
   resources :users, only: [ :show, :edit, :update ], constraints: { id: /[a-zA-Z0-9\-]+/ }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

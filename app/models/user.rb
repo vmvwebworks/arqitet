@@ -16,6 +16,9 @@ class User < ApplicationRecord
   has_one :current_subscription, -> { where(status: [ "active", "trialing" ]).order(created_at: :desc) }, class_name: "Subscription"
   has_many :honorary_calculations, dependent: :destroy
   has_many :invoices, dependent: :destroy
+  has_many :clients, dependent: :destroy
+  has_many :interactions, dependent: :destroy
+  has_many :documents, dependent: :destroy
   has_one_attached :avatar
 
   validates :full_name, presence: true

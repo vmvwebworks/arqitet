@@ -123,6 +123,92 @@ end
 
 puts "✓ Proyectos de ejemplo creados: #{Project.count} total"
 
+# Crear clientes de ejemplo para el CRM
+puts "Creando clientes de ejemplo para el CRM..."
+
+clients_data = [
+  {
+    name: 'María García López',
+    email: 'maria.garcia@constructora.com',
+    phone: '+34 666 111 222',
+    company: 'Constructora García S.L.',
+    tax_id: 'B12345678',
+    website: 'https://www.constructora-garcia.com',
+    address: 'Av. de la Constitución 45, 3ºA, 41001 Sevilla',
+    status: 'active',
+    notes: 'Cliente muy exigente con la calidad. Prefiere materiales ecológicos.'
+  },
+  {
+    name: 'Carlos Ruiz Martínez',
+    email: 'carlos@ruizpromotor.es',
+    phone: '+34 666 333 444',
+    company: 'Promociones Ruiz',
+    tax_id: 'B87654321',
+    website: 'https://www.promociones-ruiz.es',
+    address: 'Calle Gran Vía 123, 28013 Madrid',
+    status: 'prospect',
+    notes: 'Interesado en proyectos de vivienda plurifamiliar. Volumen alto.'
+  },
+  {
+    name: 'Ana Fernández Silva',
+    email: 'ana.fernandez@gmail.com',
+    phone: '+34 666 555 666',
+    company: nil,
+    tax_id: '12345678Z',
+    website: nil,
+    address: 'Carrer de Balmes 89, 08008 Barcelona',
+    status: 'lead',
+    notes: 'Primera vivienda. Presupuesto ajustado pero muy motivada.'
+  },
+  {
+    name: 'José Manuel Torres',
+    email: 'jm.torres@empresarial.com',
+    phone: '+34 666 777 888',
+    company: 'Grupo Empresarial Torres',
+    tax_id: 'A98765432',
+    website: 'https://www.grupo-torres.com',
+    address: 'Polígono Industrial Norte, Nave 15, 46980 Paterna, Valencia',
+    status: 'active',
+    notes: 'Cliente corporativo. Proyectos industriales y oficinas.'
+  }
+]
+
+clients_data.each do |client_data|
+  client = demo_user.clients.find_or_create_by!(
+    email: client_data[:email]
+  ) do |c|
+    c.assign_attributes(client_data)
+    c.created_by = demo_user
+  end
+  
+  # Crear algunas interacciones de ejemplo
+  if client.interactions.empty?
+    interactions_data = [
+      {
+        interaction_type: 'call',
+        subject: 'Llamada inicial de contacto',
+        content: 'Primera conversación para entender las necesidades del cliente.',
+        date: 2.weeks.ago
+      },
+      {
+        interaction_type: 'email',
+        subject: 'Envío de propuesta inicial',
+        content: 'Enviada propuesta económica y cronograma preliminar.',
+        date: 1.week.ago
+      }
+    ]
+    
+    interactions_data.each do |interaction_data|
+      client.interactions.create!(
+        interaction_data.merge(user: demo_user)
+      )
+    end
+  end
+end
+
+puts "✓ Clientes de ejemplo creados: #{Client.count} total"
+puts "✓ Interacciones de ejemplo creadas: #{Interaction.count} total"
+
 # Crear planes de suscripción
 puts "Creando planes de suscripción..."
 
@@ -234,3 +320,57 @@ end
 puts "✓ Tarifas de honorarios creadas para #{RateTariff.count} combinaciones región/proyecto"
 
 # AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+# Crear documentos de ejemplo para los proyectos
+puts "Creando documentos de ejemplo..."
+
+Project.where(is_public: true).limit(2).each do |project|
+  # Crear algunos documentos de ejemplo para cada proyecto
+  documents_data = [
+    {
+      name: "Memoria Descriptiva - #{project.title}",
+      description: "Documento principal con la descripción detallada del proyecto arquitectónico.",
+      category: 'specification'
+    },
+    {
+      name: "Planos de Planta - #{project.title}",
+      description: "Planos arquitectónicos de plantas del proyecto.",
+      category: 'plan'
+    },
+    {
+      name: "Presupuesto General - #{project.title}",
+      description: "Presupuesto detallado de la obra y honorarios profesionales.",
+      category: 'invoice'
+    }
+  ]
+
+  documents_data.each do |doc_data|
+    unless project.documents.exists?(name: doc_data[:name])
+      document = project.documents.build(doc_data)
+      document.user = project.user
+      document.uploaded_by = project.user
+      
+      # Crear un archivo de texto de ejemplo
+      temp_file = Tempfile.new(['document', '.txt'])
+      temp_file.write("Contenido de ejemplo para #{doc_data[:name]}\n\nEste es un documento de demostración creado automáticamente para mostrar la funcionalidad del sistema de gestión documental.\n\nFecha de creación: #{Time.current}\nProyecto: #{project.title}\nCategoría: #{doc_data[:category]}")
+      temp_file.rewind
+      
+      document.file.attach(
+        io: temp_file,
+        filename: "#{doc_data[:name].parameterize}.txt",
+        content_type: 'text/plain'
+      )
+      
+      if document.save
+        puts "  ✓ Documento creado: #{document.name}"
+      else
+        puts "  ✗ Error creando documento: #{document.errors.full_messages.join(', ')}"
+      end
+      
+      temp_file.close
+      temp_file.unlink
+    end
+  end
+end
+
+puts "✓ Documentos de ejemplo creados"

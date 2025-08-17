@@ -1,0 +1,129 @@
+- content_for :title, "CRM - Gestión de Clientes"
+
+.container.mx-auto.px-4.py-8
+  .max-w-7xl.mx-auto
+    / Header
+    .flex.justify-between.items-center.mb-8
+      div
+        h1.text-3xl.font-bold.text-gray-900 CRM - Gestión de Clientes
+        p.text-gray-600.mt-2 Gestiona tu cartera de clientes y oportunidades de negocio
+
+      = link_to new_client_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center"
+        svg.w-5.h-5.mr-2 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+        | Nuevo Cliente
+
+    / Dashboard Stats
+    .grid.grid-cols-1.md:grid-cols-4.gap-6.mb-8
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-blue-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM5 16v-1a3 3 0 116 0v1H5z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate Total Clientes
+              dd.text-lg.font-medium.text-gray-900 = @clients.count
+      
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-green-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate Clientes Activos
+              dd.text-lg.font-medium.text-gray-900 = @clients_by_status['active'] || 0
+
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-yellow-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate Prospectos
+              dd.text-lg.font-medium.text-gray-900 = @clients_by_status['prospect'] || 0
+
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-purple-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm2 6a2 2 0 114 0 2 2 0 01-4 0zm8-2a2 2 0 100 4 2 2 0 000-4z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate Valor Total
+              dd.text-lg.font-medium.text-gray-900 = "€#{sprintf('%.2f', @total_value)}"
+
+    / Lista de Clientes
+    .bg-white.rounded-lg.shadow-sm.border.border-gray-200.overflow-hidden
+      .px-6.py-4.border-b.border-gray-200
+        h3.text-lg.font-medium.text-gray-900 Clientes
+
+      - if @clients.any?
+        .overflow-x-auto
+          table.min-w-full.divide-y.divide-gray-200
+            thead.bg-gray-50
+              tr
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Cliente
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Empresa
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Estado
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Proyectos
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Valor
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Última Interacción
+                th.px-6.py-3.text-right.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Acciones
+
+            tbody.bg-white.divide-y.divide-gray-200
+              - @clients.each do |client|
+                tr.hover:bg-gray-50
+                  td.px-6.py-4.whitespace-nowrap
+                    .flex.items-center
+                      .ml-4
+                        .text-sm.font-medium.text-gray-900 = client.name
+                        .text-sm.text-gray-500 = client.email
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900
+                    = client.company.present? ? client.company : "—"
+                  
+                  td.px-6.py-4.whitespace-nowrap
+                    span.inline-flex.px-2.py-1.rounded-full.text-xs.font-medium class="#{client.status_badge_class}"
+                      = client.display_status
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900
+                    = client.projects_count
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900
+                    = "€#{sprintf('%.2f', client.total_project_value)}"
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-500
+                    - if client.last_interaction
+                      = time_ago_in_words(client.last_interaction.date)
+                      = " ago"
+                    - else
+                      = "Sin interacciones"
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-right.text-sm.font-medium
+                    .flex.justify-end.space-x-2
+                      = link_to client, class: "text-blue-600 hover:text-blue-900"
+                        svg.w-4.h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      
+                      = link_to edit_client_path(client), class: "text-yellow-600 hover:text-yellow-900"
+                        svg.w-4.h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+
+      - else
+        .px-6.py-12.text-center
+          svg.mx-auto.h-12.w-12.text-gray-400 fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+          h3.mt-2.text-sm.font-medium.text-gray-900 No tienes clientes registrados
+          p.mt-1.text-sm.text-gray-500 Empieza creando tu primer cliente para gestionar tu cartera.
+          .mt-6
+            = link_to new_client_path, class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+              svg.w-4.h-4.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              | Nuevo Cliente
