@@ -44,6 +44,14 @@ section.max-w-4xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
           = form.label :description, 'Descripción *', class: "block font-semibold text-gray-700 mb-2"
           = form.text_area :description, rows: 4, class: "w-full rounded-xl bg-neutral-200 text-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-400", required: true
 
+        .form-group
+          = form.label :cad_file, 'Archivo CAD (IFC, DXF, SVG)', class: "block font-semibold text-gray-700 mb-2"
+          = form.file_field :cad_file, direct_upload: true, class: "w-full rounded-xl bg-neutral-100 text-gray-800 px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          - if @project.cad_file.attached?
+            p.text-xs.text-green-600.mt-1 Archivo actual: 
+              = link_to @project.cad_file.filename, url_for(@project.cad_file), target: "_blank", class: "underline text-blue-700"
+          p.text-xs.text-gray-500.mt-1 Formatos permitidos: .ifc, .dxf, .svg
+
       // Columna Derecha - Gestión (solo para proyectos de gestión)
       - if @is_management
         .space-y-4

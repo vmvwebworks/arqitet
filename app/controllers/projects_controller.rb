@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   include Subscribable
 
-  before_action :set_project, only: %i[ show edit update destroy ]
+before_action :set_project, only: %i[ show edit update destroy timeline ]
   before_action :authenticate_user!, except: %i[index show]
   before_action :authorize_user!, only: %i[edit update destroy]
   before_action :check_project_limit, only: %i[new create]

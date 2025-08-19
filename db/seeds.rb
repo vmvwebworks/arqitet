@@ -73,6 +73,14 @@ proyecto_publico = Project.create!(
   budget: 150000.0,
   surface_area: 120.0
 )
+# Adjuntar archivo IFC demo
+if File.exist?(Rails.root.join('db/demo.ifc'))
+  proyecto_publico.cad_file.attach(
+    io: File.open(Rails.root.join('db/demo.ifc')),
+    filename: 'demo.ifc',
+    content_type: 'application/octet-stream'
+  )
+end
 proyecto_publico2 = Project.create!(
   title: 'Edificio Solar',
   user: demo_user,
@@ -84,6 +92,14 @@ proyecto_publico2 = Project.create!(
   budget: 500000.0,
   surface_area: 800.0
 )
+# Adjuntar archivo SVG demo
+if File.exist?(Rails.root.join('db/demo.svg'))
+  proyecto_publico2.cad_file.attach(
+    io: File.open(Rails.root.join('db/demo.svg')),
+    filename: 'demo.svg',
+    content_type: 'image/svg+xml'
+  )
+end
 admin_project = Project.create!(
   title: 'Proyecto Admin',
   user: admin_user,
