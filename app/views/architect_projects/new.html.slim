@@ -1,0 +1,71 @@
+- content_for :title, "Nuevo Proyecto"
+
+.container.mx-auto.px-4.py-8
+  .max-w-3xl.mx-auto
+    .bg-white.rounded-lg.shadow-lg.p-8
+      .flex.justify-between.items-center.mb-8
+        h1.text-3xl.font-bold.text-granate Nuevo Proyecto
+        = link_to architect_projects_path, class: "text-gray-600 hover:text-gray-800 flex items-center gap-2"
+          svg.w-5.h-5 fill="currentColor" viewBox="0 0 20 20"
+            path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414-1.414L10.586 9 6.293 4.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5z" clip-rule="evenodd"
+          | Volver a proyectos
+
+      = form_with model: @project, local: true, class: "space-y-6" do |form|
+        - if @project.errors.any?
+          .bg-red-50.border.border-red-200.rounded-lg.p-4.mb-6
+            h3.text-red-800.font-medium.mb-2 Se encontraron #{pluralize(@project.errors.count, "error")}:
+            ul.text-red-700.text-sm.list-disc.list-inside
+              - @project.errors.full_messages.each do |message|
+                li = message
+
+        .grid.md:grid-cols-2.gap-6
+          .space-y-6
+            .form-group
+              = form.label :name, "Nombre del proyecto", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.text_field :name, placeholder: "Ej: Casa unifamiliar en Sevilla", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors", required: true
+            
+            .form-group
+              = form.label :client_name, "Cliente", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.text_field :client_name, placeholder: "Nombre del cliente", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors", required: true
+            
+            .form-group
+              = form.label :client_email, "Email del cliente", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.email_field :client_email, placeholder: "cliente@email.com", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors"
+            
+            .form-group
+              = form.label :client_phone, "Teléfono del cliente", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.text_field :client_phone, placeholder: "+34 600 000 000", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors"
+
+          .space-y-6
+            .form-group
+              = form.label :budget, "Presupuesto (€)", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.number_field :budget, step: 0.01, min: 0, placeholder: "50000", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors", required: true
+            
+            .form-group
+              = form.label :surface_area, "Superficie (m²)", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.number_field :surface_area, step: 0.01, min: 0, placeholder: "150", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors"
+            
+            .form-group
+              = form.label :location, "Ubicación", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.text_field :location, placeholder: "Madrid, España", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors"
+            
+            .form-group
+              = form.label :status, "Estado", class: "block text-sm font-medium text-gray-700 mb-2"
+              = form.select :status, options_for_select([['Propuesta', 'proposal'], ['En Progreso', 'in_progress'], ['Finalizado', 'completed'], ['Cancelado', 'cancelled']], @project.status), { prompt: "Selecciona un estado" }, { class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors" }
+
+        .grid.md:grid-cols-2.gap-6
+          .form-group
+            = form.label :start_date, "Fecha de inicio", class: "block text-sm font-medium text-gray-700 mb-2"
+            = form.date_field :start_date, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors"
+          
+          .form-group
+            = form.label :expected_end_date, "Fecha estimada de finalización", class: "block text-sm font-medium text-gray-700 mb-2"
+            = form.date_field :expected_end_date, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors"
+
+        .form-group
+          = form.label :description, "Descripción del proyecto", class: "block text-sm font-medium text-gray-700 mb-2"
+          = form.text_area :description, rows: 4, placeholder: "Describe los detalles del proyecto, objetivos, características especiales...", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracota focus:border-transparent transition-colors"
+
+        .flex.justify-end.gap-4.pt-6.border-t.border-gray-200
+          = link_to "Cancelar", architect_projects_path, class: "px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          = form.submit "Crear Proyecto", class: "px-6 py-3 bg-terracota hover:bg-granate text-white rounded-lg font-semibold transition-colors"

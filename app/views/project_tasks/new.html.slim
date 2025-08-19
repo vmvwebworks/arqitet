@@ -1,0 +1,93 @@
+- content_for :title, "Nueva Tarea - #{@project.title}"
+
+.container.mx-auto.px-4.py-8
+  .max-w-2xl.mx-auto
+    / Header
+    .flex.items-center.gap-4.mb-8
+      = link_to project_project_tasks_path(@project), class: "text-gray-600 hover:text-gray-800"
+        svg.w-6.h-6 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18"
+      div
+        h1.text-3xl.font-bold.text-gray-900 Nueva Tarea
+        p.text-gray-600.mt-1 
+          | Proyecto: 
+          span.font-semibold = @project.title
+
+    .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-8
+      = form_with model: [@project, @project_task], local: true, class: "space-y-6" do |form|
+        - if @project_task.errors.any?
+          .bg-red-50.border.border-red-200.rounded-md.p-4
+            .flex
+              svg.h-5.w-5.text-red-400 fill="currentColor" viewBox="0 0 20 20"
+                path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"
+              .ml-3
+                h3.text-sm.font-medium.text-red-800 
+                  = pluralize(@project_task.errors.count, "error")
+                  = " evitó que se guardara la tarea:"
+                ul.mt-2.text-sm.text-red-700.list-disc.list-inside
+                  - @project_task.errors.full_messages.each do |message|
+                    li = message
+
+        / Nombre de la tarea
+        .space-y-2
+          = form.label :name, "Nombre de la tarea", class: "block text-sm font-medium text-gray-700"
+          = form.text_field :name, placeholder: "Ej: Diseño de planos arquitectónicos", class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+
+        / Descripción
+        .space-y-2
+          = form.label :description, "Descripción", class: "block text-sm font-medium text-gray-700"
+          = form.text_area :description, rows: 3, placeholder: "Descripción detallada de la tarea...", class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+
+        / Fechas
+        .grid.grid-cols-1.md:grid-cols-2.gap-4
+          .space-y-2
+            = form.label :start_date, "Fecha de inicio", class: "block text-sm font-medium text-gray-700"
+            = form.date_field :start_date, class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+
+          .space-y-2
+            = form.label :end_date, "Fecha de finalización", class: "block text-sm font-medium text-gray-700"
+            = form.date_field :end_date, class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+
+        / Prioridad y Estado
+        .grid.grid-cols-1.md:grid-cols-2.gap-4
+          .space-y-2
+            = form.label :priority, "Prioridad", class: "block text-sm font-medium text-gray-700"
+            = form.select :priority, options_for_select(ProjectTask.priorities.map { |k, v| [ProjectTask.new.tap { |t| t.priority = v }.priority_spanish, v] }, @project_task.priority), { prompt: "Selecciona prioridad" }, { class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" }
+
+          .space-y-2
+            = form.label :status, "Estado", class: "block text-sm font-medium text-gray-700"
+            = form.select :status, options_for_select(ProjectTask.statuses.map { |k, v| [ProjectTask.new.tap { |t| t.status = k }.status_spanish, k] }, @project_task.status), { prompt: "Selecciona estado" }, { class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" }
+
+        / Progreso
+        .space-y-2
+          = form.label :progress, "Progreso (%)", class: "block text-sm font-medium text-gray-700"
+          .flex.items-center.space-x-3
+            = form.range_field :progress, min: 0, max: 100, class: "flex-1", id: "progress-slider", oninput: "updateProgressValue(this.value)"
+            span.text-sm.font-medium.text-gray-700.w-12 id="progress-value" = "#{@project_task.progress}%"
+          = form.hidden_field :progress, id: "progress-hidden"
+
+        / Asignación (opcional)
+        .space-y-2
+          = form.label :assigned_to_id, "Asignar a", class: "block text-sm font-medium text-gray-700"
+          = form.select :assigned_to_id, options_for_select(@team_members.map { |u| [u.full_name, u.id] }, @project_task.assigned_to_id), { prompt: "Sin asignar", include_blank: true }, { class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" }
+
+        / Botones de acción
+        .flex.justify-end.space-x-3.pt-6
+          = link_to project_project_tasks_path(@project), class: "px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            | Cancelar
+          
+          = form.submit "Crear Tarea", class: "px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+
+javascript:
+  function updateProgressValue(value) {
+    document.getElementById('progress-value').textContent = value + '%';
+    document.getElementById('progress-hidden').value = value;
+  }
+  
+  // Initialize progress slider
+  document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('progress-slider');
+    const progressValue = #{@project_task.progress || 0};
+    slider.value = progressValue;
+    updateProgressValue(progressValue);
+  });

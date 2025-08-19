@@ -1,0 +1,27 @@
+
+<h1>Factura <%= @invoice.invoice_number %></h1>
+<p>Cliente: <%= @invoice.client_name %> - <%= @invoice.client_email %></p>
+<p>Fecha de emisión: <%= @invoice.issue_date %></p>
+<p>Importe total: <%= number_to_currency(@invoice.total_amount) %></p>
+
+<table style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="border:1px solid #ccc; padding:4px;">Descripción</th>
+      <th style="border:1px solid #ccc; padding:4px;">Cantidad</th>
+      <th style="border:1px solid #ccc; padding:4px;">Precio unitario</th>
+      <th style="border:1px solid #ccc; padding:4px;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invoice.invoice_items.each do |item| %>
+      <tr>
+        <td style="border:1px solid #ccc; padding:4px;"><%= item.description %></td>
+        <td style="border:1px solid #ccc; padding:4px;"><%= item.quantity %></td>
+        <td style="border:1px solid #ccc; padding:4px;"><%= number_to_currency(item.unit_price) %></td>
+        <td style="border:1px solid #ccc; padding:4px;"><%= number_to_currency(item.total) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

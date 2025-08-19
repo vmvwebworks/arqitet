@@ -21,16 +21,16 @@ Rails.application.routes.draw do
 
   # Rutas de CRM
   resources :clients do
-    resources :interactions, except: [:index]
+    resources :interactions, except: [ :index ]
   end
 
   # Rutas de gestión de proyectos (unificadas)
-  get 'proyectos' => 'projects#management', as: :management_projects
+  get "proyectos" => "projects#management", as: :management_projects
 
   # Rutas de facturación
-  resources :invoices, path: 'facturas' do
+  resources :invoices, path: "facturas" do
     member do
-      get :pdf
+      get :factura, action: :pdf
       patch :mark_as_sent
       patch :mark_as_paid
     end
@@ -38,10 +38,29 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :project_favorites, only: [ :create, :destroy ], path: "favorites"
-    resources :documents, except: [:edit, :update] do
+    resources :documents, except: [ :edit, :update ] do
       member do
         get :download
       end
+    end
+
+    resources :project_tasks, except: [ :show ] do
+      member do
+        patch :update_progress
+        patch :change_status
+      end
+    end
+
+    resources :project_milestones, except: [ :show ] do
+      member do
+        patch :mark_completed
+        patch :mark_cancelled
+      end
+    end
+
+    member do
+      get :timeline
+      get :gantt_data
     end
   end
   resources :users, only: [ :show, :edit, :update ], constraints: { id: /[a-zA-Z0-9\-]+/ }

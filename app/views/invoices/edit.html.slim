@@ -1,0 +1,32 @@
+h1 Editar Factura
+
+-# Puedes personalizar este formulario según los campos de tu modelo Invoice
+= form_with(model: @invoice, local: true) do |f|
+  .field
+    = f.label :invoice_number, 'Número de factura'
+    = f.text_field :invoice_number
+  .field
+    = f.label :client_name, 'Cliente'
+    = f.text_field :client_name
+  .field
+    = f.label :client_email, 'Email del cliente'
+    = f.email_field :client_email
+  .field
+    = f.label :client_address, 'Dirección del cliente'
+    = f.text_field :client_address
+  .field
+    = f.label :issue_date, 'Fecha de emisión'
+    = f.date_field :issue_date
+  .field
+    = f.label :due_date, 'Fecha de vencimiento'
+    = f.date_field :due_date
+  .field
+    = f.label :status, 'Estado'
+    = f.select :status, Invoice.statuses.keys.map { |k| [k.humanize, k] }, {}, class: 'form-select'
+  .field
+    = f.label :notes, 'Notas'
+    = f.text_area :notes
+  .actions
+    = f.submit 'Guardar cambios', class: 'btn btn-primary'
+
+= link_to 'Volver', invoices_path, class: 'btn btn-secondary mt-3'

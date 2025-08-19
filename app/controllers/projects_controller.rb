@@ -79,7 +79,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     # Por defecto, los proyectos son públicos a menos que se especifique lo contrario
-    @project.is_public = params[:private] != 'true'
+    @project.is_public = params[:private] != "true"
   end
 
   # GET /projects/1/edit
@@ -133,17 +133,42 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
-    is_management = !@project.is_public
-    @project.destroy!
+    @project.destroy
+    redirect_to my_projects_path, notice: "Proyecto eliminado exitosamente."
+  end
 
-    respond_to do |format|
-      if is_management
-        format.html { redirect_to management_projects_path, status: :see_other, notice: "Proyecto eliminado exitosamente." }
-      else
-        format.html { redirect_to projects_path, status: :see_other, notice: "Proyecto eliminado exitosamente." }
+  def timeline
+    @project_tasks = @project.project_tasks.includes(:assigned_to).by_start_date
+    @project_milestones = @project.project_milestones.by_target_date
+
+    @timeline_data = {
+      tasks: @project_tasks.map do |task|
+        {
+          id: task.id,
+          name: task.name,
+          start_date: task.start_date,
+          end_date: task.end_date,
+          progress: task.progress,
+          status: task.status,
+          assigned_to: task.assigned_to&.full_name,
+          color: task.status_color,
+          duration: task.duration_days
+        }
+      end,
+      milestones: @project_milestones.map do |milestone|
+        {
+          id: milestone.id,
+          name: milestone.name,
+          target_date: milestone.target_date,
+          status: milestone.status,
+          color: milestone.status_color
+        }
       end
-      format.json { head :no_content }
-    end
+    }
+  end
+
+  def gantt_data
+    render json: @timeline_data
   end
 
   private
@@ -160,17 +185,17 @@ class ProjectsController < ApplicationController
 
     def check_project_limit
       return if current_user.admin?
-      
+
       unless current_user.can_create_project?
         limit = current_user.project_limit
-        plan_name = current_user.subscription_plan&.name || 'Estudiante'
-        
+        plan_name = current_user.subscription_plan&.name || "Estudiante"
+
         flash[:alert] = if limit == Float::INFINITY
           "Error inesperado con el límite de proyectos. Contacta con soporte."
         else
           "Has alcanzado el límite de #{limit} proyectos para el plan #{plan_name}. Actualiza tu suscripción para crear más proyectos."
         end
-        
+
         redirect_to subscription_plans_path
       end
     end
@@ -178,14 +203,14 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       # Filtrar parámetros según el plan del usuario
-      allowed_params = [:title, :description, :location, :year, :category, :is_public, images: []]
-      
+      allowed_params = [ :title, :description, :location, :year, :category, :is_public, images: [] ]
+
       # Solo usuarios con gestión de clientes pueden usar estos campos
       if current_user.admin? || current_user.can_manage_clients?
-        allowed_params += [:client_name, :client_email, :client_phone, :budget, 
-                          :surface_area, :status, :start_date, :expected_end_date, :project_type]
+        allowed_params += [ :client_name, :client_email, :client_phone, :budget,
+                          :surface_area, :status, :start_date, :expected_end_date, :project_type ]
       end
-      
+
       params.require(:project).permit(*allowed_params)
     end
 end

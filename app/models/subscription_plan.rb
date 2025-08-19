@@ -11,8 +11,8 @@ class SubscriptionPlan < ApplicationRecord
   monetize :price_cents
 
   scope :active, -> { where(active: true) }
-  scope :monthly, -> { where(interval: 'month') }
-  scope :yearly, -> { where(interval: 'year') }
+  scope :monthly, -> { where(interval: "month") }
+  scope :yearly, -> { where(interval: "year") }
 
   def monthly?
     interval == "month"
@@ -27,6 +27,6 @@ class SubscriptionPlan < ApplicationRecord
   end
 
   def pro_plan?
-    name.downcase.include?('pro')
+    name.downcase.include?("pro")
   end
 end

@@ -1,0 +1,48 @@
+/app/views/invoices/_form.html.slim
+
+= form_with(model: invoice, local: true) do |f|
+  - if invoice.errors.any?
+    .alert.alert-danger
+      h2= "Errores en la factura:"
+      ul
+        - invoice.errors.full_messages.each do |msg|
+          li= msg
+
+  .mb-4
+    = f.label :project_id, 'Proyecto'
+    = f.collection_select :project_id, Project.all, :id, :title, prompt: 'Selecciona un proyecto', class: 'form-select'
+
+  .mb-4
+    = f.label :client_name, 'Cliente'
+    = f.text_field :client_name, class: 'form-input'
+
+  .mb-4
+    = f.label :client_email, 'Email del cliente'
+    = f.email_field :client_email, class: 'form-input'
+
+  .mb-4
+    = f.label :client_address, 'Dirección del cliente'
+    = f.text_field :client_address, class: 'form-input'
+
+  .mb-4
+    = f.label :issue_date, 'Fecha de emisión'
+    = f.date_field :issue_date, class: 'form-input'
+
+  .mb-4
+    = f.label :due_date, 'Fecha de vencimiento'
+    = f.date_field :due_date, class: 'form-input'
+
+  .mb-4
+    = f.label :status, 'Estado'
+    = f.select :status, Invoice.statuses.keys.map { |k| [k.humanize, k] }, {}, class: 'form-select'
+
+  .mb-4
+    = f.label :tax_rate, 'IVA (%)'
+    = f.number_field :tax_rate, step: 0.01, class: 'form-input'
+
+  .mb-4
+    = f.label :notes, 'Notas'
+    = f.text_area :notes, class: 'form-textarea'
+
+  .actions
+    = f.submit class: 'btn btn-primary', value: invoice.new_record? ? 'Crear factura' : 'Actualizar factura'

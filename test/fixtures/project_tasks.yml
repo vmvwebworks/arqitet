@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  name: MyString
+  description: MyText
+  start_date: 2025-08-17
+  end_date: 2025-08-17
+  progress: 1
+  priority: 1
+  status: MyString
+  assigned_to: one
+
+two:
+  project: two
+  name: MyString
+  description: MyText
+  start_date: 2025-08-17
+  end_date: 2025-08-17
+  progress: 1
+  priority: 1
+  status: MyString
+  assigned_to: two

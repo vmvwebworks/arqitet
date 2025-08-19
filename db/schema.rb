@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_16_121248) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_17_094442) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -198,6 +198,41 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_16_121248) do
     t.index ["user_id"], name: "index_project_favorites_on_user_id"
   end
 
+  create_table "project_milestones", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.date "target_date", null: false
+    t.datetime "completed_at"
+    t.string "status", default: "pending"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "position"], name: "index_project_milestones_on_project_id_and_position"
+    t.index ["project_id"], name: "index_project_milestones_on_project_id"
+    t.index ["status"], name: "index_project_milestones_on_status"
+    t.index ["target_date"], name: "index_project_milestones_on_target_date"
+  end
+
+  create_table "project_tasks", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.integer "progress", default: 0
+    t.integer "priority", default: 1
+    t.string "status", default: "pending"
+    t.integer "assigned_to_id"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assigned_to_id"], name: "index_project_tasks_on_assigned_to_id"
+    t.index ["project_id", "position"], name: "index_project_tasks_on_project_id_and_position"
+    t.index ["project_id"], name: "index_project_tasks_on_project_id"
+    t.index ["status"], name: "index_project_tasks_on_status"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -261,6 +296,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_16_121248) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
+  create_table "task_dependencies", force: :cascade do |t|
+    t.integer "predecessor_task_id", null: false
+    t.integer "successor_task_id", null: false
+    t.string "dependency_type", default: "finish_to_start"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["predecessor_task_id", "successor_task_id"], name: "index_task_dependencies_unique", unique: true
+    t.index ["predecessor_task_id"], name: "index_task_dependencies_on_predecessor_task_id"
+    t.index ["successor_task_id"], name: "index_task_dependencies_on_successor_task_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -308,8 +354,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_16_121248) do
   add_foreign_key "messages", "users"
   add_foreign_key "project_favorites", "projects"
   add_foreign_key "project_favorites", "users"
+  add_foreign_key "project_milestones", "projects"
+  add_foreign_key "project_tasks", "projects"
+  add_foreign_key "project_tasks", "users", column: "assigned_to_id"
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "users"
   add_foreign_key "subscriptions", "subscription_plans"
   add_foreign_key "subscriptions", "users"
+  add_foreign_key "task_dependencies", "project_tasks", column: "predecessor_task_id"
+  add_foreign_key "task_dependencies", "project_tasks", column: "successor_task_id"
 end

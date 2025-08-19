@@ -209,8 +209,15 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    pdf-core (0.10.0)
     pp (0.6.2)
       prettyprint
+    prawn (2.5.0)
+      matrix (~> 0.4)
+      pdf-core (~> 0.10.0)
+      ttfunk (~> 1.8)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     prettyprint (0.2.0)
     prism (1.4.0)
     psych (5.2.6)
@@ -337,6 +344,8 @@ GEM
     thor (1.4.0)
     tilt (2.6.1)
     timeout (0.4.3)
+    ttfunk (1.8.0)
+      bigdecimal (~> 3.1)
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
@@ -383,6 +392,8 @@ DEPENDENCIES
   kaminari
   letter_opener
   money-rails
+  prawn
+  prawn-table
   puma (>= 5.0)
   rails (~> 7.2.2)
   rubocop-rails-omakase

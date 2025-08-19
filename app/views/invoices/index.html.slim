@@ -12,8 +12,8 @@
         | Nueva Factura
     
     / Estadísticas de facturación
-    .grid.grid-cols-1.md:grid-cols-4.gap-6.mb-8
-      .bg-white.rounded-xl.p-6.border.border-gray-100.shadow-sm
+    .flex
+      .flex-1.p-6
         .flex.items-center.justify-between
           div
             p.text-sm.font-medium.text-gray-500 Pendientes de Cobro
@@ -22,7 +22,7 @@
             svg.w-6.h-6.text-yellow-600 fill="currentColor" viewBox="0 0 20 20"
               path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
       
-      .bg-white.rounded-xl.p-6.border.border-gray-100.shadow-sm
+      .flex-1.p-6
         .flex.items-center.justify-between
           div
             p.text-sm.font-medium.text-gray-500 Cobradas
@@ -31,7 +31,7 @@
             svg.w-6.h-6.text-green-600 fill="currentColor" viewBox="0 0 20 20"
               path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
       
-      .bg-white.rounded-xl.p-6.border.border-gray-100.shadow-sm
+      .flex-1.p-6
         .flex.items-center.justify-between
           div
             p.text-sm.font-medium.text-gray-500 Total Facturas
@@ -40,7 +40,7 @@
             svg.w-6.h-6.text-blue-600 fill="currentColor" viewBox="0 0 20 20"
               path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"
       
-      .bg-white.rounded-xl.p-6.border.border-gray-100.shadow-sm
+      .flex-1.p-6
         .flex.items-center.justify-between
           div
             p.text-sm.font-medium.text-gray-500 Vencidas
@@ -73,7 +73,7 @@
                     - if invoice.client_email.present?
                       .text-sm.text-gray-500 = invoice.client_email
                   td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900
-                    = invoice.project.name
+                    = invoice.project.title
                   td.px-6.py-4.whitespace-nowrap.text-sm.font-semibold.text-gray-900
                     = number_to_currency(invoice.total_amount, unit: "€", precision: 2)
                   td.px-6.py-4.whitespace-nowrap
@@ -92,7 +92,7 @@
                       = link_to edit_invoice_path(invoice), class: "text-gray-400 hover:text-yellow-600"
                         svg.w-4.h-4 fill="currentColor" viewBox="0 0 20 20"
                           path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-                      = link_to invoice_path(invoice, format: :pdf), target: "_blank", class: "text-gray-400 hover:text-purple-600"
+                      = link_to factura_invoice_path(invoice), target: "_blank", class: "text-gray-400 hover:text-purple-600"
                         svg.w-4.h-4 fill="currentColor" viewBox="0 0 20 20"
                           path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"
       - else

@@ -1,0 +1,63 @@
+h1.text-2xl.font-bold.mb-4 Factura ##{@invoice.invoice_number}
+
+.bg-white.shadow-md.rounded-lg.p-6.mb-8
+  .grid.grid-cols-1.md:grid-cols-2.gap-6
+    .mb-4
+      strong.text-gray-600 Proyecto:
+      span.ml-2.text-gray-900= @invoice.project&.title
+    .mb-4
+      strong.text-gray-600 Cliente:
+      span.ml-2.text-gray-900= @invoice.client_name
+    .mb-4
+      strong.text-gray-600 Email:
+      span.ml-2.text-gray-900= @invoice.client_email
+    .mb-4
+      strong.text-gray-600 Dirección:
+      span.ml-2.text-gray-900= @invoice.client_address
+    .mb-4
+      strong.text-gray-600 Fecha de emisión:
+      span.ml-2.text-gray-900= l(@invoice.issue_date)
+    .mb-4
+      strong.text-gray-600 Fecha de vencimiento:
+      span.ml-2.text-gray-900= l(@invoice.due_date)
+    .mb-4
+      strong.text-gray-600 Estado:
+      span.ml-2.text-gray-900= @invoice.status.humanize
+    .mb-4
+      strong.text-gray-600 IVA:
+      span.ml-2.text-gray-900= number_to_percentage(@invoice.tax_rate, precision: 2)
+    .mb-4.col-span-2
+      strong.text-gray-600 Notas:
+      span.ml-2.text-gray-900= @invoice.notes
+
+h2.text-xl.font-semibold.mt-6.mb-2 Conceptos facturados
+
+table.table-auto.w-full.mb-6.shadow-sm.rounded-lg.overflow-hidden
+  thead.bg-gray-100
+    tr
+      th.text-left.px-4.py-2 Descripción
+      th.text-right.px-4.py-2 Cantidad
+      th.text-right.px-4.py-2 Precio unitario
+      th.text-right.px-4.py-2 Total
+  tbody
+    - @invoice.invoice_items.each do |item|
+      tr
+        td.px-4.py-2= item.description
+        td.text-right.px-4.py-2= item.quantity
+        td.text-right.px-4.py-2= number_to_currency(item.unit_price)
+        td.text-right.px-4.py-2= number_to_currency(item.total)
+  tfoot.bg-gray-50
+    tr
+      td[colspan=3].text-right.px-4.py-2.font-semibold Subtotal
+      td.text-right.px-4.py-2= number_to_currency(@invoice.subtotal)
+    tr
+      td[colspan=3].text-right.px-4.py-2.font-semibold IVA (#{@invoice.tax_rate}%)
+      td.text-right.px-4.py-2= number_to_currency(@invoice.tax_amount)
+    tr
+      td[colspan=3].text-right.px-4.py-2.font-bold.text-lg.text-blue-700 Total
+      td.text-right.px-4.py-2.font-bold.text-lg.text-blue-700= number_to_currency(@invoice.total_amount)
+
+.flex.gap-4.mt-8
+  = link_to 'Descargar PDF', factura_invoice_path(@invoice), class: 'btn btn-accent', target: '_blank', rel: 'noopener'
+  = link_to 'Editar', edit_invoice_path(@invoice), class: 'btn btn-primary'
+  = link_to 'Volver', invoices_path, class: 'btn btn-secondary'

@@ -1,3 +1,7 @@
+# Para soporte de tablas en PDFs
+gem "prawn-table"
+# Para generación de PDFs con Prawn
+gem "prawn"
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -51,7 +55,7 @@ end
 group :development do
   # Preview mail in the browser instead of sending
   gem "letter_opener"
-  
+
   # Load environment variables from .env file
   gem "dotenv-rails"
 end

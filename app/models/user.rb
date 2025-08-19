@@ -8,8 +8,8 @@ class User < ApplicationRecord
   friendly_id :full_name, use: :slugged
 
   has_many :projects
-  has_many :public_projects, -> { where(is_public: true) }, class_name: 'Project'
-  has_many :management_projects, -> { where(is_public: false) }, class_name: 'Project'
+  has_many :public_projects, -> { where(is_public: true) }, class_name: "Project"
+  has_many :management_projects, -> { where(is_public: false) }, class_name: "Project"
   has_many :project_favorites, dependent: :destroy
   has_many :favorite_projects, through: :project_favorites, source: :project
   has_many :subscriptions, dependent: :destroy
@@ -76,7 +76,7 @@ class User < ApplicationRecord
   def projects_remaining
     limit = project_limit
     return Float::INFINITY if limit == Float::INFINITY
-    [limit - projects.count, 0].max
+    [ limit - projects.count, 0 ].max
   end
 
   def can_manage_clients?

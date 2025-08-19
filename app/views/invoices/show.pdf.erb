@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Factura <%= @invoice.invoice_number %></title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0 2em; }
+    h1 { font-size: 2em; margin-bottom: 0.5em; }
+    .header, .footer { margin-bottom: 1.5em; }
+    .info-table { width: 100%; margin-bottom: 2em; border-collapse: collapse; }
+    .info-table td { padding: 0.3em 0.7em; }
+    .concepts-table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+    .concepts-table th, .concepts-table td { border: 1px solid #ccc; padding: 0.5em; }
+    .concepts-table th { background: #f5f5f5; }
+    .totals-table { width: 100%; border-collapse: collapse; }
+    .totals-table td { padding: 0.5em; }
+    .totals-table .label { text-align: right; font-weight: bold; }
+    .totals-table .value { text-align: right; }
+    .total-final { font-size: 1.2em; color: #1e40af; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Factura #<%= @invoice.invoice_number %></h1>
+  <table class="info-table">
+    <tr><td><b>Proyecto:</b></td><td><%= @invoice.project&.title %></td></tr>
+    <tr><td><b>Cliente:</b></td><td><%= @invoice.client_name %></td></tr>
+    <tr><td><b>Email:</b></td><td><%= @invoice.client_email %></td></tr>
+    <tr><td><b>Dirección:</b></td><td><%= @invoice.client_address %></td></tr>
+    <tr><td><b>Fecha de emisión:</b></td><td><%= l(@invoice.issue_date) %></td></tr>
+    <tr><td><b>Fecha de vencimiento:</b></td><td><%= l(@invoice.due_date) %></td></tr>
+    <tr><td><b>Estado:</b></td><td><%= @invoice.status.humanize %></td></tr>
+    <tr><td><b>IVA:</b></td><td><%= number_to_percentage(@invoice.tax_rate, precision: 2) %></td></tr>
+    <tr><td><b>Notas:</b></td><td><%= @invoice.notes %></td></tr>
+  </table>
+
+  <h2>Conceptos facturados</h2>
+  <table class="concepts-table">
+    <thead>
+      <tr>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Precio unitario</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoice.invoice_items.each do |item| %>
+        <tr>
+          <td><%= item.description %></td>
+          <td style="text-align:right"><%= item.quantity %></td>
+          <td style="text-align:right"><%= number_to_currency(item.unit_price) %></td>
+          <td style="text-align:right"><%= number_to_currency(item.total) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="totals-table">
+    <tr>
+      <td class="label">Subtotal</td>
+      <td class="value"><%= number_to_currency(@invoice.subtotal) %></td>
+    </tr>
+    <tr>
+      <td class="label">IVA (<%= @invoice.tax_rate %>%)</td>
+      <td class="value"><%= number_to_currency(@invoice.tax_amount) %></td>
+    </tr>
+    <tr>
+      <td class="label total-final">Total</td>
+      <td class="value total-final"><%= number_to_currency(@invoice.total_amount) %></td>
+    </tr>
+  </table>
+</body>
+</html>

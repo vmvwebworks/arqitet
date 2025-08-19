@@ -1,6 +1,6 @@
 class Client < ApplicationRecord
   belongs_to :user
-  belongs_to :created_by, class_name: 'User', optional: true
+  belongs_to :created_by, class_name: "User", optional: true
   has_many :projects, dependent: :nullify
   has_many :invoices, through: :projects
   has_many :interactions, dependent: :destroy
@@ -27,21 +27,21 @@ class Client < ApplicationRecord
 
   def display_status
     case status
-    when 'lead' then 'Contacto'
-    when 'prospect' then 'Prospecto'
-    when 'active' then 'Cliente Activo'
-    when 'inactive' then 'Inactivo'
-    when 'closed' then 'Cerrado'
+    when "lead" then "Contacto"
+    when "prospect" then "Prospecto"
+    when "active" then "Cliente Activo"
+    when "inactive" then "Inactivo"
+    when "closed" then "Cerrado"
     end
   end
 
   def status_badge_class
     case status
-    when 'lead' then 'bg-blue-100 text-blue-800'
-    when 'prospect' then 'bg-yellow-100 text-yellow-800'
-    when 'active' then 'bg-green-100 text-green-800'
-    when 'inactive' then 'bg-gray-100 text-gray-800'
-    when 'closed' then 'bg-red-100 text-red-800'
+    when "lead" then "bg-blue-100 text-blue-800"
+    when "prospect" then "bg-yellow-100 text-yellow-800"
+    when "active" then "bg-green-100 text-green-800"
+    when "inactive" then "bg-gray-100 text-gray-800"
+    when "closed" then "bg-red-100 text-red-800"
     end
   end
 

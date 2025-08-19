@@ -1,7 +1,7 @@
 class InteractionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_client
-  before_action :set_interaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_interaction, only: [ :show, :edit, :update, :destroy ]
 
   def new
     @interaction = @client.interactions.build
@@ -13,7 +13,7 @@ class InteractionsController < ApplicationController
     @interaction.user = current_user
 
     if @interaction.save
-      redirect_to @client, notice: 'Interacción registrada exitosamente.'
+      redirect_to @client, notice: "Interacción registrada exitosamente."
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,7 +24,7 @@ class InteractionsController < ApplicationController
 
   def update
     if @interaction.update(interaction_params)
-      redirect_to @client, notice: 'Interacción actualizada exitosamente.'
+      redirect_to @client, notice: "Interacción actualizada exitosamente."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class InteractionsController < ApplicationController
 
   def destroy
     @interaction.destroy
-    redirect_to @client, notice: 'Interacción eliminada exitosamente.'
+    redirect_to @client, notice: "Interacción eliminada exitosamente."
   end
 
   private

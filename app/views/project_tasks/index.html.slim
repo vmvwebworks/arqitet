@@ -1,0 +1,157 @@
+- content_for :title, "Tareas - #{@project.title}"
+
+.container.mx-auto.px-4.py-8
+  .max-w-7xl.mx-auto
+    / Header
+    .flex.justify-between.items-center.mb-8
+      div
+        .flex.items-center.gap-4
+          = link_to @project, class: "text-gray-600 hover:text-gray-800"
+            svg.w-6.h-6 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18"
+          div
+            h1.text-3xl.font-bold.text-gray-900 Gestión de Tareas
+            p.text-gray-600.mt-2 
+              | Proyecto: 
+              span.font-semibold = @project.title
+
+      .flex.gap-3
+        = link_to timeline_project_path(@project), class: "bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center"
+          svg.w-5.h-5.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+          | Timeline
+        
+        = link_to new_project_project_task_path(@project), class: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors flex items-center"
+          svg.w-5.h-5.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"
+          | Nueva Tarea
+
+    / Estadísticas
+    .grid.grid-cols-1.md:grid-cols-4.gap-6.mb-8
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-blue-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate Total Tareas
+              dd.text-lg.font-medium.text-gray-900 = @task_stats[:total]
+      
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-green-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate Completadas
+              dd.text-lg.font-medium.text-gray-900 = @task_stats[:completed]
+
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-yellow-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM8 18V12h4v6H8z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate En Progreso
+              dd.text-lg.font-medium.text-gray-900 = @task_stats[:in_progress]
+
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        .flex.items-center
+          .flex-shrink-0
+            .w-8.h-8.bg-red-500.rounded-md.flex.items-center.justify-center
+              svg.w-5.h-5.text-white fill="currentColor" viewBox="0 0 20 20"
+                path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92z"
+          .ml-5.w-0.flex-1
+            dl
+              dt.text-sm.font-medium.text-gray-500.truncate Atrasadas
+              dd.text-lg.font-medium.text-gray-900 = @task_stats[:overdue]
+
+    / Filtros
+    .mb-6
+      .flex.flex-wrap.gap-2
+        = link_to project_project_tasks_path(@project), class: "inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium #{'bg-blue-100 text-blue-800' if params[:status].blank?} #{'bg-gray-100 text-gray-700 hover:bg-gray-200' if params[:status].present?} transition-colors"
+          | Todas (#{@task_stats[:total]})
+        
+        - ProjectTask.statuses.each do |key, value|
+          - count = @task_stats[key.to_sym] || 0
+          - next if count.zero?
+          = link_to project_project_tasks_path(@project, status: key), class: "inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium #{'bg-blue-100 text-blue-800' if params[:status] == key} #{'bg-gray-100 text-gray-700 hover:bg-gray-200' if params[:status] != key} transition-colors"
+            = ProjectTask.new.tap { |t| t.status = key }.status_spanish
+            = " (#{count})"
+
+    / Lista de tareas
+    .bg-white.rounded-lg.shadow-sm.border.border-gray-200.overflow-hidden
+      .px-6.py-4.border-b.border-gray-200
+        h3.text-lg.font-medium.text-gray-900 Tareas del Proyecto
+
+      - if @project_tasks.any?
+        .overflow-x-auto
+          table.min-w-full.divide-y.divide-gray-200
+            thead.bg-gray-50
+              tr
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Tarea
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Estado
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Progreso
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Fechas
+                th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Asignado
+                th.px-6.py-3.text-right.text-xs.font-medium.text-gray-500.uppercase.tracking-wider Acciones
+
+            tbody.bg-white.divide-y.divide-gray-200
+              - @project_tasks.each do |task|
+                tr.hover:bg-gray-50 class="#{'bg-red-50' if task.overdue?}"
+                  td.px-6.py-4
+                    .flex.flex-col
+                      .text-sm.font-medium.text-gray-900 = task.name
+                      .text-sm.text-gray-500 = truncate(task.description, length: 100) if task.description.present?
+                      .flex.items-center.mt-1
+                        span.inline-flex.px-2.py-1.rounded-full.text-xs.font-medium class="bg-#{task.priority_color}-100 text-#{task.priority_color}-800"
+                          = task.priority_spanish
+                        - if task.overdue?
+                          span.ml-2.inline-flex.px-2.py-1.rounded-full.text-xs.font-medium.bg-red-100.text-red-800
+                            | Atrasada
+                  
+                  td.px-6.py-4.whitespace-nowrap
+                    span.inline-flex.px-2.py-1.rounded-full.text-xs.font-medium class="bg-#{task.status_color}-100 text-#{task.status_color}-800"
+                      = task.status_spanish
+                  
+                  td.px-6.py-4.whitespace-nowrap
+                    .flex.items-center
+                      .w-full.bg-gray-200.rounded-full.h-2.mr-3
+                        .bg-blue-600.h-2.rounded-full style="width: #{task.progress}%"
+                      span.text-sm.text-gray-700 = "#{task.progress}%"
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900
+                    div = task.start_date.strftime('%d/%m/%Y')
+                    .text-xs.text-gray-500 = task.end_date.strftime('%d/%m/%Y')
+                    .text-xs.text-gray-400 = "#{task.duration_days} días"
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-500
+                    = task.assigned_to&.full_name || "Sin asignar"
+                  
+                  td.px-6.py-4.whitespace-nowrap.text-right.text-sm.font-medium
+                    .flex.justify-end.space-x-2
+                      = link_to edit_project_project_task_path(@project, task), class: "text-blue-600 hover:text-blue-900", title: "Editar"
+                        svg.w-4.h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      
+                      = link_to project_project_task_path(@project, task), method: :delete, data: { confirm: "¿Estás seguro de que quieres eliminar esta tarea?" }, class: "text-red-600 hover:text-red-900", title: "Eliminar"
+                        svg.w-4.h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+
+      - else
+        .px-6.py-12.text-center
+          svg.mx-auto.h-12.w-12.text-gray-400 fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+          h3.mt-2.text-sm.font-medium.text-gray-900 No hay tareas
+          p.mt-1.text-sm.text-gray-500 Empieza creando la primera tarea para este proyecto.
+          .mt-6
+            = link_to new_project_project_task_path(@project), class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+              svg.w-4.h-4.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"
+              | Nueva Tarea

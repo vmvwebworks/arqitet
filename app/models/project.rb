@@ -6,6 +6,8 @@ class Project < ApplicationRecord
   has_many :favorited_by_users, through: :project_favorites, source: :user
   has_many :invoices, dependent: :destroy
   has_many :documents, dependent: :destroy
+  has_many :project_tasks, dependent: :destroy
+  has_many :project_milestones, dependent: :destroy
 
   # Enum para estados de proyecto (gestión arquitectónica)
   enum status: {
@@ -28,7 +30,7 @@ class Project < ApplicationRecord
   scope :public_gallery, -> { where(is_public: true) }
   scope :management_projects, -> { where(is_public: false) }
   scope :recent, -> { order(created_at: :desc) }
-  scope :active, -> { where(status: [:proposal, :in_progress]) }
+  scope :active, -> { where(status: [ :proposal, :in_progress ]) }
 
   # Incrementa el contador de visitas
   def increment_visits!
@@ -42,41 +44,41 @@ class Project < ApplicationRecord
 
   def status_badge_class
     return nil unless is_management_project?
-    
+
     case status
-    when 'proposal' then 'bg-yellow-100 text-yellow-800'
-    when 'in_progress' then 'bg-blue-100 text-blue-800'
-    when 'completed' then 'bg-green-100 text-green-800'
-    when 'cancelled' then 'bg-red-100 text-red-800'
+    when "proposal" then "bg-yellow-100 text-yellow-800"
+    when "in_progress" then "bg-blue-100 text-blue-800"
+    when "completed" then "bg-green-100 text-green-800"
+    when "cancelled" then "bg-red-100 text-red-800"
     end
   end
-  
+
   def status_spanish
     return nil unless is_management_project?
-    
+
     case status
-    when 'proposal' then 'Propuesta'
-    when 'in_progress' then 'En Progreso'
-    when 'completed' then 'Finalizado'
-    when 'cancelled' then 'Cancelado'
+    when "proposal" then "Propuesta"
+    when "in_progress" then "En Progreso"
+    when "completed" then "Finalizado"
+    when "cancelled" then "Cancelado"
     end
   end
-  
+
   def progress_percentage
     return nil unless is_management_project?
-    
+
     case status
-    when 'proposal' then 10
-    when 'in_progress' then 50
-    when 'completed' then 100
-    when 'cancelled' then 0
+    when "proposal" then 10
+    when "in_progress" then 50
+    when "completed" then 100
+    when "cancelled" then 0
     end
   end
-  
+
   def total_invoiced
     invoices.paid.sum(:total_amount)
   end
-  
+
   def pending_invoice_amount
     invoices.pending.sum(:total_amount)
   end

@@ -10,7 +10,7 @@ class ExtendProjectsForArchitectureManagement < ActiveRecord::Migration[7.2]
     add_column :projects, :expected_end_date, :date
     add_column :projects, :project_type, :string
     add_column :projects, :is_public, :boolean, default: true
-    
+
     add_index :projects, :status
     add_index :projects, :is_public
   end

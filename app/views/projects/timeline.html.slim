@@ -1,0 +1,109 @@
+- content_for :title, "Timeline - #{@project.title}"
+
+.container.mx-auto.px-4.py-8
+  .max-w-7xl.mx-auto
+    / Header
+    .flex.justify-between.items-center.mb-8
+      div
+        .flex.items-center.gap-4
+          = link_to @project, class: "text-gray-600 hover:text-gray-800"
+            svg.w-6.h-6 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18"
+          div
+            h1.text-3xl.font-bold.text-gray-900 Timeline del Proyecto
+            p.text-gray-600.mt-2 
+              | Proyecto: 
+              span.font-semibold = @project.title
+
+      .flex.gap-3
+        = link_to project_project_tasks_path(@project), class: "bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center"
+          svg.w-5.h-5.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+          | Gestionar Tareas
+        
+        = link_to new_project_project_task_path(@project), class: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors flex items-center"
+          svg.w-5.h-5.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"
+          | Nueva Tarea
+
+    / Vista del Timeline/Gantt Chart
+    .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6.mb-8
+      h3.text-lg.font-medium.text-gray-900.mb-6 Diagrama de Gantt
+
+      - if @project_tasks.any?
+        / Timeline Header - Meses
+        .mb-6
+          .grid.grid-cols-12.gap-1.text-xs.text-gray-500.mb-2
+            - start_date = @project_tasks.minimum(:start_date) || Date.current
+            - end_date = @project_tasks.maximum(:end_date) || Date.current + 1.month
+            - total_days = (end_date - start_date).to_i + 1
+            - months_range = (start_date..end_date).map(&:beginning_of_month).uniq
+            
+            - months_range.each do |month|
+              - days_in_view = [month.end_of_month, end_date].min - [month.beginning_of_month, start_date].max + 1
+              - grid_cols = (days_in_view.to_f / total_days * 12).round.clamp(1, 12)
+              .text-center class="col-span-#{grid_cols}" = month.strftime('%b %Y')
+
+        / Tasks Timeline
+        .space-y-3
+          - @project_tasks.each_with_index do |task, index|
+            .flex.items-center.space-x-4
+              / Task Info
+              .w-64.flex-shrink-0
+                .text-sm.font-medium.text-gray-900 = task.name
+                .text-xs.text-gray-500 = "#{task.start_date.strftime('%d/%m')} - #{task.end_date.strftime('%d/%m')}"
+                .flex.items-center.mt-1
+                  span.inline-flex.px-2.py-1.rounded-full.text-xs.font-medium class="bg-#{task.status_color}-100 text-#{task.status_color}-800"
+                    = task.status_spanish
+                  span.ml-2.text-xs.text-gray-600 = "#{task.progress}%"
+
+              / Timeline Bar
+              .flex-1.relative.h-8
+                - start_date = @project_tasks.minimum(:start_date)
+                - end_date = @project_tasks.maximum(:end_date)
+                - total_days = (end_date - start_date).to_i + 1
+                - task_start_offset = ((task.start_date - start_date).to_i.to_f / total_days * 100).round(2)
+                - task_width = (task.duration_days.to_f / total_days * 100).round(2)
+                
+                / Background track
+                .absolute.inset-y-0.left-0.right-0.bg-gray-100.rounded
+                
+                / Task bar
+                .absolute.inset-y-0.bg-blue-500.rounded.flex.items-center.justify-between.px-2 style="left: #{task_start_offset}%; width: #{task_width}%"
+                  / Progress indicator
+                  .absolute.inset-0.bg-blue-700.rounded style="width: #{task.progress}%"
+                  / Task duration text
+                  span.relative.text-xs.text-white.font-medium = "#{task.duration_days}d"
+      - else
+        .text-center.py-12
+          svg.mx-auto.h-12.w-12.text-gray-400 fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          h3.mt-2.text-sm.font-medium.text-gray-900 No hay tareas en el timeline
+          p.mt-1.text-sm.text-gray-500 Crea tareas para ver el diagrama de Gantt del proyecto.
+          .mt-6
+            = link_to new_project_project_task_path(@project), class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+              svg.w-4.h-4.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"
+              | Crear Primera Tarea
+
+    / Hitos del Proyecto
+    - if @project_milestones.any?
+      .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+        h3.text-lg.font-medium.text-gray-900.mb-6 Hitos del Proyecto
+
+        .space-y-4
+          - @project_milestones.each do |milestone|
+            .flex.items-center.space-x-4.p-4.border.border-gray-200.rounded-lg
+              .flex-shrink-0
+                .w-8.h-8.rounded-full.flex.items-center.justify-center class="bg-#{milestone.status_color}-100"
+                  svg.w-5.h-5 class="text-#{milestone.status_color}-600" fill="currentColor" viewBox="0 0 20 20"
+                    path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+
+              .flex-1.min-w-0
+                .text-sm.font-medium.text-gray-900 = milestone.name
+                .text-sm.text-gray-500 = milestone.description if milestone.description.present?
+
+              .flex.items-center.space-x-4.text-sm
+                .text-gray-900 = milestone.target_date.strftime('%d de %B, %Y')
+                span.inline-flex.px-2.py-1.rounded-full.text-xs.font-medium class="bg-#{milestone.status_color}-100 text-#{milestone.status_color}-800"
+                  = milestone.status_spanish
