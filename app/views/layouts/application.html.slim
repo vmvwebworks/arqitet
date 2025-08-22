@@ -52,9 +52,14 @@ html
                     .overflow-y-auto.bg-gray-200.max-h-[28rem]
                       - convs.each do |conv|
                         - other = conv.sender == current_user ? conv.recipient : conv.sender
-                        .flex.justify-between.items-center.py-4.px-4.hover:bg-gray-300.transition.border-b.border-gray-300.last:border-b-0
-                          = link_to other.full_name, conversation_path(conv), class: 'font-semibold text-gray-800 hover:underline truncate max-w-[60%]'
-                          span.text-xs.text-gray-500 = conv.messages.last&.created_at&.strftime('%d/%m/%y %H:%M')
+                        - last_msg = conv.messages.last
+                        .flex.flex-col.py-4.px-4.hover:bg-gray-300.transition.border-b.border-gray-300.last:border-b-0
+                          .flex.justify-between.items-center
+                            = link_to other.full_name, conversation_path(conv), class: 'font-semibold text-gray-800 hover:underline truncate max-w-[60%]'
+                            span.text-xs.text-gray-500 = last_msg&.created_at&.strftime('%d/%m/%y %H:%M')
+                          - if last_msg&.body.present?
+                            .text-xs.text-gray-600.mt-1.truncate.max-w-full title=last_msg.body
+                              = truncate(last_msg.body, length: 60)
                   - else
                     .p-6.text-center.text-gray-500 No tienes conversaciones aún
                 - else
