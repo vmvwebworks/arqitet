@@ -3,14 +3,31 @@
     h2.text-2xl.font-bold.text-gray-800.leading-tight.flex-grow = link_to project.title, project_path(project), class: "hover:underline"
     = render 'shared/favorite_button', project: project
   
-  / Imagen del proyecto con fallback SVG
+
+  / Imagen del proyecto con miniatura CAD si aplica
   - if project.images.attached?
-    = render 'shared/image_carousel', images: project.images, size: 'sm'
+    .relative
+      = render 'shared/image_carousel', images: project.images, size: 'sm'
+      - if project.cad_file.attached?
+        - ext = project.cad_file.filename.extension.downcase
+        - if ext == 'svg'
+          = image_tag url_for(project.cad_file), class: "absolute top-4 right-4 w-10 h-10 object-contain bg-white/80 border-2 border-blue-400 rounded-lg shadow-lg z-10", title: "Este proyecto tiene archivo CAD adjunto"
+        - else
+          - begin
+            = image_tag asset_path('icons/cad_file_icon.svg'), class: "absolute top-4 right-4 w-10 h-10 object-contain bg-white/80 border-2 border-blue-400 rounded-lg shadow-lg z-10", title: "Este proyecto tiene archivo CAD adjunto"
+          - rescue Sprockets::Rails::Helper::AssetNotFound
+            .absolute.top-4.right-4.w-10.h-10.flex.items-center.justify-center.bg-white\/80.border-2.border-blue-400.rounded-lg.shadow-lg.z-10.text-blue-700.font-bold.text-xs CAD
   - else
     - building_images = ['sample_buildings/modern_tower.svg', 'sample_buildings/traditional_house.svg', 'sample_buildings/glass_office.svg', 'sample_buildings/village_houses.svg', 'sample_buildings/medieval_castle.svg', 'sample_buildings/futuristic_city.svg']
     - building_image = building_images[project.id % building_images.length]
-    .w-full.h-96.bg-gradient-to-br.from-blue-100.to-indigo-100.flex.items-center.justify-center.relative.rounded-lg.overflow-hidden
-      = image_tag asset_path(building_image), class: 'w-full h-full object-contain opacity-80'
+    .relative
+      .w-full.h-96.bg-gradient-to-br.from-blue-100.to-indigo-100.flex.items-center.justify-center.relative.rounded-lg.overflow-hidden
+        = image_tag asset_path(building_image), class: 'w-full h-full object-contain opacity-80'
+      - if project.cad_file.attached?
+        - begin
+          = image_tag asset_path('icons/cad_file_icon.svg'), class: "absolute top-4 right-4 w-10 h-10 object-contain bg-white/80 border-2 border-blue-400 rounded-lg shadow-lg z-10", title: "Este proyecto tiene archivo CAD adjunto"
+        - rescue Sprockets::Rails::Helper::AssetNotFound
+          .absolute.top-4.right-4.w-10.h-10.flex.items-center.justify-center.bg-white\/80.border-2.border-blue-400.rounded-lg.shadow-lg.z-10.text-blue-700.font-bold.text-xs CAD
   
   .flex.flex-col.gap-1
     p.text-sm.text-gray-600.mb-1

@@ -1,0 +1,30 @@
+-# app/views/shared/_cad_file_viewer.html.slim
+- cad_file = local_assigns[:cad_file] || nil
+- return unless cad_file&.attached?
+
+.mt-6.mb-4.p-4.bg-blue-50.rounded-xl.border.border-blue-200
+  h3.text-lg.font-semibold.text-blue-800.mb-2 Archivo CAD adjunto
+  - ext = cad_file.filename.extension.downcase
+  - if ext == 'svg'
+    = image_tag url_for(cad_file), class: "w-full max-w-2xl border rounded-lg shadow mb-2"
+  - elsif ext == 'ifc'
+    #ifc-viewer-container.w-full.h-[480px].bg-neutral-200.rounded-lg.mb-2
+    javascript:
+      const ifcUrl = "#{url_for(cad_file)}";
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.initIFCViewer) {
+          window.initIFCViewer('ifc-viewer-container', ifcUrl);
+        } else {
+          const script = document.createElement('script');
+          script.src = '/assets/ifc_viewer.js';
+          script.onload = function() {
+            window.initIFCViewer('ifc-viewer-container', ifcUrl);
+          };
+          document.body.appendChild(script);
+        }
+      });
+    = javascript_include_tag 'https://unpkg.com/web-ifc-viewer@1.7.0/dist/ifc-viewer.min.js', defer: true
+  - else
+    p.text-gray-700.mb-2 Archivo: 
+      = link_to cad_file.filename, url_for(cad_file), target: "_blank", class: "underline text-blue-700"
+    p.text-xs.text-gray-500 Solo visualización directa para SVG. Para IFC/DXF, descarga y visualiza con tu software CAD.

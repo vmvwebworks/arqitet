@@ -8,8 +8,9 @@ html
     = csp_meta_tag
     = yield :head
     link rel="manifest" href="/manifest.json"
-    link rel="icon" href="/icon.png" type="image/png"
-    link rel="icon" href="/icon.svg" type="image/svg+xml"
+    link rel="icon" href="/favicon.ico" type="image/x-icon"
+    link rel="icon" href="/favicon.png" type="image/png"
+    link rel="icon" href="/favicon.svg" type="image/svg+xml"
     link rel="apple-touch-icon" href="/icon.png"
     link rel="preconnect" href="https://fonts.googleapis.com"
     link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""
@@ -32,11 +33,6 @@ html
             = link_to "Admin", "/admin", class: "text-gray-800 font-semibold hover:text-gray-900 mr-4"
           - if user_signed_in?
             = link_to "Mi Espacio", public_dashboard_path, class: "text-gray-700 hover:underline"
-            = link_to "Proyectos", management_projects_path, class: "text-gray-700 hover:underline"
-            - if current_user.can_manage_clients?
-              = link_to "CRM", clients_path, class: "text-gray-700 hover:underline"
-            = link_to "Facturas", invoices_path, class: "text-gray-700 hover:underline"
-            = link_to "Calculadora", honorary_calculations_path, class: "text-gray-700 hover:underline"
             = link_to "Favoritos", user_favorites_path(current_user.slug), class: "text-gray-700 hover:underline"
           - if user_signed_in?
             // Chat icon and dropdown

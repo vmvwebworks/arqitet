@@ -3,7 +3,27 @@ section.max-w-3xl.mx-auto.bg-white.rounded-2xl.mb-8.p-8.mt-10.shadow-none.px-4.m
     h1.text-3xl.font-bold.text-gray-800.leading-tight.flex-grow = @project.title
     = render 'shared/favorite_button', project: @project
   - if @project.images.attached?
-    = render 'shared/image_carousel', images: @project.images, size: 'lg'
+    .relative
+      = render 'shared/image_carousel', images: @project.images, size: 'lg'
+      - if @project.cad_file.attached?
+        - ext = @project.cad_file.filename.extension.downcase
+        - if ext == 'svg'
+          = image_tag url_for(@project.cad_file), class: "absolute top-4 right-4 w-16 h-16 object-contain bg-white/80 border-2 border-blue-400 rounded-lg shadow-lg z-10", title: "Este proyecto tiene archivo CAD adjunto"
+        - else
+          - begin
+            = image_tag asset_path('icons/cad_file_icon.svg'), class: "absolute top-4 right-4 w-16 h-16 object-contain bg-white/80 border-2 border-blue-400 rounded-lg shadow-lg z-10", title: "Este proyecto tiene archivo CAD adjunto"
+          - rescue Sprockets::Rails::Helper::AssetNotFound
+            .absolute.top-4.right-4.w-16.h-16.flex.items-center.justify-center.bg-white\/80.border-2.border-blue-400.rounded-lg.shadow-lg.z-10.text-blue-700.font-bold.text-xs CAD
+  - else
+    .relative
+      .w-full.h-96.bg-gradient-to-br.from-blue-100.to-indigo-100.flex.items-center.justify-center.relative.rounded-lg.overflow-hidden
+        = image_tag asset_path('sample_buildings/modern_tower.svg'), class: 'w-full h-full object-contain opacity-80'
+      - if @project.cad_file.attached?
+        - begin
+          = image_tag asset_path('icons/cad_file_icon.svg'), class: "absolute top-4 right-4 w-16 h-16 object-contain bg-white/80 border-2 border-blue-400 rounded-lg shadow-lg z-10", title: "Este proyecto tiene archivo CAD adjunto"
+        - rescue Sprockets::Rails::Helper::AssetNotFound
+          .absolute.top-4.right-4.w-16.h-16.flex.items-center.justify-center.bg-white\/80.border-2.border-blue-400.rounded-lg.shadow-lg.z-10.text-blue-700.font-bold.text-xs CAD
+
   .flex.flex-col.gap-1
     p.text-base.text-gray-600.mb-2
       = @project.category
@@ -14,41 +34,15 @@ section.max-w-3xl.mx-auto.bg-white.rounded-2xl.mb-8.p-8.mt-10.shadow-none.px-4.m
         = link_to @project.user.full_name, user_path(@project.user), class: "text-gray-700 hover:underline"
     p.text-gray-700.leading-relaxed.mb-4 = @project.description
 
-    - if @project.cad_file.attached?
-      .mt-6.mb-4.p-4.bg-blue-50.rounded-xl.border.border-blue-200
-        h3.text-lg.font-semibold.text-blue-800.mb-2 Archivo CAD adjunto
-        - ext = @project.cad_file.filename.extension.downcase
-        - if ext == 'svg'
-          = image_tag url_for(@project.cad_file), class: "w-full max-w-2xl border rounded-lg shadow mb-2"
-        - elsif ext == 'ifc'
-          #ifc-viewer-container.w-full.h-[480px].bg-neutral-200.rounded-lg.mb-2
-          javascript:
-            const ifcUrl = "#{url_for(@project.cad_file)}";
-            document.addEventListener('DOMContentLoaded', function() {
-              if (window.initIFCViewer) {
-                window.initIFCViewer('ifc-viewer-container', ifcUrl);
-              } else {
-                const script = document.createElement('script');
-                script.src = '/assets/ifc_viewer.js';
-                script.onload = function() {
-                  window.initIFCViewer('ifc-viewer-container', ifcUrl);
-                };
-                document.body.appendChild(script);
-              }
-            });
-          = javascript_include_tag 'https://unpkg.com/web-ifc-viewer@1.7.0/dist/ifc-viewer.min.js', defer: true
-        - else
-          p.text-gray-700.mb-2 Archivo: 
-            = link_to @project.cad_file.filename, url_for(@project.cad_file), target: "_blank", class: "underline text-blue-700"
-          p.text-xs.text-gray-500 Solo visualización directa para SVG. Para IFC/DXF, descarga y visualiza con tu software CAD.
+    / El visor CAD completo solo se muestra en el partial reusable, no aquí
 
-    .flex.gap-4.mt-6
+    .flex.justify-end.gap-4.mt-6.flex-wrap
       = link_to 'Editar', edit_project_path(@project), class: "px-6 py-2 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-700 transition"
-      = link_to project_documents_path(@project), class: "px-6 py-2 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition flex.items-center"
+      = link_to project_documents_path(@project), class: "px-6 py-2 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition flex items-center gap-2"
         svg.w-4.h-4.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
           path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
         | Documentos
-      = link_to timeline_project_path(@project), class: "px-6 py-2 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition flex.items-center"
+      = link_to timeline_project_path(@project), class: "px-6 py-2 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition flex items-center gap-2"
         svg.w-4.h-4.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
           path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
         | Timeline

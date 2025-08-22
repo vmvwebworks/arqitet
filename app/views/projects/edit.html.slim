@@ -5,7 +5,7 @@ section.max-w-4xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
     .grid.grid-cols-1.lg:grid-cols-2.gap-6
       // Columna Izquierda - Información Básica
       .space-y-4
-        h2.text-lg.font-semibold.text-gray-800.border-b.pb-2 Información Básica
+        h2.text-lg.font-semibold.text-gray-800 Información Básica
         
         // Casilla de Proyecto Público - MUY VISIBLE
         .form-group.bg-blue-50.p-4.rounded-lg.border-2.border-blue-200
@@ -48,14 +48,23 @@ section.max-w-4xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
           = form.label :cad_file, 'Archivo CAD (IFC, DXF, SVG)', class: "block font-semibold text-gray-700 mb-2"
           = form.file_field :cad_file, direct_upload: true, class: "w-full rounded-xl bg-neutral-100 text-gray-800 px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
           - if @project.cad_file.attached?
-            p.text-xs.text-green-600.mt-1 Archivo actual: 
-              = link_to @project.cad_file.filename, url_for(@project.cad_file), target: "_blank", class: "underline text-blue-700"
+            .flex.items-center.gap-3.mt-2
+              - ext = @project.cad_file.filename.extension.downcase
+              - if ext == 'svg'
+                = image_tag url_for(@project.cad_file), class: "w-12 h-12 object-contain border border-blue-400 rounded shadow"
+              - else
+                - begin
+                  = image_tag asset_path('icons/cad_file_icon.svg'), class: "w-12 h-12 object-contain border border-blue-400 rounded shadow", title: "Archivo CAD adjunto"
+                - rescue Sprockets::Rails::Helper::AssetNotFound
+                  .w-12.h-12.flex.items-center.justify-center.bg-white.border-2.border-blue-400.rounded.shadow.text-blue-700.font-bold.text-xs CAD
+              p.text-xs.text-green-600 Archivo actual: 
+                = link_to @project.cad_file.filename, url_for(@project.cad_file), target: "_blank", class: "underline text-blue-700"
           p.text-xs.text-gray-500.mt-1 Formatos permitidos: .ifc, .dxf, .svg
 
       // Columna Derecha - Gestión (solo para proyectos de gestión)
       - if @is_management
         .space-y-4
-          h2.text-lg.font-semibold.text-gray-800.border-b.pb-2 Información de Gestión
+          h2.text-lg.font-semibold.text-gray-800 Información de Gestión
 
           .form-group
             h3.text-md.font-medium.text-gray-700.mb-3 Información del Cliente
@@ -98,7 +107,7 @@ section.max-w-4xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
 
     // Imágenes (en ambos tipos de proyecto)
     .mt-8
-      h2.text-lg.font-semibold.text-gray-800.border-b.pb-2.mb-4 Imágenes
+      h2.text-lg.font-semibold.text-gray-800.mb-4 Imágenes
       
       // Imágenes existentes
       - if @project.images.attached?
@@ -127,7 +136,7 @@ section.max-w-4xl.mx-auto.bg-white.rounded-2xl.p-8.mt-10.shadow-none
           #images-preview.flex.flex-wrap.gap-4.mt-4 data-image-upload-target="preview"
 
     // Botones de acción
-    .flex.gap-4.mt-8.pt-6.border-t
+    .flex.gap-4.mt-8
       = form.submit 'Guardar Cambios', class: "px-8 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-200"
       = link_to 'Cancelar', project_path(@project), class: "px-8 py-3 rounded-full bg-neutral-200 text-gray-700 font-semibold hover:bg-neutral-300 transition-colors duration-200"
 

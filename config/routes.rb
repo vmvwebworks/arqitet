@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   end
 
   # Rutas de gestión de proyectos (unificadas)
-  get "proyectos" => "projects#management", as: :management_projects
 
   # Rutas de facturación
   resources :invoices, path: "facturas" do

@@ -1,0 +1,24 @@
+section.bg-gray-100.py-20.px-6
+  .max-w-4xl.mx-auto.text-center
+    h2.text-4xl.md:text-5xl.font-bold.text-gray-800.mb-4 Descubre obras de arquitectura alrededor del mundo
+    p.text-lg.text-gray-600.mb-8 Arqitet es una red social para arquitectos, donde el diseño se comparte con elegancia.
+    .flex.justify-center
+      = form_with url: projects_path, method: :get, local: true, class: "w-full max-w-2xl" do |form|
+        .relative
+          = form.text_field :query,
+            value: params[:query],
+            placeholder: "Buscar proyectos...",
+            class: "w-full pl-14 pr-6 py-6 rounded-full bg-neutral-200 text-gray-800 placeholder:text-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-400 text-xl"
+          button type="submit" class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-700 focus:outline-none"
+            svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7"
+              path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 6.65 6.65a7.5 7.5 0 0 0 10.6 10.6z"
+
+section.py-16.px-6
+  .max-w-6xl.mx-auto
+    h3.text-3xl.font-semibold.text-gray-800.mb-8.text-center Proyectos recientes
+    - if @projects.present?
+      .grid.grid-cols-1.sm:grid-cols-2.lg:grid-cols-3.gap-8
+        = render @projects
+    - else
+      .text-center.text-gray-500.text-xl.py-16
+        | No hay proyectos para mostrar. ¡Sé el primero en publicar uno!

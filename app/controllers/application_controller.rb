@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def index
-    @projects = Project.all
+    @projects = Project.public_gallery.recent.limit(9)
   end
 
   # Devise: redirigir tras login/logout

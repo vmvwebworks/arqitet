@@ -16,13 +16,6 @@ before_action :set_project, only: %i[ show edit update destroy timeline ]
     @projects = @projects.page(params[:page]).per(9)
   end
 
-  # GET /proyectos - Vista de gestión de proyectos privados
-  def management
-    authenticate_user!
-    @projects = current_user.management_projects.recent
-    @active_projects = @projects.active
-    @total_budget = @projects.sum(:budget) || 0
-  end
 
   # GET /:username/projects
   def my_projects
@@ -70,8 +63,8 @@ before_action :set_project, only: %i[ show edit update destroy timeline ]
     render :favorites
   end
 
-  # GET /projects/1 or /projects/1.json
   def show
+    @project = Project.find(params[:id])
     @project.increment_visits! if @project.is_public?
   end
 
@@ -203,7 +196,7 @@ before_action :set_project, only: %i[ show edit update destroy timeline ]
     # Only allow a list of trusted parameters through.
     def project_params
       # Filtrar parámetros según el plan del usuario
-      allowed_params = [ :title, :description, :location, :year, :category, :is_public, images: [] ]
+      allowed_params = [ :title, :description, :location, :year, :category, :is_public, :cad_file, images: [] ]
 
       # Solo usuarios con gestión de clientes pueden usar estos campos
       if current_user.admin? || current_user.can_manage_clients?
