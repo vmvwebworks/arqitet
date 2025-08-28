@@ -90,11 +90,11 @@ Rails.application.routes.draw do
     get "dashboard" => "dashboard#index", as: :dashboard
   end
 
-  # Ruta personalizada para proyectos de usuario: /username/projects
-  get ":username/projects" => "projects#my_projects", as: :user_projects, constraints: { username: /[a-zA-Z0-9\-_]+/ }
+  # Ruta personalizada para proyectos de usuario: /user/:username/projects
+  get "user/:username/projects" => "projects#my_projects", as: :user_projects, constraints: { username: /[a-zA-Z0-9\-_]+/ }
 
-  # Ruta personalizada para favoritos de usuario: /username/favoritos
-  get ":username/favoritos" => "projects#my_favorites", as: :user_favorites, constraints: { username: /[a-zA-Z0-9\-_]+/ }
+  # Ruta personalizada para favoritos de usuario: /user/:username/favoritos
+  get "user/:username/favoritos" => "projects#my_favorites", as: :user_favorites, constraints: { username: /[a-zA-Z0-9\-_]+/ }
 
   resources :conversations, only: [ :index, :show, :create ] do
     resources :messages, only: [ :create ]

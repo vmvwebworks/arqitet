@@ -15,7 +15,7 @@ section.py-16.px-6
         - elsif user_signed_in? && current_user != @user
           = button_to 'Iniciar chat', conversations_path(recipient_id: @user.id), method: :post, class: 'inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-blue-600 hover:bg-blue-800 text-white font-semibold transition text-sm shadow-sm', form: { data: { turbo: false } }
       .flex.items-center.gap-4.mt-8.mb-4
-        = link_to user_projects_path(@user.slug), class: "inline-flex items-center gap-2 rounded-lg px-5 py-3 bg-blue-600 hover:bg-blue-800 text-white font-semibold transition text-base shadow-sm" do
+        = link_to user_projects_path(username: @user.slug), class: "inline-flex items-center gap-2 rounded-lg px-5 py-3 bg-blue-600 hover:bg-blue-800 text-white font-semibold transition text-base shadow-sm" do
           svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"
             path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v8.25A2.25 2.25 0 006.75 20.25h2.25m6.75 0h2.25a2.25 2.25 0 002.25-2.25V9.75M9.75 20.25h4.5" 
           span Ver todos los proyectos de este usuario

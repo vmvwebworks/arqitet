@@ -62,9 +62,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.string "website"
     t.text "notes"
     t.integer "status"
+    t.integer "created_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "created_by_id"
     t.index ["created_by_id"], name: "index_clients_on_created_by_id"
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
@@ -195,6 +195,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_project_favorites_on_project_id"
+    t.index ["user_id", "project_id"], name: "index_project_favorites_on_user_id_and_project_id", unique: true
     t.index ["user_id"], name: "index_project_favorites_on_user_id"
   end
 
@@ -242,7 +243,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "visits", default: 0, null: false
     t.string "client_name"
     t.string "client_email"
     t.string "client_phone"
@@ -253,6 +253,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.date "expected_end_date"
     t.string "project_type"
     t.boolean "is_public", default: true
+    t.integer "visits", default: 0, null: false
     t.integer "client_id"
     t.index ["client_id"], name: "index_projects_on_client_id"
     t.index ["is_public"], name: "index_projects_on_is_public"
@@ -338,7 +339,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "users"
-  add_foreign_key "clients", "users", column: "created_by_id"
   add_foreign_key "conversations", "users", column: "recipient_id"
   add_foreign_key "conversations", "users", column: "sender_id"
   add_foreign_key "documents", "projects"
