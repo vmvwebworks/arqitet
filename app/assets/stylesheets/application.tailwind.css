@@ -2,3 +2,431 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "swiper/swiper-bundle.css";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "swiper/swiper-bundle.css";
+
+/* Estilos personalizados para gestión de slots */
+
+/* Drag & Drop States */
+.dragging .slot-card:not(.drag-over) {
+  opacity: 0.5;
+}
+
+.slot-card.drag-over {
+  border: 2px solid #60a5fa;
+  background-color: #eff6ff;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card.dragging {
+  opacity: 0.6;
+  transform: rotate(3deg);
+}
+
+/* Loading animations */
+.loading-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Slot states */
+.slot-empty:hover {
+  border-color: #93c5fd;
+  background-color: #f0f9ff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.slot-card.selected {
+  box-shadow: 0 0 0 2px #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Button effects */
+.btn-pulse:hover {
+  animation: button-pulse 0.6s ease-in-out;
+}
+
+@keyframes button-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Grid background pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Hover effects for interactive elements */
+.interactive-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Status indicators */
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-available {
+  background-color: #4ade80;
+}
+
+.status-assigned {
+  background-color: #60a5fa;
+}
+
+.status-pending {
+  background-color: #fbbf24;
+}
+
+/* Smooth transitions for all interactive elements */
+.transition-smooth {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Specific slots styles */
+.slots-container {
+  min-height: 400px;
+}
+
+.slot-card {
+  min-height: 200px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.slot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+}
+
+.user-card {
+  cursor: grab;
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card:active {
+  cursor: grabbing;
+}
+
+/* Search panel styles */
+#search-panel {
+  backdrop-filter: blur(4px);
+}
+
+#panel-overlay {
+  backdrop-filter: blur(2px);
+}
+
+/* Notification container */
+#notifications-container {
+  pointer-events: none;
+}
+
+#notifications-container > * {
+  pointer-events: auto;
+}
+
+/* Drag & Drop States */
+.dragging .slot-card:not(.drag-over) {
+  opacity: 0.5;
+}
+
+.slot-card.drag-over {
+  border: 2px solid #60a5fa;
+  background-color: #eff6ff;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card.dragging {
+  opacity: 0.6;
+  transform: rotate(3deg);
+}
+
+/* Loading animations */
+.loading-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Slot states */
+.slot-empty:hover {
+  border-color: #93c5fd;
+  background-color: #f0f9ff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.slot-card.selected {
+  ring: 2px solid #3b82f6;
+  ring-opacity: 0.5;
+}
+
+/* Panel animations */
+.search-panel-enter {
+  transform: translateX(100%);
+}
+
+.search-panel-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.search-panel-exit {
+  transform: translateX(0);
+}
+
+.search-panel-exit-active {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in;
+}
+
+/* Notification styles */
+.notification-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.notification-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease-out;
+}
+
+.notification-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification-exit-active {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+
+/* Button effects */
+.btn-pulse:hover {
+  animation: button-pulse 0.6s ease-in-out;
+}
+
+@keyframes button-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Grid background pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Hover effects for interactive elements */
+.interactive-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Status indicators */
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-available {
+  background-color: #4ade80;
+}
+
+.status-assigned {
+  background-color: #60a5fa;
+}
+
+.status-pending {
+  background-color: #fbbf24;
+}
+
+/* Smooth transitions for all interactive elements */
+.transition-smooth {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Specific slots styles */
+.slots-container {
+  min-height: 400px;
+}
+
+.slot-card {
+  min-height: 200px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.slot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+}
+
+.user-card {
+  cursor: grab;
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card:active {
+  cursor: grabbing;
+}
+
+/* Search panel styles */
+#search-panel {
+  backdrop-filter: blur(4px);
+}
+
+#panel-overlay {
+  backdrop-filter: blur(2px);
+}
+
+/* Notification container */
+#notifications-container {
+  pointer-events: none;
+}
+
+#notifications-container > * {
+  pointer-events: auto;
+}
+
+/* Estilos para gestión de slots */
+.slots-container .slot-card {
+  transition: all 0.2s ease;
+}
+
+.slots-container .slot-card:hover {
+  transform: translateY(-2px);
+}
+
+.slots-container .slot-card.selected {
+  @apply ring-2 ring-blue-500 ring-opacity-75;
+}
+
+.slots-container .slot-card.drag-over {
+  @apply bg-blue-50 border-blue-400 scale-105;
+}
+
+.user-card {
+  transition: all 0.2s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-1px);
+}
+
+.user-card.dragging {
+  @apply opacity-50;
+}
+
+body.dragging .slot-card.slot-empty {
+  @apply border-blue-300 bg-blue-25;
+}
+
+body.dragging .slot-card.slot-empty:hover {
+  @apply border-blue-500 bg-blue-50;
+}
+
+/* Animaciones de notificaciones */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.notification-enter {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.notification-exit {
+  animation: slideOutRight 0.3s ease-in;
+}
+
+/* Estados de loading */
+.loading-spinner {
+  @apply animate-spin w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full;
+}
+
+/* Panel lateral */
+#search-panel {
+  transition: transform 0.3s ease-in-out;
+}
+
+#panel-overlay {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Efectos hover mejorados */
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Drag & drop visual feedback */
+.drop-zone-active {
+  @apply border-2 border-dashed border-blue-400 bg-blue-50;
+}
+
+.drag-preview {
+  @apply opacity-75 transform rotate-3;
+}

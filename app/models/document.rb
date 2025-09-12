@@ -12,7 +12,7 @@ class Document < ApplicationRecord
 
   validate :acceptable_file
 
-  private
+
 
   def acceptable_file
     return unless file.attached?
@@ -45,6 +45,32 @@ class Document < ApplicationRecord
     end
   end
 
+  # Métodos públicos para categoría
+  def category_spanish
+    case category
+    when "contract" then "Contrato"
+    when "plan" then "Plano"
+    when "permit" then "Permiso"
+    when "specification" then "Memoria"
+    when "invoice" then "Factura"
+    when "photo" then "Fotografía"
+    when "report" then "Informe"
+    when "other" then "Otro"
+    end
+  end
+
+  def category_badge_class
+    case category
+    when "contract" then "bg-red-100 text-red-800"
+    when "plan" then "bg-blue-100 text-blue-800"
+    when "permit" then "bg-green-100 text-green-800"
+    when "specification" then "bg-purple-100 text-purple-800"
+    when "invoice" then "bg-yellow-100 text-yellow-800"
+    when "photo" then "bg-pink-100 text-pink-800"
+    when "report" then "bg-indigo-100 text-indigo-800"
+    when "other" then "bg-gray-100 text-gray-800"
+    end
+  end
   enum category: {
     contract: "contract",
     plan: "plan",
@@ -82,6 +108,7 @@ class Document < ApplicationRecord
     else "file"
     end
   end
+
 
   def category_spanish
     case category

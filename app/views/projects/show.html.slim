@@ -34,6 +34,10 @@ section.max-w-3xl.mx-auto.bg-white.rounded-2xl.mb-8.p-8.mt-10.shadow-none.px-4.m
         = link_to @project.user.full_name, user_path(@project.user), class: "text-gray-700 hover:underline"
     p.text-gray-700.leading-relaxed.mb-4 = @project.description
 
+    = render 'slots', project: @project
+    - if user_signed_in? && current_user == @project.user
+      = link_to 'Agregar slot profesional', new_project_project_slot_path(@project), class: 'btn btn-sm btn-blue mt-2'
+
     / El visor CAD completo solo se muestra en el partial reusable, no aquí
 
     .flex.justify-end.gap-4.mt-6.flex-wrap

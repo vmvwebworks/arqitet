@@ -44,9 +44,10 @@ main.flex-grow
               - if @current_plan == plan
                 .bg-gray-100.text-gray-600.text-center.py-3.rounded-lg.font-medium Plan Actual
               - else
-                = link_to new_subscription_path(plan_id: plan.id),
-                  class: "w-full bg-blue-600 text-white text-center py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors block"
-                  | #{plan.free? ? 'Seleccionar Plan Gratuito' : 'Suscribirse'}
+                = form_with url: '#', method: :post, local: true do |f|
+                  = hidden_field_tag :plan_id, plan.id
+                  = f.submit (plan.free? ? 'Seleccionar Plan Gratuito' : 'Suscribirse'), class: "w-full bg-blue-600 text-white text-center py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors block"
+                #google-pay-button-#{plan.id}
             - else
               = link_to new_user_registration_path,
                 class: "w-full bg-blue-600 text-white text-center py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors block"
@@ -57,3 +58,28 @@ main.flex-grow
       p.mb-4 Todos los planes incluyen soporte técnico y actualizaciones gratuitas
       p.text-sm ¿Necesitas ayuda? 
         = link_to "Contacta con nosotros", "#", class: "text-blue-600 hover:text-blue-800"
+
+    / Google Pay JS
+    :javascript
+      function onGooglePayLoaded() {
+        var paymentsClient = new google.payments.api.PaymentsClient({ environment: 'TEST' });
+        var plans = document.querySelectorAll('[id^="google-pay-button-"]');
+        plans.forEach(function(div) {
+          var button = paymentsClient.createButton({
+            onClick: function() { alert('Google Pay simulado. Aquí iría la integración con la pasarela.'); },
+            allowedPaymentMethods: [{
+              type: 'CARD',
+              parameters: {
+                allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                allowedCardNetworks: ['VISA', 'MASTERCARD']
+              }
+            }]
+          });
+          div.appendChild(button);
+        });
+      }
+      window.addEventListener('load', function() {
+        if (window.onGooglePayLoaded) window.onGooglePayLoaded();
+      });
+
+    script(src="https://pay.google.com/gp/p/js/pay.js" async)

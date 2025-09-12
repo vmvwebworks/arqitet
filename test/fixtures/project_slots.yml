@@ -1,0 +1,11 @@
+one:
+  project: one
+  role: "arquitecto"
+  description: "Diseño conceptual"
+  max_professionals: 2
+
+two:
+  project: two
+  role: "ingeniero"
+  description: "Cálculo estructural"
+  max_professionals: 1

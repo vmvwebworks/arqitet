@@ -1,4 +1,15 @@
 class UsersController < ApplicationController
+  def search
+    @project = Project.find(params[:project_id]) if params[:project_id]
+    @slot = ProjectSlot.find(params[:slot_id]) if params[:slot_id]
+    @users = User.where(profile_type: 'professional')
+    if params[:query].present?
+      @users = @users.where('full_name ILIKE ? OR profession ILIKE ? OR specialty ILIKE ?', "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%")
+    end
+    render 'users/search'
+  end
+end
+class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :authenticate_user!, only: [:edit, :update]
   before_action :authorize_user!, only: [:edit, :update]

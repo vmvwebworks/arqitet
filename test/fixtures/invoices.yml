@@ -3,7 +3,7 @@
 one:
   user: one
   project: one
-  invoice_number: MyString
+  invoice_number: INV-0001
   client_name: MyString
   client_email: MyString
   client_address: MyText
@@ -19,7 +19,7 @@ one:
 two:
   user: two
   project: two
-  invoice_number: MyString
+  invoice_number: INV-0002
   client_name: MyString
   client_email: MyString
   client_address: MyText

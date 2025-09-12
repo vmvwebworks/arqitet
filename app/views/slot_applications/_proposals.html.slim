@@ -1,0 +1,18 @@
+/ Vista de propuestas recibidas para un slot
+.proposals-section.bg-white.rounded-xl.shadow-lg.p-6.max-w-lg.mx-auto
+  h2.text-xl.font-bold.mb-4.text-indigo-900 Propuestas recibidas
+  - if @slot.slot_applications.any?
+    ul.flex.flex-col.gap-3
+      - @slot.slot_applications.each do |app|
+        li.flex.items-center.justify-between.bg-gray-50.p-3.rounded
+          .flex.flex-col
+            span.font-bold.text-gray-800= app.user.full_name
+            span.text-xs.text-gray-500= app.user.specialty
+            span.text-xs.text-gray-400= "#{app.user.experience} años de experiencia"
+            span.badge class="badge-#{app.status}" = app.status.capitalize
+          - if app.status == 'pending'
+            .flex.gap-2.mt-2
+              = button_to 'Aceptar', slot_applications_management_path(app), method: :put, params: { status: 'accepted' }, class: 'btn btn-xs btn-success'
+              = button_to 'Rechazar', slot_applications_management_path(app), method: :put, params: { status: 'rejected' }, class: 'btn btn-xs btn-danger'
+  - else
+    p.text-gray-500.mt-4 No hay propuestas para este slot.

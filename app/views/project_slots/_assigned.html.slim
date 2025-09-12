@@ -1,0 +1,8 @@
+/ Vista de slot asignado
+.assigned-slot.bg-green-50.rounded-xl.shadow.p-4.flex.items-center.gap-4.max-w-lg.mx-auto
+  h2.text-lg.font-bold.text-green-900.mb-2 Profesional asignado
+  .flex.flex-col
+    span.font-semibold.text-green-700= @slot.assigned_user.full_name
+    span.text-xs.text-gray-500= @slot.assigned_user.specialty
+    span.text-xs.text-gray-400= "#{@slot.assigned_user.experience} años de experiencia"
+  = button_to 'Desasignar', unassign_project_slot_path(@slot), method: :put, class: 'btn btn-xs btn-warning mt-2'

@@ -11,3 +11,6 @@ pin "apexcharts", to: "https://cdn.jsdelivr.net/npm/apexcharts@3.45.2/dist/apexc
 
 # Splide.js como alternativa compatible a Swiper
 pin "@splidejs/splide", to: "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.esm.js"
+
+# Gestión de slots
+pin "slots_management", to: "slots_management.js"

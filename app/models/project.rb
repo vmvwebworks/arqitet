@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   has_one_attached :cad_file
+  has_many :project_slots, dependent: :destroy
   belongs_to :user
   belongs_to :client, optional: true
   has_many_attached :images

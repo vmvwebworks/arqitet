@@ -1,167 +1,275 @@
-- content_for :title, user_signed_in? ? "Mi Dashboard" : "Resumen de la plataforma"
+- content_for :title, user_signed_in? ? "Mi Dashboard" : "ArqiTet - Plataforma para Arquitectos"
 
 - if user_signed_in?
-  / Dashboard Personal del Usuario - Diseño Flat
-  .min-h-screen.bg-gray-50
-    .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-12
-      / Notificación de confirmación pendiente
-      - unless current_user.confirmed?
-        .bg-yellow-50.border.border-yellow-200.rounded-lg.p-4.mb-6
-          .flex.items-center
-            span.text-2xl.mr-3 ⚠️
-            div
-              h3.font-semibold.text-yellow-800 Confirma tu cuenta
-              p.text-yellow-700.text-sm 
-                | Te hemos enviado un email de confirmación a <strong>#{current_user.email}</strong>. 
-                | Revisa tu bandeja de entrada y confirma tu cuenta para acceder a todas las funcionalidades.
-              .mt-2
-                = link_to "Reenviar email de confirmación", new_user_confirmation_path, 
-                  class: "text-yellow-800 underline hover:text-yellow-900 text-sm font-medium"
-
-
-      / Cabecera del Dashboard
-      .mb-12
-        h1.text-4xl.font-light.text-gray-900.mb-3 ¡Hola, #{current_user.full_name}!
-        p.text-lg.text-gray-500 Gestiona tus proyectos y visualiza su rendimiento
-        .flex.flex-wrap.gap-4.mt-6
-          = link_to invoices_path, class: "px-6 py-3 rounded-xl bg-gray-800 text-white font-semibold hover:bg-gray-700 transition flex items-center gap-2 shadow" do
-            svg.w-5.h-5.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 4h6a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v12a2 2 0 002 2z"
-            | Facturas
-          = link_to honorary_calculations_path, class: "px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition flex items-center gap-2 shadow" do
-            svg.w-5.h-5.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 17a4 4 0 004 4h10a4 4 0 004-4V7a4 4 0 00-4-4H7a4 4 0 00-4 4v10z"
-            | Calculadora
-          - if current_user.can_manage_clients?
-            = link_to clients_path, class: "px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition flex items-center gap-2 shadow" do
-              svg.w-5.h-5.mr-2 fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 000 7.75M12 17v-6m0 0V7m0 4h4m-4 0H8"
-              | CRM
-
-      / Galería de Proyectos
-      = render 'shared/projects_carousel'
-
-      / Grid de Widgets - Diseño Flat
-      .grid.grid-cols-1.lg:grid-cols-3.gap-8.mb-12
-        / Widget de Visitas
-        .bg-white.rounded-lg.p-8
-          h3.text-xl.font-medium.mb-6.text-gray-800.flex.items-center
-            .w-3.h-3.bg-blue-500.rounded-full.mr-3
-            | Visitas por Proyecto
-          - if user_has_visits?
-            = render_bar_chart(visits_chart_data, 'my-visits-by-project', {height: 200, colors: ['#3B82F6']})
-          - else
-            .text-center.text-gray-400.py-12
-              .w-16.h-16.mx-auto.mb-4.bg-gray-100.rounded-full.flex.items-center.justify-center
-                svg.w-8.h-8.text-gray-400 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              p.font-medium.text-gray-900.mb-1 Sin datos de visitas
-              p.text-sm.text-gray-500 Las estadísticas aparecerán cuando tengas proyectos
-
-        / Top Proyectos
-        .bg-white.rounded-lg.p-8
-          h3.text-xl.font-medium.mb-6.text-gray-800.flex.items-center
-            .w-3.h-3.bg-yellow-500.rounded-full.mr-3
-            | Top Proyectos
-          - top_projects = top_visited_projects(3)
-          - if top_projects.any?
-            .space-y-4
-              - top_projects.each_with_index do |project, index|
-                .flex.items-center.justify-between.p-4.bg-gray-50.rounded-lg
-                  .flex.items-center.space-x-4
-                    .flex-shrink-0
-                      - badge_colors = ['bg-yellow-500', 'bg-gray-400', 'bg-orange-500']
-                      .w-8.h-8.rounded-full.flex.items-center.justify-center.text-white.text-sm.font-bold class="#{badge_colors[index]}"
-                        = index + 1
-                    .flex-1.min-w-0
-                      p.font-medium.text-gray-900.truncate= project.title
-                      p.text-sm.text-gray-500= project.category
-                  .text-right
-                    p.text-lg.font-bold.text-gray-900= project.visits
-                    p.text-xs.text-gray-500 visitas
-          - else
-            .text-center.text-gray-400.py-8
-              .w-12.h-12.mx-auto.mb-3.bg-gray-100.rounded-full.flex.items-center.justify-center
-                svg.w-6.h-6.text-gray-400 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-              p.text-sm.font-medium Sin proyectos destacados aún
-
-        / Estadísticas Rápidas
-        .bg-white.rounded-lg.p-8
-          h3.text-xl.font-medium.mb-6.text-gray-800.flex.items-center
-            .w-3.h-3.bg-green-500.rounded-full.mr-3
-            | Resumen
-          - stats = dashboard_stats
-          .space-y-6
-            .flex.justify-between.items-center
-              .flex.items-center
-                .w-10.h-10.bg-blue-100.rounded-full.flex.items-center.justify-center.mr-3
-                  svg.w-5.h-5.text-blue-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                span.text-gray-600 Total Proyectos
-              span.text-2xl.font-bold.text-gray-900= stats[:projects_count]
-            
-            .flex.justify-between.items-center
-              .flex.items-center
-                .w-10.h-10.bg-green-100.rounded-full.flex.items-center.justify-center.mr-3
-                  svg.w-5.h-5.text-green-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7C7.523 19 3.732 16.057 2.458 12z"
-                span.text-gray-600 Total Visitas
-              span.text-2xl.font-bold.text-gray-900= stats[:total_visits]
-            
-            .flex.justify-between.items-center
-              .flex.items-center
-                .w-10.h-10.bg-purple-100.rounded-full.flex.items-center.justify-center.mr-3
-                  svg.w-5.h-5.text-purple-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                span.text-gray-600 Promedio Visitas
-              span.text-2xl.font-bold.text-gray-900= stats[:avg_visits]
-
-      / Proyectos que necesitan atención
-      - projects_needing_attention = projects_needing_attention()
-      - if projects_needing_attention.any?
-        .bg-amber-50.rounded-lg.p-8.mb-8
-          .flex.items-start
-            .w-12.h-12.bg-amber-100.rounded-full.flex.items-center.justify-center.mr-4
-              svg.w-6.h-6.text-amber-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-            .flex-1
-              h3.text-lg.font-medium.text-amber-800.mb-2 Proyectos que necesitan atención
-              p.text-amber-700.mb-4 Estos proyectos aún no tienen visitas. Considera promocionarlos o mejorar su descripción:
-              .flex.flex-wrap.gap-2
-                - projects_needing_attention.each do |project|
-                  = link_to project.title, project_path(project), class: 'px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-medium hover:bg-amber-200 transition-colors'
-
-- else
-  / Vista pública para usuarios no autenticados - Diseño Flat
-  .min-h-screen.bg-gray-50.flex.items-center.justify-center
-    .max-w-4xl.mx-auto.px-4.py-16
-      .bg-white.rounded-xl.p-12.text-center
-        h1.text-4xl.font-light.text-gray-900.mb-8 Resumen de la plataforma
+  .min-h-screen.bg-gradient-to-br.from-slate-50.via-blue-50.to-indigo-50
+    .container.mx-auto.px-6.py-8
+      .flex.flex-col.lg:flex-row.gap-8
         
-        .grid.grid-cols-1.md:grid-cols-2.gap-12.mb-12
-          .text-center
-            .w-20.h-20.bg-blue-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
-              span.text-3xl.font-bold.text-blue-600= @platform_stats[:projects_count]
-            h3.text-xl.font-medium.text-gray-900.mb-2 Proyectos publicados
-            p.text-gray-500 Descubre trabajos increíbles de arquitectos
+        // Dashboard principal
+        main.flex-1
+          .mb-8
+            .bg-white.rounded-xl.shadow-sm.border.border-slate-200.p-6
+              .flex.items-center.justify-between.mb-4
+                h1.text-2xl.font-bold.text-slate-800 ¡Hola, #{current_user.full_name}!
+                .text-sm.text-slate-500= Date.current.strftime("%d de %B de %Y")
+              
+              - unless current_user.confirmed?
+                .bg-yellow-50.border.border-yellow-200.rounded-lg.p-4.mb-6
+                  .flex.items-center.gap-3
+                    .w-8.h-8.bg-yellow-100.rounded-full.flex.items-center.justify-center
+                      i.fas.fa-exclamation-triangle.text-yellow-600.text-sm
+                    div
+                      h3.font-semibold.text-yellow-800 Confirma tu cuenta
+                      p.text-sm.text-yellow-700.mt-1 
+                        | Te hemos enviado un email de confirmación a 
+                        span.font-medium= current_user.email
+                        | . Revisa tu bandeja de entrada y spam.
+                      .mt-3
+                        = link_to "Reenviar confirmación", new_user_confirmation_path, 
+                                  class: "text-sm font-medium text-yellow-700 hover:text-yellow-800 underline"
+              
+              .grid.grid-cols-1.sm:grid-cols-3.gap-4
+                = link_to invoices_path, class: "group p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-all duration-200"
+                  .flex.items-center.gap-3
+                    .w-10.h-10.bg-blue-500.rounded-lg.flex.items-center.justify-center
+                      i.fas.fa-file-invoice.text-white.text-sm
+                    div
+                      h3.font-semibold.text-blue-900.text-sm Facturas
+                      p.text-xs.text-blue-700.mt-1 Gestiona tus facturas
+                
+                = link_to honorary_calculations_path, class: "group p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200 hover:from-green-100 hover:to-green-200 transition-all duration-200"
+                  .flex.items-center.gap-3
+                    .w-10.h-10.bg-green-500.rounded-lg.flex.items-center.justify-center
+                      i.fas.fa-calculator.text-white.text-sm
+                    div
+                      h3.font-semibold.text-green-900.text-sm Calculadora
+                      p.text-xs.text-green-700.mt-1 Calcula honorarios
+                
+                = link_to clients_path, class: "group p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 hover:from-purple-100 hover:to-purple-200 transition-all duration-200"
+                  .flex.items-center.gap-3
+                    .w-10.h-10.bg-purple-500.rounded-lg.flex.items-center.justify-center
+                      i.fas.fa-users.text-white.text-sm
+                    div
+                      h3.font-semibold.text-purple-900.text-sm CRM
+                      p.text-xs.text-purple-700.mt-1 Gestiona clientes
           
-          .text-center
-            .w-20.h-20.bg-green-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
-              span.text-3xl.font-bold.text-green-600= @platform_stats[:users_count]
-            h3.text-xl.font-medium.text-gray-900.mb-2 Usuarios registrados
-            p.text-gray-500 Únete a nuestra comunidad creativa
+          // Carrusel de proyectos
+          .bg-white.rounded-xl.shadow-sm.border.border-slate-200.p-6.mb-6
+            .flex.items-center.justify-between.mb-4
+              h2.text-lg.font-bold.text-slate-800 Tus proyectos
+              = link_to "Ver todos", projects_path, class: "text-sm font-medium text-blue-600 hover:text-blue-700"
+            
+            - if current_user.projects.any?
+              .grid.grid-cols-1.sm:grid-cols-2.lg:grid-cols-3.gap-4
+                - current_user.projects.limit(6).each do |project|
+                  = link_to project_path(project), class: "block group"
+                    .bg-slate-50.rounded-lg.border.border-slate-200.p-4.hover:border-blue-300.hover:shadow-sm.transition-all.duration-200
+                      .flex.items-center.justify-between.mb-2
+                        h3.font-medium.text-slate-900.text-sm.truncate.pr-2= project.title
+                        .text-xs.px-2.py-1.bg-slate-200.text-slate-700.rounded-full= project.status
+                      p.text-xs.text-slate-600.line-clamp-2= project.description
+                      .mt-3.text-xs.text-slate-500= project.created_at.strftime('%d %b %Y')
+            - else
+              .text-center.py-8
+                .w-16.h-16.bg-slate-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
+                  i.fas.fa-plus.text-slate-400.text-xl
+                h3.text-slate-600.font-medium.mb-2 Aún no tienes proyectos
+                p.text-sm.text-slate-500.mb-4 Crea tu primer proyecto y comienza a gestionar tu trabajo
+                = link_to "Crear proyecto", new_project_path, 
+                          class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          
+          // Widget de analíticas
+          .grid.grid-cols-1.sm:grid-cols-2.gap-6
+            .bg-white.rounded-xl.shadow-sm.border.border-slate-200.p-6
+              h3.text-lg.font-bold.text-slate-800.mb-4 Resumen del mes
+              .space-y-3
+                .flex.items-center.justify-between
+                  span.text-sm.text-slate-600 Proyectos activos
+                  span.font-semibold.text-slate-900= current_user.projects.where(status: 'active').count
+                .flex.items-center.justify-between
+                  span.text-sm.text-slate-600 Facturas emitidas
+                  span.font-semibold.text-slate-900= current_user.invoices.where(created_at: 1.month.ago..Time.current).count
+                .flex.items-center.justify-between
+                  span.text-sm.text-slate-600 Ingresos del mes
+                  span.font-semibold.text-green-600= number_to_currency(current_user.invoices.where(created_at: 1.month.ago..Time.current).sum(:total_amount), unit: '€')
+            
+            .bg-white.rounded-xl.shadow-sm.border.border-slate-200.p-6
+              h3.text-lg.font-bold.text-slate-800.mb-4 Actividad reciente
+              .space-y-3
+                - current_user.projects.limit(3).each do |project|
+                  .flex.items-center.gap-3
+                    .w-8.h-8.bg-blue-100.rounded-full.flex.items-center.justify-center
+                      i.fas.fa-project-diagram.text-blue-600.text-xs
+                    div
+                      p.text-sm.font-medium.text-slate-900= project.title
+                      p.text-xs.text-slate-500= "Actualizado #{time_ago_in_words(project.updated_at)} ago"
+    
+- else
+  // Hero Section
+  section.relative.bg-gradient-to-br.from-blue-50.via-indigo-50.to-purple-50.overflow-hidden
+    .absolute.inset-0.bg-grid-pattern.opacity-5
+    .relative.container.mx-auto.px-6.py-20.lg:py-32.text-center
+      h1.text-4xl.lg:text-6xl.font-bold.text-gray-900.mb-6.leading-tight
+        | La plataforma para 
+        span.text-blue-600 arquitectos
+        br
+        | del siglo XXI
+      
+      p.text-lg.lg:text-xl.text-gray-600.mb-8.max-w-3xl.mx-auto.leading-relaxed
+        | Gestiona tus proyectos, calcula honorarios, factura a clientes y conecta 
+        | con la comunidad arquitectónica más grande del mundo
+      
+      .flex.flex-col.sm:flex-row.gap-4.justify-center.mb-16
+        = link_to new_user_registration_path, 
+                  class: "px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          | Comienza gratis
         
-        .mb-12
-          h2.text-2xl.font-medium.text-gray-900.mb-6 Proyectos por categoría
-          .flex.flex-wrap.justify-center.gap-3
-            - @platform_stats[:categories].each do |cat, count|
-              .px-4.py-2.bg-gray-100.text-gray-800.rounded-full.font-medium= "#{cat}: #{count}"
+        = link_to projects_path, 
+                  class: "px-8 py-4 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold rounded-xl transition-all duration-200"
+          | Explorar proyectos
+      
+      .flex.items-center.justify-center.gap-8.opacity-60
+        .text-sm.font-medium.text-gray-500 Integrado con:
+        .flex.gap-6
+          .text-gray-400.font-medium AutoCAD
+          .text-gray-400.font-medium Revit
+          .text-gray-400.font-medium SketchUp
+  
+  // Features Section
+  section.py-20.bg-white
+    .container.mx-auto.px-6
+      .text-center.mb-16
+        h2.text-3xl.lg:text-4xl.font-bold.text-gray-900.mb-4
+          | Todo lo que necesitas para tu estudio
+        p.text-lg.text-gray-600.max-w-2xl.mx-auto
+          | Herramientas profesionales diseñadas específicamente para arquitectos y estudios de arquitectura
+      
+      .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8
+        .group.text-center.p-8.rounded-2xl.border.border-gray-100.hover:border-blue-200.hover:shadow-lg.transition-all.duration-300
+          .w-16.h-16.bg-blue-100.rounded-2xl.flex.items-center.justify-center.mx-auto.mb-6.group-hover:bg-blue-200.transition-colors
+            i.fas.fa-project-diagram.text-blue-600.text-2xl
+          h3.text-xl.font-bold.text-gray-900.mb-3 Gestión de Proyectos
+          p.text-gray-600.leading-relaxed
+            | Organiza y administra todos tus proyectos desde una plataforma centralizada con herramientas colaborativas
         
-        .mb-8
-          h2.text-2xl.font-medium.text-gray-900.mb-6 Proyectos recientes
-          .space-y-3
-            - @platform_stats[:recent_projects].each do |project|
-              .flex.justify-between.items-center.p-4.bg-gray-50.rounded-lg
-                span.font-medium.text-gray-900= project.title
-                span.text-sm.text-gray-500= project.created_at.strftime('%d de %B, %Y')
+        .group.text-center.p-8.rounded-2xl.border.border-gray-100.hover:border-green-200.hover:shadow-lg.transition-all.duration-300
+          .w-16.h-16.bg-green-100.rounded-2xl.flex.items-center.justify-center.mx-auto.mb-6.group-hover:bg-green-200.transition-colors
+            i.fas.fa-calculator.text-green-600.text-2xl
+          h3.text-xl.font-bold.text-gray-900.mb-3 Cálculo de Honorarios
+          p.text-gray-600.leading-relaxed
+            | Calcula honorarios profesionales automáticamente según normativas vigentes y baremos oficiales
+        
+        .group.text-center.p-8.rounded-2xl.border.border-gray-100.hover:border-purple-200.hover:shadow-lg.transition-all.duration-300
+          .w-16.h-16.bg-purple-100.rounded-2xl.flex.items-center.justify-center.mx-auto.mb-6.group-hover:bg-purple-200.transition-colors
+            i.fas.fa-file-invoice.text-purple-600.text-2xl
+          h3.text-xl.font-bold.text-gray-900.mb-3 Facturación
+          p.text-gray-600.leading-relaxed
+            | Genera facturas profesionales y mantén un control completo de tu facturación y pagos
+        
+        .group.text-center.p-8.rounded-2xl.border.border-gray-100.hover:border-orange-200.hover:shadow-lg.transition-all.duration-300
+          .w-16.h-16.bg-orange-100.rounded-2xl.flex.items-center.justify-center.mx-auto.mb-6.group-hover:bg-orange-200.transition-colors
+            i.fas.fa-users.text-orange-600.text-2xl
+          h3.text-xl.font-bold.text-gray-900.mb-3 CRM de Clientes
+          p.text-gray-600.leading-relaxed
+            | Gestiona la relación con tus clientes, historial de proyectos y comunicaciones centralizadas
+        
+        .group.text-center.p-8.rounded-2xl.border.border-gray-100.hover:border-red-200.hover:shadow-lg.transition-all.duration-300
+          .w-16.h-16.bg-red-100.rounded-2xl.flex.items-center.justify-center.mx-auto.mb-6.group-hover:bg-red-200.transition-colors
+            i.fas.fa-chart-line.text-red-600.text-2xl
+          h3.text-xl.font-bold.text-gray-900.mb-3 Analíticas
+          p.text-gray-600.leading-relaxed
+            | Obtén insights detallados sobre el rendimiento de tus proyectos y la salud de tu negocio
+        
+        .group.text-center.p-8.rounded-2xl.border.border-gray-100.hover:border-indigo-200.hover:shadow-lg.transition-all.duration-300
+          .w-16.h-16.bg-indigo-100.rounded-2xl.flex.items-center.justify-center.mx-auto.mb-6.group-hover:bg-indigo-200.transition-colors
+            i.fas.fa-comments.text-indigo-600.text-2xl
+          h3.text-xl.font-bold.text-gray-900.mb-3 Colaboración
+          p.text-gray-600.leading-relaxed
+            | Colabora en tiempo real con tu equipo y clientes en cada proyecto con herramientas integradas
+  
+  // Stats Section
+  section.py-20.bg-gray-50
+    .container.mx-auto.px-6
+      .text-center.mb-16
+        h2.text-3xl.font-bold.text-gray-900.mb-4 La comunidad crece cada día
+        p.text-lg.text-gray-600 Miles de arquitectos ya confían en nuestra plataforma
+      
+      .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-4.gap-8.mb-12
+        .text-center.p-6
+          .w-20.h-20.bg-blue-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
+            span.text-3xl.font-bold.text-blue-600= @platform_stats[:projects_count]
+          h3.text-xl.font-semibold.text-gray-900.mb-2 Proyectos
+          p.text-gray-600 Proyectos publicados en la plataforma
+        
+        .text-center.p-6
+          .w-20.h-20.bg-green-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
+            span.text-3xl.font-bold.text-green-600= @platform_stats[:users_count]
+          h3.text-xl.font-semibold.text-gray-900.mb-2 Usuarios
+          p.text-gray-600 Arquitectos registrados
+        
+        .text-center.p-6
+          .w-20.h-20.bg-purple-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
+            span.text-3xl.font-bold.text-purple-600 24h
+          h3.text-xl.font-semibold.text-gray-900.mb-2 Soporte
+          p.text-gray-600 Asistencia profesional
+        
+        .text-center.p-6
+          .w-20.h-20.bg-orange-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
+            span.text-3xl.font-bold.text-orange-600 99%
+          h3.text-xl.font-semibold.text-gray-900.mb-2 Uptime
+          p.text-gray-600 Disponibilidad garantizada
+      
+      .text-center
+        h3.text-2xl.font-semibold.text-gray-900.mb-6 Proyectos por especialidad
+        .flex.flex-wrap.justify-center.gap-3.mb-8
+          - @platform_stats[:categories].each do |cat, count|
+            .px-4.py-2.bg-white.border.border-gray-200.text-gray-700.rounded-full.font-medium.hover:border-blue-200.transition-colors
+              = "#{cat}: #{count}"
+  
+  // Projects Showcase Section
+  section.py-20.bg-white
+    .container.mx-auto.px-6
+      .text-center.mb-16
+        h2.text-3xl.font-bold.text-gray-900.mb-4 Proyectos destacados
+        p.text-lg.text-gray-600 Descubre el trabajo de nuestra comunidad de arquitectos
+      
+      - if @platform_stats[:recent_projects].present?
+        .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8.mb-12
+          - @platform_stats[:recent_projects].limit(6).each do |project|
+            .group.bg-white.rounded-xl.border.border-gray-200.hover:border-blue-200.hover:shadow-lg.transition-all.duration-300.overflow-hidden
+              .p-6
+                .flex.items-center.justify-between.mb-3
+                  h3.font-semibold.text-gray-900.text-lg= project.title
+                  .text-xs.px-3.py-1.bg-blue-100.text-blue-700.rounded-full= project.category || 'Residencial'
+                p.text-gray-600.text-sm.line-clamp-3.mb-4= project.description
+                .flex.items-center.justify-between
+                  .text-xs.text-gray-500= project.created_at.strftime('%d de %B, %Y')
+                  .text-xs.font-medium.text-blue-600 Ver proyecto →
+        
+        .text-center
+          = link_to projects_path, 
+                    class: "inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+            | Ver todos los proyectos
+            i.fas.fa-arrow-right.ml-2
+      - else
+        .text-center.py-12
+          .w-16.h-16.bg-gray-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-4
+            i.fas.fa-building.text-gray-400.text-xl
+          p.text-gray-500 Pronto tendremos proyectos destacados para mostrar
+  
+  // CTA Section
+  section.py-20.bg-gradient-to-br.from-blue-600.via-blue-700.to-indigo-700.text-white
+    .container.mx-auto.px-6.text-center
+      h2.text-3xl.lg:text-4xl.font-bold.mb-4
+        | ¿Listo para revolucionar tu práctica arquitectónica?
+      p.text-lg.lg:text-xl.mb-8.opacity-90.max-w-2xl.mx-auto
+        | Únete a miles de arquitectos que ya están transformando su forma de trabajar
+      
+      .flex.flex-col.sm:flex-row.gap-4.justify-center
+        = link_to new_user_registration_path, 
+                  class: "px-8 py-4 bg-white text-blue-600 hover:bg-gray-50 font-semibold rounded-xl transition-all duration-200 shadow-lg"
+          | Crear cuenta gratuita
+        
+        = link_to new_user_session_path, 
+                  class: "px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold rounded-xl transition-all duration-200"
+          | Iniciar sesión

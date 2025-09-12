@@ -1,0 +1,28 @@
+/ Modal de búsqueda de profesionales para asignar a un slot
+.modal-search-professional.bg-white.rounded-xl.shadow-lg.p-6.max-w-lg.mx-auto
+  h2.text-xl.font-bold.mb-4.text-blue-900 Buscar profesional para el slot
+  = form_with url: assign_project_project_slot_path(@slot.project, @slot), method: :put, local: true do |f|
+    .mb-4
+      = f.label :query, 'Buscar por nombre, especialidad o experiencia', class: 'block text-sm font-medium text-gray-700'
+      = f.text_field :query, class: 'input input-bordered w-full', placeholder: 'Ej: arquitecto, BIM, 5 años...'
+    .mb-4
+      = f.label :specialty, 'Especialidad', class: 'block text-sm font-medium text-gray-700'
+      = f.select :specialty, options_for_select(User.specialties), include_blank: 'Todas', class: 'input input-bordered w-full'
+    .mb-4
+      = f.label :experience, 'Años de experiencia', class: 'block text-sm font-medium text-gray-700'
+      = f.number_field :experience, class: 'input input-bordered w-full', min: 0
+    .mb-4
+      = f.submit 'Buscar', class: 'btn btn-blue w-full'
+
+  - if @professionals.present?
+    h3.text-lg.font-semibold.mt-6.mb-2 Resultados
+    ul.flex.flex-col.gap-2
+      - @professionals.each do |prof|
+        li.flex.items-center.justify-between.bg-gray-50.p-3.rounded
+          .flex.flex-col
+            span.font-bold.text-gray-800= prof.full_name
+            span.text-xs.text-gray-500= prof.specialty
+            span.text-xs.text-gray-400= "#{prof.experience} años de experiencia"
+          = button_to 'Asignar', assign_project_project_slot_path(@slot.project, @slot, user_id: prof.id), method: :put, class: 'btn btn-xs btn-success ml-4'
+  - else
+    p.text-gray-500.mt-4 No se encontraron profesionales con esos criterios.

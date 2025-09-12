@@ -107,4 +107,21 @@ class User < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     %w[projects]
   end
+    has_many :slot_applications, dependent: :destroy
+    # profile_type: string, profession: string, bio: text
+
+    def self.specialties
+      [
+        'Arquitecto',
+        'Interiorista',
+        'Ingeniero',
+        'BIM',
+        'Paisajista',
+        'Urbanista',
+        'Topógrafo',
+        'Estructurista',
+        'Instalador',
+        'Otro'
+      ]
+    end
 end

@@ -1,0 +1,6 @@
+h2.text-xl.font-bold.mb-4 Postularse al slot profesional
+= form_with model: [@slot, @application], local: true do |f|
+  .mb-4
+    = f.label :message, 'Mensaje de presentación'
+    = f.text_area :message, class: 'form-textarea w-full', placeholder: 'Describe tu experiencia y motivación...'
+  = f.submit 'Enviar postulación', class: 'btn btn-primary mt-4'

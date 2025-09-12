@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   include Subscribable
 
-before_action :set_project, only: %i[ show edit update destroy timeline ]
+before_action :set_project, only: %i[ show edit update destroy timeline search_users ]
   before_action :authenticate_user!, except: %i[index show]
   before_action :authorize_user!, only: %i[edit update destroy]
   before_action :check_project_limit, only: %i[new create]
@@ -164,6 +164,38 @@ before_action :set_project, only: %i[ show edit update destroy timeline ]
     render json: @timeline_data
   end
 
+  # GET /projects/:id/search_users
+  def search_users
+    users = User.all
+    
+    # Filtrar por búsqueda de texto
+    if params[:q].present?
+      query = params[:q].downcase
+      users = users.where(
+        "lower(full_name) LIKE :q OR lower(bio) LIKE :q OR lower(specialty) LIKE :q OR lower(location) LIKE :q",
+        q: "%#{query}%"
+      )
+    end
+    
+    # Filtrar por especialidad
+    if params[:specialty].present?
+      users = users.where("lower(specialty) LIKE ?", "%#{params[:specialty].downcase}%")
+    end
+    
+    # Excluir usuarios ya asignados a slots de este proyecto
+    assigned_user_ids = @project.project_slots.where.not(assigned_user_id: nil).pluck(:assigned_user_id)
+    users = users.where.not(id: assigned_user_ids) if assigned_user_ids.any?
+    
+    # Limitar resultados
+    users = users.limit(20).order(:full_name)
+    
+    respond_to do |format|
+      format.json do
+        render json: users.map { |user| user_json(user) }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -205,5 +237,16 @@ before_action :set_project, only: %i[ show edit update destroy timeline ]
       end
 
       params.require(:project).permit(*allowed_params)
+    end
+
+    def user_json(user)
+      {
+        id: user.id,
+        full_name: user.full_name,
+        bio: user.bio,
+        specialty: user.specialty,
+        location: user.location,
+        slug: user.slug
+      }
     end
 end

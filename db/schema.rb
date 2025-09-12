@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_11_175956) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -215,6 +215,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.index ["target_date"], name: "index_project_milestones_on_target_date"
   end
 
+  create_table "project_slots", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.string "role", null: false
+    t.text "description"
+    t.integer "max_professionals", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "assigned_user_id"
+    t.index ["assigned_user_id"], name: "index_project_slots_on_assigned_user_id"
+    t.index ["project_id"], name: "index_project_slots_on_project_id"
+  end
+
   create_table "project_tasks", force: :cascade do |t|
     t.integer "project_id", null: false
     t.string "name", null: false
@@ -255,6 +267,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.boolean "is_public", default: true
     t.integer "visits", default: 0, null: false
     t.integer "client_id"
+    t.boolean "slots_enabled", default: false
     t.index ["client_id"], name: "index_projects_on_client_id"
     t.index ["is_public"], name: "index_projects_on_is_public"
     t.index ["status"], name: "index_projects_on_status"
@@ -270,6 +283,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "slot_applications", force: :cascade do |t|
+    t.integer "project_slot_id", null: false
+    t.integer "user_id", null: false
+    t.string "status", default: "pending"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_slot_id"], name: "index_slot_applications_on_project_slot_id"
+    t.index ["user_id"], name: "index_slot_applications_on_user_id"
   end
 
   create_table "subscription_plans", force: :cascade do |t|
@@ -330,6 +354,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.string "profile_type", default: "standard"
+    t.string "profession"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -355,10 +381,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_20_120000) do
   add_foreign_key "project_favorites", "projects"
   add_foreign_key "project_favorites", "users"
   add_foreign_key "project_milestones", "projects"
+  add_foreign_key "project_slots", "projects"
+  add_foreign_key "project_slots", "users", column: "assigned_user_id"
   add_foreign_key "project_tasks", "projects"
   add_foreign_key "project_tasks", "users", column: "assigned_to_id"
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "users"
+  add_foreign_key "slot_applications", "project_slots"
+  add_foreign_key "slot_applications", "users"
   add_foreign_key "subscriptions", "subscription_plans"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "task_dependencies", "project_tasks", column: "predecessor_task_id"

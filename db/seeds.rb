@@ -1,12 +1,19 @@
 # SEED ROBUSTO Y FUNCIONAL
 puts 'Eliminando datos previos...'
+# Eliminar dependientes primero para evitar errores de clave foránea
 InvoiceItem.delete_all if defined?(InvoiceItem)
-Invoice.delete_all if defined?(Invoice)
+Message.delete_all if defined?(Message)
+ProjectFavorite.delete_all if defined?(ProjectFavorite)
+SlotApplication.delete_all if defined?(SlotApplication)
+ProjectSlot.delete_all if defined?(ProjectSlot)
 Document.delete_all if defined?(Document)
 ProjectTask.delete_all if defined?(ProjectTask)
 ProjectMilestone.delete_all if defined?(ProjectMilestone)
-Client.delete_all
+Subscription.delete_all if defined?(Subscription)
+Invoice.delete_all if defined?(Invoice)
+Conversation.delete_all if defined?(Conversation)
 Project.delete_all
+Client.delete_all
 User.delete_all
 
 puts 'Creando usuarios...'
@@ -237,5 +244,28 @@ if image_paths.any?
 else
   puts "No se encontraron imágenes de ejemplo en app/assets/images/ (archivos demo*.jpg/png/gif)."
 end
+
+# SEED PARA SLOTS PROFESIONALES
+puts 'Creando slots profesionales y aplicaciones...'
+roles = [ 'arquitecto', 'ingeniero', 'interiorista', 'paisajista' ]
+Project.limit(10).each do |project|
+  next if project.project_slots.any?
+  2.times do |i|
+    slot = project.project_slots.create!(
+      role: roles.sample,
+      description: "Slot profesional #{i+1} para #{project.title}",
+      max_professionals: rand(1..3)
+    )
+    # Aplicaciones de usuarios a slots
+    User.limit(5).each do |user|
+      slot.slot_applications.create!(
+        user: user,
+        status: %w[pending accepted rejected].sample,
+        message: "Me gustaría participar en el slot #{slot.role} de #{project.title}"
+      )
+    end
+  end
+end
+puts 'Slots profesionales y aplicaciones generados.'
 
 puts 'Seed completo.'

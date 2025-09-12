@@ -85,5 +85,5 @@ gem "chartkick", "~> 5.1"
 gem "groupdate", "~> 6.5"
 
 # Sistema de suscripciones y pagos
-gem "stripe"
 gem "money-rails"
+gem 'braintree'

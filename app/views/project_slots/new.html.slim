@@ -1,0 +1,12 @@
+h2.text-xl.font-bold.mb-4 Nuevo slot profesional
+= form_with model: [@project, @slot], local: true do |f|
+  .mb-4
+    = f.label :role, 'Rol profesional'
+    = f.text_field :role, class: 'form-input w-full'
+  .mb-4
+    = f.label :description, 'Descripción'
+    = f.text_area :description, class: 'form-textarea w-full'
+  .mb-4
+    = f.label :max_professionals, 'Cantidad máxima de profesionales'
+    = f.number_field :max_professionals, class: 'form-input w-24', min: 1, value: 1
+  = f.submit 'Crear slot', class: 'btn btn-primary mt-4'

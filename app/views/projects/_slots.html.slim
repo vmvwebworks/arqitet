@@ -1,0 +1,122 @@
+- if project.project_slots.any?
+  section.bg-gray-100.py-16.px-6
+    .max-w-7xl.mx-auto
+      .flex.items-center.justify-between.mb-8
+        div
+          h2.text-3xl.md:text-4xl.font-bold.text-blue-900.mb-2 Mapa de Slots Profesionales
+          p.text-lg.text-gray-600 Visualiza y gestiona la asignación de profesionales
+        .flex.items-center.gap-4
+          #slots-counter
+            .text-sm.text-slate-600 Cargando estadísticas...
+          button.btn.btn-blue.flex.items-center.gap-2 data-toggle="search-panel"
+            i.fas.fa-search
+            | Buscar usuarios
+      
+      .slots-container.grid.grid-cols-1.sm:grid-cols-2.lg:grid-cols-3.xl:grid-cols-4.gap-6
+        - project.project_slots.each do |slot|
+          .slot-card.bg-white.rounded-xl.shadow-md.p-6.transition-all.duration-200.hover:shadow-lg class=("slot-empty" unless slot.assigned_user) data-slot-id=slot.id
+            .text-center.mb-4
+              h3.text-lg.font-bold.text-slate-800.mb-1= slot.role.titleize
+              .text-xs.bg-blue-100.text-blue-700.rounded-full.px-3.py-1.inline-block
+                | Máx. #{slot.max_professionals}
+            
+            - if slot.description.present?
+              p.text-sm.text-gray-600.mb-4.text-center= slot.description
+            
+            - if slot.assigned_user
+              .assigned-user.bg-gradient-to-br.from-green-50.to-green-100.rounded-lg.p-4
+                .flex.items-center.gap-3.mb-3
+                  .w-12.h-12.bg-gradient-to-br.from-green-500.to-green-600.rounded-full.flex.items-center.justify-center.text-white.font-bold
+                    = slot.assigned_user.full_name.split.map(&:first).join.upcase
+                  div
+                    h4.font-semibold.text-green-900= slot.assigned_user.full_name
+                    - if slot.assigned_user.specialty.present?
+                      p.text-xs.text-green-700= slot.assigned_user.specialty
+                
+                .flex.gap-2
+                  button.btn.btn-xs.btn-warning.flex.items-center.gap-1 data-action="unassign" data-user-id=slot.assigned_user.id
+                    i.fas.fa-times.text-xs
+                    | Desasignar
+                  = link_to slot.assigned_user, class: "btn btn-xs btn-outline flex items-center gap-1"
+                    i.fas.fa-user.text-xs
+                    | Ver perfil
+            
+            - else
+              .empty-slot.text-center.py-8.border-2.border-dashed.border-gray-300.rounded-lg.cursor-pointer.hover:border-blue-400.hover:bg-blue-50.transition-all.duration-200
+                .w-16.h-16.bg-gray-100.rounded-full.flex.items-center.justify-center.mx-auto.mb-3
+                  i.fas.fa-plus.text-gray-400.text-xl
+                h4.text-sm.font-medium.text-gray-600.mb-1 Slot disponible
+                p.text-xs.text-gray-500 Click para asignar usuario
+            
+            - if slot.slot_applications.pending.any?
+              .mt-4.pt-4.border-t.border-gray-200
+                h5.text-xs.font-semibold.text-gray-700.mb-2.flex.items-center.gap-1
+                  i.fas.fa-inbox
+                  | Propuestas (#{slot.slot_applications.pending.count})
+                .space-y-2
+                  - slot.slot_applications.pending.limit(2).each do |app|
+                    .flex.items-center.justify-between.bg-amber-50.px-3.py-2.rounded.text-xs
+                      span.font-medium.text-amber-800= app.user.full_name
+                      .flex.gap-1
+                        button.btn.btn-xs.btn-success data-application-id=app.id data-action="accept"
+                          i.fas.fa-check
+                        button.btn.btn-xs.btn-danger data-application-id=app.id data-action="reject"
+                          i.fas.fa-times
+                - if slot.slot_applications.pending.count > 2
+                  .text-center.mt-2
+                    = link_to "Ver todas (#{slot.slot_applications.pending.count})", proposals_project_project_slot_path(project, slot), class: "text-xs text-blue-600 hover:text-blue-800"
+
+  // Panel lateral deslizable
+  #panel-overlay.fixed.inset-0.bg-black.bg-opacity-50.z-40.hidden.opacity-0.transition-opacity.duration-300 data-toggle="search-panel"
+  
+  #search-panel.fixed.top-0.right-0.h-full.w-96.bg-white.shadow-2xl.z-50.transform.translate-x-full.transition-transform.duration-300.hidden
+    .flex.flex-col.h-full
+      // Header del panel
+      .flex.items-center.justify-between.px-6.py-4.border-b.border-gray-200.bg-blue-50
+        h3.text-xl.font-bold.text-blue-900 Buscar Usuarios
+        button.text-gray-500.hover:text-gray-700 data-toggle="search-panel"
+          i.fas.fa-times.text-xl
+      
+      // Controles de búsqueda
+      .p-6.border-b.border-gray-200
+        .space-y-4
+          .relative
+            input#user-search.w-full.pl-10.pr-4.py-3.border.border-gray-300.rounded-lg.focus:ring-2.focus:ring-blue-500.focus:border-blue-500 type="text" placeholder="Buscar por nombre..."
+            i.fas.fa-search.absolute.left-3.top-1/2.transform.-translate-y-1/2.text-gray-400
+          
+          select#specialty-filter.w-full.px-4.py-3.border.border-gray-300.rounded-lg.focus:ring-2.focus:ring-blue-500.focus:border-blue-500
+            option value="" Todas las especialidades
+            option value="arquitecto" Arquitecto
+            option value="ingeniero" Ingeniero
+            option value="diseñador" Diseñador
+            option value="urbanista" Urbanista
+            option value="paisajista" Paisajista
+          
+          button#clear-filters.w-full.px-4.py-2.bg-gray-100.hover:bg-gray-200.text-gray-700.rounded-lg.transition-colors
+            i.fas.fa-eraser.mr-2
+            | Limpiar filtros
+      
+      // Lista de usuarios
+      .flex-1.overflow-y-auto.p-6
+        h4.text-sm.font-semibold.text-gray-700.mb-4.flex.items-center.gap-2
+          i.fas.fa-users
+          | Usuarios disponibles
+        #users-list.space-y-3
+          .text-center.py-8.text-slate-500
+            .animate-pulse
+              .w-8.h-8.bg-gray-200.rounded-full.mx-auto.mb-2
+              .h-4.bg-gray-200.rounded.mx-auto
+      
+      // Footer con ayuda
+      .px-6.py-4.border-t.border-gray-200.bg-gray-50
+        .text-xs.text-gray-600.space-y-1
+          p.flex.items-center.gap-2
+            i.fas.fa-info-circle.text-blue-500
+            | Arrastra usuarios a los slots para asignar
+          p.flex.items-center.gap-2
+            i.fas.fa-mouse-pointer.text-green-500
+            | Click en slots vacíos para seleccionar
+- else
+  section.py-16.px-6
+    .max-w-2xl.mx-auto.text-center
+      p.text-gray-500.text-xl.mt-4 No hay slots profesionales definidos para este proyecto.
