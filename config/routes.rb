@@ -52,9 +52,15 @@ Rails.application.routes.draw do
     member do
       get :timeline
       get :gantt_data
+      get :search_professionals
     end
     resources :project_slots, only: [:new, :create, :show] do
-      resources :slot_applications, only: [:new, :create]
+      resources :slot_applications, only: [:new, :create, :show] do
+        member do
+          patch :accept
+          patch :reject
+        end
+      end
       member do
         get :search_professionals
         post :assign

@@ -1,7 +1,7 @@
 class ProjectSlotsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, except: [:search_professionals, :assign, :unassign, :proposals]
-  before_action :set_slot, only: [:search_professionals, :assign, :unassign, :proposals]
+  before_action :set_project
+  before_action :set_slot, only: [:show, :search_professionals, :assign, :unassign, :proposals]
   before_action :authorize_owner!, only: [:new, :create, :search_professionals, :assign, :unassign]
 
   def new
@@ -15,6 +15,10 @@ class ProjectSlotsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    # Vista para mostrar aplicaciones del slot
   end
 
   def search_professionals

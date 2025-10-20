@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   include Subscribable
 
-before_action :set_project, only: %i[ show edit update destroy timeline search_users ]
+before_action :set_project, only: %i[ show edit update destroy timeline search_users search_professionals ]
   before_action :authenticate_user!, except: %i[index show]
   before_action :authorize_user!, only: %i[edit update destroy]
   before_action :check_project_limit, only: %i[new create]
@@ -194,6 +194,20 @@ before_action :set_project, only: %i[ show edit update destroy timeline search_u
         render json: users.map { |user| user_json(user) }
       end
     end
+  end
+
+  def search_professionals
+    @professionals = User.where(profile_type: 'professional').or(User.where(profile_type: nil))
+    
+    if params[:query].present?
+      @professionals = @professionals.where('full_name ILIKE ?', "%#{params[:query]}%")
+    end
+    
+    if params[:specialty].present?
+      @professionals = @professionals.where(specialty: params[:specialty])
+    end
+    
+    @professionals = @professionals.order(:full_name)
   end
 
   private

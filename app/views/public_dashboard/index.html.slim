@@ -28,6 +28,24 @@
                         = link_to "Reenviar confirmación", new_user_confirmation_path, 
                                   class: "text-sm font-medium text-yellow-700 hover:text-yellow-800 underline"
               
+              / Notificaciones de slots pendientes
+              - pending_applications_count = current_user.projects.joins(project_slots: :slot_applications).where(slot_applications: { status: 'pending' }).count
+              - if pending_applications_count > 0
+                .bg-orange-50.border.border-orange-200.rounded-lg.p-4.mb-6
+                  .flex.items-center.gap-3
+                    .w-8.h-8.bg-orange-100.rounded-full.flex.items-center.justify-center.relative
+                      i.fas.fa-users.text-orange-600.text-sm
+                      .absolute.-top-1.-right-1.w-4.h-4.bg-red-500.text-white.text-xs.font-bold.rounded-full.flex.items-center.justify-center
+                        = pending_applications_count
+                    div
+                      h3.font-semibold.text-orange-800 
+                        | #{pending_applications_count} #{pending_applications_count == 1 ? 'aplicación pendiente' : 'aplicaciones pendientes'}
+                      p.text-sm.text-orange-700.mt-1 
+                        | Tienes profesionales que han aplicado a tus slots de proyecto
+                      .mt-3
+                        = link_to "Ver aplicaciones", my_projects_path, 
+                                  class: "text-sm font-medium text-orange-700 hover:text-orange-800 underline"
+              
               .grid.grid-cols-1.sm:grid-cols-3.gap-4
                 = link_to invoices_path, class: "group p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-all duration-200"
                   .flex.items-center.gap-3
