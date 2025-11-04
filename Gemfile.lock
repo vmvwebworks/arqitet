@@ -85,7 +85,7 @@ GEM
     braintree (4.30.0)
       builder (>= 3.2.4)
       rexml (>= 3.1.9)
-    brakeman (7.0.2)
+    brakeman (7.1.1)
       racc
     builder (3.3.0)
     cancancan (3.6.1)
