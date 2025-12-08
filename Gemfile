@@ -32,7 +32,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 gem "devise"
-gem "friendly_id", "~> 5.5.1"
+gem "friendly_id", "~> 5.6.0"
 gem "image_processing", "~> 1.2"
 gem "kaminari"
 gem "slim-rails"
